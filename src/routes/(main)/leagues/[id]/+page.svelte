@@ -1,14 +1,21 @@
 <script>
+	// @ts-nocheck
+
+	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+
+	/**
+	 * @type {{ league: any[]; session: { user: any; }; }}
+	 */
 	export let data;
-	if (!data.league) {	
-		goto('/leagues')
-	} 
+
+	if (!data.league) {
+		goto('/leagues');
+	}
 	const league = data?.league[0];
 	const { teams } = league;
-	
-	
+
 	async function copyInvite() {
 		// Get the text field
 		// Copy the text inside the text field
@@ -43,3 +50,20 @@
 
 <p>{`${$page.url}/invite`}</p>
 <button class="btn" on:click={() => copyInvite()}>Copy Invite</button>
+
+<form
+	use:enhance={({ form, data, action, cancel }) => {
+		return async ({ result, update }) => {
+			if (result.error) {
+				update({ error: result.error });
+				return;
+			}
+			goto(`/draft/${result.data.draft?.id}`);
+		};
+	}}
+	method="POST"
+	action="?/init"
+>
+	<button class="btn btn-primary">Mock</button>
+</form>
+<a href={`/leagues/${$page.params.id}/mock`}>Mock Draft</a>

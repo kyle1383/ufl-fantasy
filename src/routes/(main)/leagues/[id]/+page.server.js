@@ -1,12 +1,12 @@
 import { supabase } from '$lib/supabaseClient'
-
+import { initialize } from '$lib/draft.server';
 export async function load({ fetch, params, setHeaders, locals }) {
 
     const { data, error } = await supabase
         .from('leagues')
         .select('*, teams ( * )')
         .eq('id', params.id)
-   
+
     if (data) {
         let { teams } = data[0]
         teams = await Promise.all(teams.map(async (team) => {
@@ -31,10 +31,11 @@ export async function load({ fetch, params, setHeaders, locals }) {
             league: null
         }
     }
+}
 
-
-
-
-   
-    
+export const actions = {
+    init: async ({ request, params, locals }) => {
+        const result = await initialize(locals.user)
+        return result
+    }
 }

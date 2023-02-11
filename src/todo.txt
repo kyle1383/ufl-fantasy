@@ -1,0 +1,14 @@
+Roster positions 
+handle player ownership 
+draft 
+mock draft 
+
+matchups
+standings 
+playoffs 
+
+proper hiding of header/footer
+pull player images
+
+figure out RLS pretty soon
+

@@ -1,11 +1,7 @@
-
-	
-	<a href="/profile">Profile</a>
-	<a href="/leagues">Leagues</a>
-	
-
-
-<header class="navbar bg-base-100">
+<script>
+	import { page } from "$app/stores";
+</script>
+<header class={`navbar bg-oxford `}>
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost normal-case text-xl">XFL Fantasy</a>
 	</div>
@@ -16,7 +12,7 @@
 			<li><a href="/leagues">Leagues</a></li>
 		</ul>
 		<div class="form-control">
-			<input type="text" placeholder="Search" class="input input-bordered" />
+			<input type="text" placeholder="Search" class="input input-bordered hidden md:block" />
 		</div>
 		<div class="dropdown dropdown-end">
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar">

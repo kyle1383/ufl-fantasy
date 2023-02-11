@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.4.1",
+		"cheerio": "^1.0.0-rc.12",
 		"daisyui": "^2.49.0"
 	}
 }
