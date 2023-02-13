@@ -15,10 +15,11 @@ export async function load({ locals, request, params }) {
         .select('*')
         .eq('id', params.id)
         .single()
-
+    
     return {
         players: players,
-        draft: draft
+        draft: draft,
+       
     }
 }
 
@@ -37,3 +38,4 @@ export const actions = {
        
     }
 }
+
