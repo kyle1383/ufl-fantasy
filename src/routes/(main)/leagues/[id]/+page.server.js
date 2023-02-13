@@ -35,6 +35,7 @@ export async function load({ fetch, params, setHeaders, locals }) {
 
 export const actions = {
     init: async ({ request, params, locals }) => {
+        console.log('here2')
         const result = await initialize(locals.user)
         return result
     }

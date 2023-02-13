@@ -53,6 +53,7 @@
 
 <form
 	use:enhance={({ form, data, action, cancel }) => {
+		console.log("here")
 		return async ({ result, update }) => {
 			if (result.error) {
 				update({ error: result.error });
