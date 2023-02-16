@@ -11,10 +11,11 @@ export async function load({ locals, request, params }) {
 
     const { data: draft, error: draftError } = await supabase
         .from('drafts')
-        .select('*, picks (*, teams (*))')
+        .select('*, picks!picks_draft_id_fkey (*, teams (*))')
         .eq('id', params.id)
         .single()
     //get players from supabase
+    console.log(draftError)
     const picks = draft.picks.map(pick => pick.player_id)
   
    

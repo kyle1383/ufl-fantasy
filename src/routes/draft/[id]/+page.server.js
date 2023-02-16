@@ -54,6 +54,32 @@ export const actions = {
         }
     },
     start: async ({ request, params, locals }) => {
+        const formData = await request.formData();
+        const draft = JSON.parse(formData.get('draft'))  
+        const date = new Date(Date.now());
+        const roundEnd = date.setSeconds(date.getSeconds() + draft.roundLength*10);
+
+// Convert the updated Date object back to a timestamp
+const updatedTimestamp = date.getTime();
+
+
+
+
+        const {data: updatedDraft, error: draftError} = await supabase
+        .from('drafts')
+        .update({status: "ACTIVE", roundEnd: draft.roundLength})
+        .eq('id', draft.id)
+
+
+        if (draftError) {
+            console.log( draftError)
+            return fail(401, { error_message: draftError?.message||"Something went wrong" })
+        }
+
+        return {
+            message: 'success'
+        }
+
 
     }
 }
