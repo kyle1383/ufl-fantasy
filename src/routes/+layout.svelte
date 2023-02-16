@@ -21,10 +21,7 @@
 
 
 <div class="bg-raisin " >
-	<div class="text-white">
-		<a href="/leagues">Leagues</a>
-		<a href="/profile">Profile</a>
-	</div>
+	
 	
 	<slot />
 </div>

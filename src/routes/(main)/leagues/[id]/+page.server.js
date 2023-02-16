@@ -1,5 +1,5 @@
 import { supabase } from '$lib/supabaseClient'
-import { initialize } from '$lib/draft.server';
+import { init_draft } from '$lib/draft.server';
 export async function load({ fetch, params, setHeaders, locals }) {
 
     const { data, error } = await supabase
@@ -35,8 +35,9 @@ export async function load({ fetch, params, setHeaders, locals }) {
 
 export const actions = {
     init: async ({ request, params, locals }) => {
-        console.log('here2')
-        const result = await initialize(locals.user)
+        const formData = await request.formData();
+        const league = formData.get('league');
+        const result = await init_draft(locals.user, league)
         return result
     }
 }

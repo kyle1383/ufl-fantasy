@@ -18,33 +18,41 @@ export const actions = {
             .single()
 
         //create league
-        const { data, error: leagueError } = await supabase
+        const { data: leagueData, error: leagueError } = await supabase
             .from('leagues')
             .insert([
-                { name: name, size: size, roster_limits: roster_limits },
+                { name: name, size: size, roster_limits: roster_limits, order: [] },
             ]).select()
+            .single()
 
-      
-        // Add current user as a member of the league  
+        // Add current user as a member and commissioner of the league  
         const { error: membersError } = await supabase
             .from('members')
-            .insert([{ user_id: locals.user.id, league_id: data[0].id }])
+            .insert([{ user_id: locals.user.id, league_id: leagueData.id }])
 
         const { error: commisionersError } = await supabase
             .from('commisioners')
-            .insert([{ user_id: locals.user.id, league_id: data[0].id }])
+            .insert([{ user_id: locals.user.id, league_id: leagueData.id }])
 
         //create teams including a team for the user
         const teams = []
-        teams.push({ league_id: data[0].id, name: "Team " + (profile.username), manager: locals.user.id })
+        teams.push({ league_id: leagueData.id, name: "Team " + (profile.username), manager: locals.user.id })
         for (let i = 1; i < size; i++) {
-            teams.push({ league_id: data[0].id, name: "Team " + (i + 1) })
+            teams.push({ league_id: leagueData.id, name: "Team " + (i + 1) })
         }
 
         const { data: teamsData, error: teamsError } = await supabase
             .from('teams')
             .insert(teams).select()
 
+        //update league to include order 
+        const order = teamsData.map(team => team.id)
+        console.log(order)
+        const { data, error } = await supabase
+            .from('leagues')
+            .update({ order: order })
+            .eq('id', leagueData.id)
+       
         //return error 
         if (leagueError || teamsError) {
             leagueError ? console.log(leagueError) : console.log(teamsError)

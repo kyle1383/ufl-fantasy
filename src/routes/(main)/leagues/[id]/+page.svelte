@@ -53,7 +53,8 @@
 
 <form
 	use:enhance={({ form, data, action, cancel }) => {
-		console.log("here")
+		//TODO is stringify neccessary? why?
+		data.set('league', JSON.stringify(league));
 		return async ({ result, update }) => {
 			if (result.error) {
 				update({ error: result.error });
@@ -67,4 +68,4 @@
 >
 	<button class="btn btn-primary">Mock</button>
 </form>
-<a href={`/leagues/${$page.params.id}/mock`}>Mock Draft</a>
+

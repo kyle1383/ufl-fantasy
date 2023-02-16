@@ -31,7 +31,7 @@
 		//add size to the form data as an
 		data.set('size', JSON.stringify(size));
 		return async ({ result, update }) => {
-			//goto('/leagues');
+			goto('/leagues');
 		};
 	}}
 	class="flex flex-col mx-8"
@@ -43,14 +43,14 @@
 	<label>
 		size: {size}
 		<button
-			class="minus"
+			class="btn btn-primary btn-circle"
 			on:click={(e) => {
 				e.preventDefault();
 				size -= 2;
 			}}>-</button
 		>
 		<button
-			class="plus"
+			class="btn btn-primary btn-circle"
 			on:click={(e) => {
 				e.preventDefault();
 				size += 2;
@@ -62,7 +62,7 @@
 		{position.name}:
 		<div>
 			<button
-				class="minus"
+				class="btn btn-primary btn-circle"
 				on:click={(e) => {
 					e.preventDefault();
 					position.value -= 1;
@@ -70,7 +70,7 @@
 			>
 			{position.value}
 			<button
-				class="plus"
+				class="btn btn-primary btn-circle"
 				on:click={(e) => {
 					e.preventDefault();
 					position.value += 1;
@@ -79,6 +79,6 @@
 		</div>
 	{/each}
 	<label>
-		<button type="submit">Create League</button>
+		<button class="btn btn-primary" type="submit">Create League</button>
 	</label>
 </form>
