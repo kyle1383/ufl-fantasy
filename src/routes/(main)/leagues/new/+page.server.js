@@ -47,7 +47,7 @@ export const actions = {
 
         //update league to include order 
         const order = teamsData.map(team => team.id)
-        console.log(order)
+       
         const { data, error } = await supabase
             .from('leagues')
             .update({ order: order })

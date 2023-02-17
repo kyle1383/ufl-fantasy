@@ -15,65 +15,40 @@ export const actions = {
         //get player id
         const formData = await request.formData();
         const player_id = formData.get('player_id');
-        const draft = JSON.parse(formData.get('draft'))
-        const draft_id = params.id
+        const draft = formData.get('draft');
+        const autodraft = formData.get('autodraft') || false;
+
+        console.log(draft)
+        console.log(autodraft)
+        
         //TODO is there a better way? Should draft have a current pick property? 
         const currentPick = draft.picks.find(pick => pick.round === draft.round && pick.pick === draft.pick);
-        const nextPick = draft.pick === draft.order.length ? {round: draft.round + 1, pick: 1} : {round: draft.round, pick: draft.pick + 1}
+        const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
+
+        if (autodraft) {
+            autodraft(currentPick, nextPick, draft, player_id, locals)
+        }
+        manualDraft(currentPick, nextPick, draft, player_id, locals)
        
-        console.log( currentPick.teams.manager !== locals.user.id)
-        console.log(currentPick.teams.manager)
-        console.log(locals.user.id)
-        if(currentPick.teams.manager !== locals.user.id){
-            console.log('fail'); 
-            return fail(401, { error_message: "You are not authorized to make this pick" })
-        }
-        
-        
-        const { data, error } = await supabase
-            .from('picks')
-            .update([
-                { team_id: currentPick.teams.id, player_id: player_id },
-            ])
-            .eq('id', currentPick.id)
-
-        const {data: updatedDraft, error: draftError} = await supabase
-            .from('drafts')
-            .update({round: nextPick.round, pick: nextPick.pick})
-            .eq('id', draft.id)
-
-
-        if (error || draftError) {
-            console.log(error || draftError)
-            return fail(401, { error_message: error?.message || draftError?.message||"Something went wrong" })
-        }
-
-        return {
-            pick: data,
-            message: 'success'
-        }
     },
     start: async ({ request, params, locals }) => {
         const formData = await request.formData();
-        const draft = JSON.parse(formData.get('draft'))  
-        const date = new Date(Date.now());
-        const roundEnd = date.setSeconds(date.getSeconds() + draft.roundLength*10);
+        const draft = JSON.parse(formData.get('draft'))
+       
+        let timestamp = Date.now();
+        timestamp = timestamp + (draft.roundLength * 1000 * 10);
+        let pickEnd = new Date(timestamp).toISOString();
 
-// Convert the updated Date object back to a timestamp
-const updatedTimestamp = date.getTime();
-
-
-
-
-        const {data: updatedDraft, error: draftError} = await supabase
-        .from('drafts')
-        .update({status: "ACTIVE", roundEnd: draft.roundLength})
-        .eq('id', draft.id)
+        const { data: updatedDraft, error: draftError } = await supabase
+            .from('drafts')
+            .update({ status: "ACTIVE", pickEnd: pickEnd })
+            .eq('id', draft.id)
+            .select()
 
 
         if (draftError) {
-            console.log( draftError)
-            return fail(401, { error_message: draftError?.message||"Something went wrong" })
+            console.log(draftError)
+            return fail(401, { error_message: draftError?.message || "Something went wrong" })
         }
 
         return {
@@ -81,6 +56,42 @@ const updatedTimestamp = date.getTime();
         }
 
 
+    }
+}
+
+
+async function autodraft(){
+    console.log(autodraft)
+}
+
+async function manualDraft(currentPick, nextPick, draft, player_id, locals){
+
+    if (currentPick.teams.manager !== locals.user.id) {
+        return fail(401, { error_message: "You are not authorized to make this pick" })
+    }
+
+
+    const { data, error } = await supabase
+        .from('picks')
+        .update([
+            { team_id: currentPick.teams.id, player_id: player_id },
+        ])
+        .eq('id', currentPick.id)
+
+    const { data: updatedDraft, error: draftError } = await supabase
+        .from('drafts')
+        .update({ round: nextPick.round, pick: nextPick.pick })
+        .eq('id', draft.id)
+
+
+    if (error || draftError) {
+        console.log(error || draftError)
+        return fail(401, { error_message: error?.message || draftError?.message || "Something went wrong" })
+    }
+
+    return {
+        pick: data,
+        message: 'success'
     }
 }
 

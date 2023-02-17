@@ -22,5 +22,5 @@
 
 	<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
 	<p><strong>On Clock: </strong>{currentPick.teams.name}</p>
-	<Clock {draft} />
+	<Clock draft={draft} currentPick={currentPick}/>
 </header>

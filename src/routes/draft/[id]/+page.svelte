@@ -18,7 +18,6 @@
 		})
 		.subscribe();
 
-	$: console.log(draft.round, draft.pick)
 
 	
 

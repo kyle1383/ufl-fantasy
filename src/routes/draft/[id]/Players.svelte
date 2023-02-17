@@ -50,6 +50,7 @@
 
 								data.set('player_id', player.name_id);
 								data.set('draft', JSON.stringify(draft) )
+								data.set('autodraft', false)
 								//add size to the form data as an
 								return async ({ result, update }) => {};
 							}}

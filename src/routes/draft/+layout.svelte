@@ -4,9 +4,12 @@
    
 	const draft_channel = supabase
 		.channel('draft-channell')
-		.on('postgres_changes', { event: '*', schema: 'public', table: 'draft' }, (payload) => {
+		.on('postgres_changes', { event: '*', schema: 'public', table: 'drafts' }, (payload) => {
 			{
-				console.log(payload);
+				draft.pick = payload.new.pick;
+				draft.pickEnd = payload.new.pickEnd;
+				draft.round = payload.new.round;
+				draft.status = payload.new.status;
 			}
 		})
 		.subscribe();
