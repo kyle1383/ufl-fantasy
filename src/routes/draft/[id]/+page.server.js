@@ -15,26 +15,60 @@ export const actions = {
         //get player id
         const formData = await request.formData();
         const player_id = formData.get('player_id');
-        const draft = formData.get('draft');
-        const autodraft = formData.get('autodraft') || false;
+        const draft = JSON.parse(formData.get('draft'));
 
-        console.log(draft)
-        console.log(autodraft)
-        
+
+
         //TODO is there a better way? Should draft have a current pick property? 
         const currentPick = draft.picks.find(pick => pick.round === draft.round && pick.pick === draft.pick);
         const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
 
-        if (autodraft) {
-            autodraft(currentPick, nextPick, draft, player_id, locals)
+        if (currentPick.teams.manager !== locals.user.id) {
+            return fail(401, { error_message: "You are not authorized to make this pick" })
         }
-        manualDraft(currentPick, nextPick, draft, player_id, locals)
-       
+
+        const {error} = await drafty(currentPick, player_id, nextPick, draft)
+
+        if (error) {
+            console.log(error)
+            return fail(401, { error_message: error?.message || "Something went wrong" })
+        }
+
+        return {
+            message: 'success'
+        }
+
+
+    },
+    autodraft: async ({ request, params, locals }) => {
+        //runs only on refresh 
+        //needs to pick a player
+        const body = await request.json()
+        const player_id = body.player_id 
+        const draft = JSON.parse(body.draft)
+        //picks TODO just have this as a field on draft probably 
+        const currentPick = draft.picks.find(pick => pick.round === draft.round && pick.pick === draft.pick);
+        const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
+
+
+        const {error, pick} = await drafty(currentPick, player_id, nextPick, draft)
+
+        if (error) {
+            console.log(error)
+            return fail(401, { error_message: error?.message || "Something went wrong" })
+        }
+
+        return {
+            message: 'success',
+            pick: pick
+        }
+
+
     },
     start: async ({ request, params, locals }) => {
         const formData = await request.formData();
         const draft = JSON.parse(formData.get('draft'))
-       
+
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
         let pickEnd = new Date(timestamp).toISOString();
@@ -59,39 +93,26 @@ export const actions = {
     }
 }
 
-
-async function autodraft(){
-    console.log(autodraft)
-}
-
-async function manualDraft(currentPick, nextPick, draft, player_id, locals){
-
-    if (currentPick.teams.manager !== locals.user.id) {
-        return fail(401, { error_message: "You are not authorized to make this pick" })
-    }
-
-
-    const { data, error } = await supabase
+async function drafty(currentPick, player_id, nextPick, draft) {
+    const { data: pick , error } = await supabase
         .from('picks')
         .update([
             { team_id: currentPick.teams.id, player_id: player_id },
         ])
         .eq('id', currentPick.id)
+        .select()
+        .single()
 
     const { data: updatedDraft, error: draftError } = await supabase
         .from('drafts')
         .update({ round: nextPick.round, pick: nextPick.pick })
         .eq('id', draft.id)
 
-
-    if (error || draftError) {
-        console.log(error || draftError)
-        return fail(401, { error_message: error?.message || draftError?.message || "Something went wrong" })
-    }
-
     return {
-        pick: data,
-        message: 'success'
+        error: error || draftError,
+        pick: pick 
     }
 }
+
+
 

@@ -16,7 +16,7 @@
     export let data;
     $: draft = data.draft;
 	$: currentPick = draft.picks.find(pick => pick.round === draft.round && pick.pick === draft.pick);
-
+		//need to pass this updating draft to the slot
 </script>
 
 <div class="w-full">

@@ -12,12 +12,13 @@
 	export let players;
 	export let draft;
 	export let currentPick;
-
+	$: currentPick.teams.manager
+	$: console.log(currentPick)
 	let scrollBox, scroll, w;
 	if (!players) {
 		players = [{name: 'loading', img_url: 'https://via.placeholder.com/150', position: "QB", xfl_teams: {name: "loading", city: "loading"}}]
 	}
-	$: onClock =$page.data.session.user.id === currentPick.teams.manager
+	$: onClock = $page.data.session.user.id === currentPick.teams.manager
 	
 </script>
 
@@ -50,7 +51,6 @@
 
 								data.set('player_id', player.name_id);
 								data.set('draft', JSON.stringify(draft) )
-								data.set('autodraft', false)
 								//add size to the form data as an
 								return async ({ result, update }) => {};
 							}}

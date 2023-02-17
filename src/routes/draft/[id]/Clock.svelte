@@ -39,16 +39,17 @@
 	}
 
 	async function submitDraft() {
-		const res = await fetch('?/draft', {
+		let data = JSON.stringify({
+			draft: JSON.stringify(draft),
+			player_id: null
+		});
+		
+		const res = await fetch('?/autodraft', {
 			method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-			body: {
-        draft: JSON.stringify(draft),
-        autodraft: true, 
-        player_id: null
-      }
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: data
 		});
 
 		if (res.ok) {
@@ -60,10 +61,12 @@
 
 	//if currentPick Team is null, then call /draft POST request
 	onMount(() => {
-		if (!currentPick.teams.manager) {
-			submitDraft();
-		}
+		
 	});
+	$: if (!currentPick.teams.manager) {
+			setTimeout(submitDraft(), 4000)
+	}
+
 
 	onDestroy(() => {
 		clearInterval(timerInterval);
