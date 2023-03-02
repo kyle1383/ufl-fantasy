@@ -2,7 +2,7 @@
 import { fail } from '@sveltejs/kit'
 import { supabase } from '$lib/supabaseClient'
 import { redirect } from '@sveltejs/kit';
-
+import { generate_matchups } from './matchup';
 export const actions = {
     default: async ({ locals, request, event }) => {
         const formData = await request.formData();
@@ -52,6 +52,9 @@ export const actions = {
             .from('leagues')
             .update({ order: order })
             .eq('id', leagueData.id)
+
+        //generate matchups 
+        generate_matchups(leagueData.id, 3)
        
         //return error 
         if (leagueError || teamsError) {
