@@ -31,7 +31,12 @@
 		//add size to the form data as an
 		data.set('size', JSON.stringify(size));
 		return async ({ result, update }) => {
-			goto('/leagues');
+			if(result.ok){
+				goto('/leagues');
+			} else{
+				console.log(result)
+			}
+			
 		};
 	}}
 	class="flex flex-col mx-8"

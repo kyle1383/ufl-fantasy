@@ -1,5 +1,8 @@
 <script>
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+
+	!$page.data.session ? goto('/profile') : goto('/leagues')
 </script>
 
 <svelte:head>
@@ -8,6 +11,7 @@
 </svelte:head>
 
 {#if !$page.data.session}
+	
 	logged out
 {:else}
 	logged in
