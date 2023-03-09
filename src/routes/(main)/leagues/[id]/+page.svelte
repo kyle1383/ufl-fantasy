@@ -13,6 +13,7 @@
 	if (!data.league) {
 		goto('/leagues');
 	}
+	
 	const league = data?.league[0];
 	const { teams } = league;
 
