@@ -3,7 +3,6 @@
 	import Clock from './Clock.svelte';
 	import { enhance } from '$app/forms';
 	export let draft;
-	export let currentPick;
 </script>
 
 <header class="navbar">
@@ -20,7 +19,4 @@
 		<button class="btn btn-ivory">Start</button>
 	</form>
 
-	<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
-	<p><strong>On Clock: </strong>{currentPick.teams.name}</p>
-	<Clock draft={draft} currentPick={currentPick}/>
 </header>

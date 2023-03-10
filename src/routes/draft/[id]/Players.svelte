@@ -12,12 +12,8 @@
 	export let players;
 	export let draft;
 	export let currentPick;
-	$: currentPick.teams.manager
-	$: console.log(currentPick)
 	let scrollBox, scroll, w;
-	if (!players) {
-		players = [{name: 'loading', img_url: 'https://via.placeholder.com/150', position: "QB", xfl_teams: {name: "loading", city: "loading"}}]
-	}
+
 	$: onClock = $page.data.session.user.id === currentPick.teams.manager
 	
 </script>
