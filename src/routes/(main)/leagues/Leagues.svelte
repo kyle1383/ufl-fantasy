@@ -1,7 +1,11 @@
 <script>
+// @ts-nocheck
+
 	import { page } from '$app/stores';
+	import NewLeague from './NewLeague.svelte';
 	//export let data;
 	let user_leagues = $page.data.user_leagues;
+	
 </script>
 
 {#if user_leagues}
@@ -14,4 +18,11 @@
 	<p>No Leagues are loading right now</p>
 {/if}
 
-<a class="btn btn-primary" href="/leagues/new">Create a new league</a>
+<!-- The button to open modal -->
+<label for="my-modal" class="btn btn-primary">Create League</label>
+
+<a class="btn btn-secondary" href="/leagues/schedule">Schedule</a>
+
+
+<!-- Put this part before </body> tag -->
+<NewLeague />

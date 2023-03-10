@@ -2,7 +2,6 @@
 //only use on the server
 import { fail } from "@sveltejs/kit"
 import { supabase } from './supabaseClient'
-import { goto } from "$app/navigation"
 /**
  * Initialize a draft.
  * Mock: Defaults to true 
