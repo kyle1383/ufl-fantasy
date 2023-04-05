@@ -9,7 +9,6 @@
 	 * @type {{ league: any[]; session: { user: any; }; }}
 	 */
 	export let data;
-
 	if (!data.league) {
 		goto('/leagues');
 	}
@@ -25,6 +24,8 @@
 		// Alert the copied text
 		alert('Copied invite');
 	}
+	//get [id] param 
+	
 </script>
 
 <h1>{league.name}</h1>
@@ -36,12 +37,13 @@
 			<tr>
 				<th>Name</th>
 				<th>Manager</th>
+				
 			</tr>
 		</thead>
 		<tbody>
 			{#each teams as team}
 				<tr>
-					<td><a href="/">{team.name}</a></td>
+					<td><a href={`/leagues/${$page.params.id}/roster/${team.id}`}>{team.name}</a></td>
 					<td>{team.manager_name}</td>
 				</tr>
 			{/each}
@@ -69,4 +71,8 @@
 >
 	<button class="btn btn-primary">Mock</button>
 </form>
+<a class="btn" href="/draft/{league.draft_id}">Draft</a>
+
+<a class="btn btn-secondary" href="/leagues/schedule">Schedule</a>
+
 

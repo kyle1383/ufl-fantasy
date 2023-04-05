@@ -5,7 +5,7 @@ import { fail } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
 import { supabase } from '$lib/supabaseClient'
 //TODO figure out how to use event as well as fetch
-
+//TODO don't prefetch this page
 export async function load({ locals, request, params }) {
     if (!locals.user) {
         throw redirect(303, '/profile/')
@@ -13,28 +13,34 @@ export async function load({ locals, request, params }) {
 
     const { data: draft, error: draftError } = await supabase
         .from('drafts')
-        .select('*, picks!picks_draft_id_fkey (*, teams (*))')
+        .select('*, picks!picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*))')
         .eq('id', params.id)
         .single()
     //get players from supabase
-    const picks = draft.picks.map(pick => pick.player_id)
-  
+    if (draftError) {
+        console.log(draftError)
+        return fail(401, { error_message: "Unauthorized" })
+    }
 
+    const picks = draft.picks.map(pick => pick.player_id)
+
+
+
+    
     const { data: players, error } = await supabase
         .from('players')
         .select('*, xfl_teams (*)')
-    
+
 
     const filteredPlayers = players?.filter(player => !picks.includes(player.name_id))
 
-    if( draftError || error) {
-        draftError ? console.log(draftError) : console.log(error)
+    if (error) {
+        console.log(error)
         return fail(401, { error_message: "Unauthorized" })
     }
-    
     return {
         players: filteredPlayers,
-        draft: draft,    
+        draft: draft,
     }
 }
 
@@ -55,11 +61,12 @@ export const actions = {
         const currentPick = draft.picks.find((/** @type {{ round: any; pick: any; }} */ pick) => pick.round === draft.round && pick.pick === draft.pick);
         const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
 
+
         if (currentPick.teams.manager !== locals.user.id) {
             return fail(401, { error_message: "You are not authorized to make this pick" })
         }
 
-        const {error} = await draft_player(currentPick, player_id, nextPick, draft)
+        const { error } = await draft_player(currentPick, player_id, nextPick, draft)
 
         if (error) {
             console.log(error)
@@ -73,21 +80,24 @@ export const actions = {
 
     },
     autodraft: async ({ request, params, locals }) => {
+
         //runs only on refresh 
         //needs to pick a player
-        const body = await request.json()
-        const players = body.players 
-        const draft = JSON.parse(body.draft)
+        const formData = await request.formData();
+        const playerJSON = formData.get('player');
+        const draftJSON = formData.get('draft');
+        const draft = JSON.parse(draftJSON)
+        const player_id = JSON.parse(playerJSON).name_id
+
+
         //picks TODO just have this as a field on draft probably 
         const currentPick = draft.picks.find((/** @type {{ round: any; pick: any; }} */ pick) => pick.round === draft.round && pick.pick === draft.pick);
         const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
-        
-        //select random player  from players and get id 
-        //const player_id = players[Math.floor(Math.random() * players.length)].name_id
-        const player_id = players[1].name_id
 
-        const {error, pick} = await draft_player(currentPick, player_id, nextPick, draft)
-        
+
+
+        const { error, pick } = await draft_player(currentPick, player_id, nextPick, draft)
+
         if (error) {
             console.log(error)
             return fail(401, { error_message: error?.message || "Something went wrong" })
@@ -103,7 +113,11 @@ export const actions = {
     start: async ({ request, params, locals }) => {
         const formData = await request.formData();
         const draft = JSON.parse(formData.get('draft'))
-
+        //is user the commish?
+        if (draft.leagues[0].commissioners[0].user_id !== locals.user.id) {
+            return fail(401, "Must be commisionner ")
+        }
+        
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
         let pickEnd = new Date(timestamp).toISOString();
@@ -116,7 +130,30 @@ export const actions = {
 
 
         if (draftError) {
-            console.log(draftError)
+            console.log('draftError', draftError)
+            return fail(401, { error_message: draftError?.message || "Something went wrong" })
+        }
+        return {
+            message: 'Draft has started'
+        }
+
+
+    },
+    pause: async ({ request, params, locals }) => {
+        const formData = await request.formData();
+        const draft = JSON.parse(formData.get('draft'))
+
+
+
+        const { data: updatedDraft, error: draftError } = await supabase
+            .from('drafts')
+            .update({ status: "PAUSED" })
+            .eq('id', draft.id)
+            .select()
+
+
+        if (draftError) {
+            console.log('draftError', draftError)
             return fail(401, { error_message: draftError?.message || "Something went wrong" })
         }
 
@@ -125,7 +162,7 @@ export const actions = {
         }
 
 
-    }
+    },
 }
 
 
@@ -138,11 +175,11 @@ export const actions = {
  */
 async function draft_player(currentPick, player_id, nextPick, draft) {
     //get new pick end 
-    console.log(currentPick, player_id, nextPick)
-    /*let timestamp = Date.now();
+
+    let timestamp = Date.now();
     timestamp = timestamp + (draft.roundLength * 1000 * 10);
     let pickEnd = new Date(timestamp).toISOString();
-    const { data: pick , error } = await supabase
+    const { data: pick, error } = await supabase
         .from('picks')
         .update([
             { team_id: currentPick.teams.id, player_id: player_id },
@@ -156,10 +193,43 @@ async function draft_player(currentPick, player_id, nextPick, draft) {
         .update({ round: nextPick.round, pick: nextPick.pick, pickEnd: pickEnd })
         .eq('id', draft.id)
 
+    //is draft over?
+    const rounds = Object.values(JSON.parse(draft.roster_limits)).reduce((acc, val) => acc + val, 0);
+    console.log(rounds, nextPick.round)
+
+    if (nextPick.round > rounds) {
+        endDraft(draft)
+    }
+
     return {
         error: error || draftError,
-        pick: pick 
-    }*/
+        pick: pick
+    }
+}
+
+async function endDraft(draft) {
+    //TODO handle errors here 
+    console.log("draft has ended")
+    //update the status
+    const { data: endedDraft, error: endDraftError } = await supabase
+        .from('drafts')
+        .update({ status: "COMPLETE" })
+        .eq('id', draft.id)
+
+    //create a player instance for each pick
+    //loop through picks
+    draft.picks.forEach(async (pick) => {
+        const { data: playerInstance, error: playerInstanceError } = await supabase
+            .from('player_instances')
+            .update({ rostered: true, team: pick.team_id, waiver: false })
+            .eq('player_id', pick.player_id)
+            .eq('league_id', draft.leagues[0].id)
+
+        if (playerInstanceError) {
+            console.log(playerInstanceError)
+        }
+
+    })
 }
 
 

@@ -1,18 +1,18 @@
 <script>
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { redirect } from '@sveltejs/kit';
 	import Leagues from './Leagues.svelte';
-
-	if(!$page.data.session){
-		if(browser){ 
-			goto('/profile')
-		}else {
-			throw redirect(302, '/profile') 
+	
+	if (!$page.data.session) {
+		if (browser) {
+			goto('/profile');
+		} else {
+			throw redirect(302, '/profile');
 		}
-	}  
-
+	}
+	
 </script>
 
 <svelte:head>

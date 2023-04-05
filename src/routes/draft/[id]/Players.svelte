@@ -12,17 +12,16 @@
 	export let players;
 	export let draft;
 	export let currentPick;
-	let scrollBox, scroll, w;
-
-	$: onClock = $page.data.session.user.id === currentPick.teams.manager
+	let submitted = false;
+	$: onClock = $page.data.session.user.id === currentPick.teams.manager && draft.status === 'ACTIVE' && !submitted;
+	
 	
 </script>
-
-<div class="max-w-full w-full" style="max-width: 100%" on:scroll={()=> scroll = scrollBox.scrollLeft} bind:this={scrollBox} >
+<div class="max-w-full w-full" style="max-width: 100%" >
 	<table class="table w-full" style="max-width: 100%">
 		<thead>
 			<tr>
-				<th class={scroll > w ? 'opacity-0' : ''} bind:clientWidth={w}/>
+				<th/>
 				<th>Name</th>
 				<th />
 			</tr>
@@ -43,12 +42,16 @@
 							method="POST"
 							action="?/draft"
 							use:enhance={({ form, data, action, cancel }) => {
+								submitted = true;
 								//add roster_limits to the form data
-
 								data.set('player_id', player.name_id);
 								data.set('draft', JSON.stringify(draft) )
 								//add size to the form data as an
-								return async ({ result, update }) => {};
+								return async ({ result, update }) => {
+									setTimeout(() => {
+										submitted = false;
+									}, 1000);
+								};
 							}}
 						>
 							<button type="submit" class="btn btn-circle btn-primary" disabled={!onClock}>+</button>
@@ -58,4 +61,5 @@
 			{/each}
 		</tbody>
 	</table>
+	<div>{draft.status}</div>
 </div>
