@@ -1,5 +1,5 @@
 <script>
-    import Roster from '$lib/Roster.svelte'
+    import Roster from './Roster.svelte'
     export let data;
     const { team } = data;
     const { league } = data

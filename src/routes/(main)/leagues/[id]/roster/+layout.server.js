@@ -23,3 +23,4 @@ export async function load({ locals, params, parent}) {
         team: team
     };
 }
+
