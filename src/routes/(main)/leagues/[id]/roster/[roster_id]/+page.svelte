@@ -7,6 +7,7 @@
 
 	export let data;
 	const { team } = data;
+	
 </script>
 
 <Roster {team} />

@@ -15,7 +15,6 @@
 		{ name: 'WR', value: 2 },
 		{ name: 'TE', value: 1 },
 		{ name: 'FLEX', value: 1 },
-		{ name: 'DST', value: 1 },
 		{ name: 'K', value: 1 },
 		{ name: 'BENCH', value: 5 }
 	];

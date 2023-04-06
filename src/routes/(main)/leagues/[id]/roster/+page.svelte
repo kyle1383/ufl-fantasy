@@ -2,6 +2,8 @@
     import Roster from '$lib/Roster.svelte'
     export let data;
     const { team } = data;
+    const { league } = data
+   
 </script>
 
-<Roster {team} />
+<Roster {team} roster_limits={JSON.parse(league[0].roster_limits)}/>

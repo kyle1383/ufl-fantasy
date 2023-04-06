@@ -123,6 +123,21 @@ export const actions = {
             playerInstances.push({ player_id: player.name_id, league_id: leagueData.id, rostered: false, waiver: false })
         })
 
+        //create positions for each position defined in roster_limit 
+        let positions = [];
+        for (const team of teamsData) {
+            for (const [position, count] of Object.entries(roster_limits)) {
+                for (let depth = 1; depth < count + 1; depth++) {
+                    positions.push({ position: position, depth: depth, team_id: team.id });
+                }
+            }
+        }
+
+        const { data: positionsData, error: teamsError } = await supabase
+            .from('positions')
+            .insert(positions);
+        teamsError && errors.push(teamsError);
+
         const { data: playerInstancesData, error: playerInstancesError } = await supabase
             .from('player_instances')
             // @ts-ignore

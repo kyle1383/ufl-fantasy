@@ -15,12 +15,10 @@ export async function load({ locals, params, parent}) {
 
     const { data: team, error } = await supabase
         .from('teams')
-        .select('*, player_instances ( *, players (*, xfl_teams(*)) )')
+        .select('*, player_instances ( *, players (*, xfl_teams(*))), positions(*)')
         .eq('id', roster_id)
         .single()
     
-
-        
     return {
         team: team
     };
