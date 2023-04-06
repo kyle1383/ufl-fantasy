@@ -133,10 +133,10 @@ export const actions = {
             }
         }
 
-        const { data: positionsData, error: teamsError } = await supabase
+        const { data: positionsData, error: positionsError } = await supabase
             .from('positions')
             .insert(positions);
-        teamsError && errors.push(teamsError);
+        positionsError && errors.push(positionsError);
 
         const { data: playerInstancesData, error: playerInstancesError } = await supabase
             .from('player_instances')
