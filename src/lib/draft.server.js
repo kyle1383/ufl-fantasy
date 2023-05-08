@@ -1,7 +1,7 @@
 // @ts-nocheck
 //only use on the server
 import { fail } from "@sveltejs/kit"
-import { supabase } from '../../../lib/supabaseClient'
+import { supabase } from './supabaseClient'
 /**
  * Initialize a draft.
  * Mock: Defaults to true 

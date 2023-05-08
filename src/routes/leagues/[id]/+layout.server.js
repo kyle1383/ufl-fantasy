@@ -3,7 +3,7 @@ export async function load({ fetch, params, setHeaders, locals }) {
 
     const { data, error } = await supabase
         .from('leagues')
-        .select('*, teams ( * ), player_instances ( *, players (*, xfl_teams(*)) )')
+        .select('*, teams ( * ), player_leagues ( *, players (*, xfl_teams(*)) )')
         .eq('id', params.id)
 
     if (data) {

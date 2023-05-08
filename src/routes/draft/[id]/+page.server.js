@@ -61,6 +61,7 @@ export const actions = {
         const currentPick = draft.picks.find((/** @type {{ round: any; pick: any; }} */ pick) => pick.round === draft.round && pick.pick === draft.pick);
         const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
 
+        //TODO create player_instance here and assing position
 
         if (currentPick.teams.manager !== locals.user.id) {
             return fail(401, { error_message: "You are not authorized to make this pick" })
@@ -195,7 +196,7 @@ async function draft_player(currentPick, player_id, nextPick, draft) {
 
     //is draft over?
     const rounds = Object.values(JSON.parse(draft.roster_limits)).reduce((acc, val) => acc + val, 0);
-    console.log(rounds, nextPick.round)
+  
 
     if (nextPick.round > rounds) {
         endDraft(draft)
@@ -220,7 +221,7 @@ async function endDraft(draft) {
     //loop through picks
     draft.picks.forEach(async (pick) => {
         const { data: playerInstance, error: playerInstanceError } = await supabase
-            .from('player_instances')
+            .from('player_leagues')
             .update({ rostered: true, team: pick.team_id, waiver: false })
             .eq('player_id', pick.player_id)
             .eq('league_id', draft.leagues[0].id)

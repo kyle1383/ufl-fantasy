@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
     import { enhance } from '$app/forms';
-    export let pos;
+    export let position;
     export let players;
     export let team_id;
 	function findPlayersByPosition(position) {
@@ -10,10 +10,7 @@
 </script>
 {#if players}
 <div class="dropdown">
-    <button
-        class={`text-${pos.position} btn-xs border-2 rounded-lg border-${pos.position}`}
-        >{pos.position}</button
-    >
+    
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <ul tabindex="0" class="dropdown-content menu p-2 shadow rounded-box w-52 list-none">
         {#each findPlayersByPosition(pos.position) as player}

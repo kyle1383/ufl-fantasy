@@ -1,5 +1,5 @@
 import { supabase } from '$lib/supabaseClient'
-import { init_draft } from '../../../draft/[id]/draft.server';
+import { init_draft } from '$lib/draft.server.js';
 
 export const actions = {
     init: async ({ request, params, locals }) => {

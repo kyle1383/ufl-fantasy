@@ -4,7 +4,7 @@ import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { redirect } from '@sveltejs/kit';
 import { generate_matchups } from './matchup';
 import { fail } from '@sveltejs/kit'
-import { init_draft } from '../../draft/[id]/draft.server'
+import { init_draft } from '$lib/draft.server.js';
 //TODO figure out how to use event as well as fetch
 export async function load({ locals }) {
 
@@ -112,38 +112,28 @@ export const actions = {
         draftError && errors.push(draftError)
 
         //create player instances for every player in the league 
+        //TODO: perhaps do this live while draft is happening? otherwise assign positions here
         const { data: playersData, error: playersError } = await supabase
             .from('players')
             .select('name_id, xfl_teams (id)')
 
         playersError && errors.push(playersError)
 
-        const playerInstances = []
+        const playerLeagues = []
         playersData?.forEach(player => {
-            playerInstances.push({ player_id: player.name_id, league_id: leagueData.id, rostered: false, waiver: false })
+            playerLeagues.push({ player_id: player.name_id, league_id: leagueData.id, rostered: false, waiver: false })
         })
 
-        //create positions for each position defined in roster_limit 
-        let positions = [];
-        for (const team of teamsData) {
-            for (const [position, count] of Object.entries(roster_limits)) {
-                for (let depth = 1; depth < count + 1; depth++) {
-                    positions.push({ position: position, depth: depth, team_id: team.id });
-                }
-            }
-        }
+        
 
-        const { data: positionsData, error: positionsError } = await supabase
-            .from('positions')
-            .insert(positions);
-        positionsError && errors.push(positionsError);
 
-        const { data: playerInstancesData, error: playerInstancesError } = await supabase
-            .from('player_instances')
+
+        const { data: playerLeaguesData, error: playerLeaguesError } = await supabase
+            .from('player_leagues')
             // @ts-ignore
-            .insert(playerInstances)
+            .insert(playerLeagues)
 
-        playerInstancesError && errors.push(playerInstancesError)
+        playerLeaguesError && errors.push(playerLeaguesError)
         //return error 
         if (errors.length !== 0) {
             console.log('errors', errors)

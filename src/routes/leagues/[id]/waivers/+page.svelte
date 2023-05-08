@@ -2,9 +2,9 @@
     import { enhance } from '$app/forms';
 	export let data;
 	const { league } = data;
-	const players = league[0].player_instances;
+	const players = league[0].player_leagues;
 	const filteredPlayers = players.filter((player) => player.rostered === false);
-	console.log(filteredPlayers.length);
+
 </script>
 
 <table class="table w-full">
