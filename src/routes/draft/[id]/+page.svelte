@@ -112,7 +112,7 @@
 		>
 			<button bind:this={autodraftSubmit} class="btn" type="submit">AutoDraft</button>
 		</form>
-		<Timer {draft} {timeRemaining} currentTeamName={currentPick.teams.name} />
+		
 		<Players {players} {draft} {currentPick} />
 	</div>
 {/if}

@@ -58,11 +58,11 @@ export const actions = {
 
         membersError && errors.push(membersError)
 
-        const { error: commisionersError } = await supabase
-            .from('commisioners')
+        const { error: commissionersError } = await supabase
+            .from('commissioners')
             .insert([{ user_id: locals.user.id, league_id: leagueData.id }])
-
-        commisionersError && errors.push(commisionersError)
+        console.log(commissionersError)
+        commissionersError && errors.push(commissionersError)
 
         //create teams including a team for the user
         const teams = []
@@ -137,6 +137,7 @@ export const actions = {
         //return error 
         if (errors.length !== 0) {
             console.log('errors', errors)
+
             return fail(401, { error_message: errors })
         }
         //throw redirect(307, '/leagues');
