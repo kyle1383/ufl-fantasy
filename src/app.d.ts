@@ -2,6 +2,14 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
+	interface Locals {
+		supabase: SupabaseClient<Database>
+		getSession(): Promise<Session | null>
+	}
+	interface PageData {
+		session: Session | null
+
+	}
 	// interface Error {}
 	// interface Locals {}
 	// interface PageData {}

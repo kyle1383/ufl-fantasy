@@ -1,22 +1,22 @@
 // @ts-nocheck
-import { supabase } from '$lib/supabaseClient'
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { redirect } from '@sveltejs/kit';
 import { generate_matchups } from './matchup';
 import { fail } from '@sveltejs/kit'
 import { init_draft } from '$lib/draft.server.js';
 //TODO figure out how to use event as well as fetch
-export async function load({ locals }) {
-
-    if (!locals.user) {
-        throw redirect(303, '/profile?url=/leagues/')
+export async function load({ locals: {supabase, getSession} }) {
+    const session = await getSession()
+    if (!session) {
+        return {user_leagues: []}
     }
-
     const { data, error } = await supabase
         .from('members')
         .select('leagues ( * )')
-        .eq('user_id', locals.user.id)
-
+        .eq('user_id', session.user.id)
+    if (error){
+        console.log('error')
+        return {user_leagues: []}
+    }
     return {
         user_leagues: data
     };
@@ -25,12 +25,13 @@ export async function load({ locals }) {
 
 
 export const actions = {
-    default: async ({ locals, request, event }) => {
+    default: async ({ locals: {supabase, getSession}, request, event }) => {
+        const session = await getSession()
         const formData = await request.formData();
         const name = formData.get('name');
         const size = formData.get('size');
         const roster_limits = formData.get('roster_limits');
-        const user = locals.user
+        const {user} =session
         const currentWeek = 3;
 
         let errors = []
@@ -54,19 +55,19 @@ export const actions = {
         // Add current user as a member and commissioner of the league  
         const { error: membersError } = await supabase
             .from('members')
-            .insert([{ user_id: locals.user.id, league_id: leagueData.id }])
+            .insert([{ user_id: user.id, league_id: leagueData.id }])
 
         membersError && errors.push(membersError)
 
         const { error: commissionersError } = await supabase
             .from('commissioners')
-            .insert([{ user_id: locals.user.id, league_id: leagueData.id }])
+            .insert([{ user_id: user.id, league_id: leagueData.id }])
         console.log(commissionersError)
         commissionersError && errors.push(commissionersError)
 
         //create teams including a team for the user
         const teams = []
-        teams.push({ league_id: leagueData.id, name: "Team " + (profile?.username), manager: locals.user.id })
+        teams.push({ league_id: leagueData.id, name: "Team " + (profile?.username), manager: user.id })
         for (let i = 1; i < size; i++) {
             teams.push({ league_id: leagueData.id, name: "Team " + (i + 1) })
         }
@@ -87,7 +88,7 @@ export const actions = {
         orderError && errors.push(orderError)
 
         //generate matchups 
-        const matchups = await generate_matchups(leagueData.id, currentWeek)
+        const matchups = await generate_matchups(leagueData.id, currentWeek, supabase)
 
         const { data: matchupsData, error: matchupsError } = await supabase
             .from('matchups')
@@ -102,7 +103,7 @@ export const actions = {
             roster_limits: roster_limits,
             teams: teamsData,
         }
-        const draft = await init_draft(locals.user, JSON.stringify(league), false)
+        const draft = await init_draft(user, JSON.stringify(league), false, supabase)
         //update league to include draft id
         const { data: draftData, error: draftError } = await supabase
             .from('leagues')

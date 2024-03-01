@@ -3,19 +3,28 @@
 @tailwind utilities;
 
 :root {
-    --primary: #fb8500;
-    --accent-1: #ffb703;
-    --accent-2: #023047;
-    --accent-3: #04f06a;
-    --accent-4: #63d2ff;
-    --accent-5: #009ffd;
-    --line-gray: #bcb8b1;
-    --bg: white; /*#0a0908;*/
-    --bg-gray: #e9ecef;
-    --bg-dark-gray: #6c757d;
-    --RB-color: #e76f51;
-    --WR-color: #f4a261;
-    --QB-color: #2a9d8f;
-    --TE-color: #264653;
-    --K-color: #e9c46a;
-  }
+
+  --primary: #fb8500;
+  --accent-1: #ffb703;
+  --accent-2: #023047;
+  --accent-3: #04f06a;
+  --accent-4: #63d2ff;
+  --accent-5: #009ffd;
+  --line-gray: #bcb8b1;
+  --bg: white;
+  /*#0a0908;*/
+  --bg-gray: #e9ecef;
+  --bg-dark-gray: #6c757d;
+  --RB-color: #e76f51;
+  --WR-color: #f4a261;
+  --QB-color: #2a9d8f;
+  --TE-color: #264653;
+  --K-color: #e9c46a;
+}
+
+.gothic {
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+

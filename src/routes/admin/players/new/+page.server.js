@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { fail } from '@sveltejs/kit'
-import { supabase } from '$lib/supabaseClient'
+
 import { redirect } from '@sveltejs/kit';
 import { load } from 'cheerio';
 import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 export const actions = {
-    default: async ({ locals, request, fetch }) => {
+    default: async ({ locals: {supabase}, request, fetch }) => {
         //redirect if not logged in
         if (!locals.user) {
             throw redirect(303, '/')

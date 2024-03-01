@@ -1,11 +1,10 @@
 
-import { supabase } from '$lib/supabaseClient'
 //Function should generate a schedule based on number of teams, week to start 
 /**
  * @param {any} league_id
  * @param {number} start_week
  */
-export async function generate_matchups(league_id, start_week) {
+export async function generate_matchups(league_id, start_week, supabase) {
 
   //get current year as int 
   const currentYear = new Date().getFullYear();

@@ -4,15 +4,9 @@
 	import { page } from '$app/stores';
 	import { redirect } from '@sveltejs/kit';
 	import Leagues from './Leagues.svelte';
-	
-	if (!$page.data.session) {
-		if (browser) {
-			goto('/profile');
-		} else {
-			throw redirect(302, '/profile');
-		}
-	}
-	
+
+	export let data;
+	const user_leagues = data.user_leagues;
 </script>
 
 <svelte:head>
@@ -21,7 +15,7 @@
 </svelte:head>
 
 {#if !$page.data.session}
-	logged out
+	<p></p>
 {:else}
-	<Leagues />
+	<Leagues {user_leagues}/>
 {/if}

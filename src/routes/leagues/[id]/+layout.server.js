@@ -1,5 +1,4 @@
-import { supabase } from '$lib/supabaseClient';
-export async function load({ fetch, params, setHeaders, locals }) {
+export async function load({ fetch, params, setHeaders, locals: {supabase} }) {
 
     const { data, error } = await supabase
         .from('leagues')

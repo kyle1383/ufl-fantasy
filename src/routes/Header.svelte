@@ -1,6 +1,7 @@
 <script>
 	import { page } from "$app/stores";
-	import { supabase } from '$lib/supabaseClient';
+	export let data; 
+	let {supabase} = data;
 </script>
 <header class={`navbar bg-oxford `}>
 	<div class="flex-1">

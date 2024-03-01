@@ -3,10 +3,10 @@
 
 import { fail } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
-import { supabase } from '$lib/supabaseClient'
+
 //TODO figure out how to use event as well as fetch
 //TODO don't prefetch this page
-export async function load({ locals, request, params }) {
+export async function load({ locals: {supabase}, request, params }) {
     if (!locals.user) {
         throw redirect(303, '/profile/')
     }

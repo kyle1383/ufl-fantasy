@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { supabase } from '$lib/supabaseClient';
+
 import { fail, redirect } from "@sveltejs/kit";
-export async function load({ locals, params, parent }) {
+export async function load({ locals: {supabase}, params, parent }) {
     const { league } = await parent();
 
     if (!locals.user) {

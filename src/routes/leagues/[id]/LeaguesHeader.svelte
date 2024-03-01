@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import { supabase } from '$lib/supabaseClient';
+
 	const currentPage = $page.url.pathname.split('/').slice(-1)[0];
 </script>
 <!--

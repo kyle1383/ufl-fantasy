@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { supabase } from '$lib/supabaseClient';
+
 import { fail } from "@sveltejs/kit";
 
 export const actions = {
-    updateRosterPosition: async ({ request, params, locals }) => {
+    updateRosterPosition: async ({ request, params, locals: {supabase} }) => {
         const formData = await request.formData();
         const playerJSON = formData.get('player');
         const swapOutPlayerJSON = formData.get('swapOutPlayer');

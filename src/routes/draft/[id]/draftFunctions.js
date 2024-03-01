@@ -1,6 +1,5 @@
 // @ts-nocheck
 //imports 
-import { supabase } from '$lib/supabaseClient';
 
 export function startTimer(timeRemaining, pickEnd) {
 	/*const timerInterval = setInterval(() => {

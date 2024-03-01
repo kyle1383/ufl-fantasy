@@ -3,13 +3,11 @@
 
 	import { onMount } from 'svelte';
 
-	import { supabase } from '$lib/supabaseClient';
-
 	export let session;
-
+	
 	let loading = false;
 	let username = null;
-  let password = null;
+	let password = null;
 
 	onMount(() => {
 		getProfile();
@@ -52,11 +50,11 @@
 			};
 
 			let { error } = await supabase.from('profiles').upsert(updates);
-      //update password 
-      const { error: passwordError } = await supabase.auth.updateUser({ password: password });
+			//update password
+			const { error: passwordError } = await supabase.auth.updateUser({ password: password });
 
 			if (error || passwordError) throw error;
-      //toDO: catch passwordError
+			//toDO: catch passwordError
 		} catch (error) {
 			if (error instanceof Error) {
 				alert(error.message);
@@ -101,7 +99,7 @@
 			class="input input-bordered w-full max-w-xs"
 		/>
 	</div>
-  <div>
+	<div>
 		<input
 			id="password"
 			type="text"

@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { fail } from '@sveltejs/kit'
-import { supabase } from '$lib/supabaseClient'
 import { redirect } from '@sveltejs/kit';
 
 export const actions = {
@@ -15,7 +14,7 @@ export const actions = {
     }
 }
 
-export async function load({ fetch, params, setHeaders, locals }) {
+export async function load({ fetch, params, setHeaders, locals: {supabase}}) {
     if (!locals.user) {
         throw redirect(303, '/leagues')
     }

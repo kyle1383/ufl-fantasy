@@ -1,6 +1,5 @@
 <script>
 	// @ts-nocheck
-	import { supabase } from '$lib/supabaseClient';
 	import { onDestroy, onMount } from 'svelte';
 
 	import Timer from './Timer.svelte';
@@ -12,6 +11,7 @@
 	let autodraftSubmit;
 
 	export let data;
+	let { supabase } = data;
 	let players = data.players;
 	let draft = data.draft;
 	$: draft;

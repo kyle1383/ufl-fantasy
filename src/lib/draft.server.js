@@ -1,21 +1,21 @@
 // @ts-nocheck
 //only use on the server
 import { fail } from "@sveltejs/kit"
-import { supabase } from './supabaseClient'
+
 /**
  * Initialize a draft.
  * Mock: Defaults to true 
  * Active: Defaults to false - set to true when the draft is started
  * Order: Pull from the league object
  */
-export async function init_draft(user, leagueJSON, isMock = true) {
+export async function init_draft(user, leagueJSON, isMock = true, supabase) {
 
     const league = JSON.parse(leagueJSON)
 
     const draft = {
         mock: isMock,
         order: league.order,
-        season: 2023,
+        season: 2024,
         roster_limits: league.roster_limits
     }
 

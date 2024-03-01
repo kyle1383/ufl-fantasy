@@ -3,8 +3,18 @@
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 	import Spinner from '$lib/Spinner.svelte';
-	
-	export let getLeagues;
+	import { page } from '$app/stores';
+	const supabase = $page.data.supabase;
+	function getLeagues() {
+		
+		supabase
+			.from('members')
+			.select('leagues ( * )')
+			.eq('user_id', $page.data.session.user.id)
+			.then((data) => {
+				user_leagues = data.data;
+			});
+	}
 	let size = 8;
 	//to programatically close modal on submission
 	$: checked = false;
