@@ -4,16 +4,20 @@
 import { fail } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
 
+
 //TODO figure out how to use event as well as fetch
 //TODO don't prefetch this page
-export async function load({ locals: {supabase}, request, params }) {
-    if (!locals.user) {
+export async function load({  request, params, locals: {supabase, getSession} }) {
+    const session = await getSession();
+    if (!session.user) {
         throw redirect(303, '/profile/')
     }
 
+    return fail(401, { error_message: "Unauthorized" })
+    //picks!public_picks_draft_id_fkey', 'picks!drafts_currentPick_id_fkey
     const { data: draft, error: draftError } = await supabase
         .from('drafts')
-        .select('*, picks!picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*))')
+        .select('*, picks!public_picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*))')
         .eq('id', params.id)
         .single()
     //get players from supabase
@@ -21,6 +25,8 @@ export async function load({ locals: {supabase}, request, params }) {
         console.log(draftError)
         return fail(401, { error_message: "Unauthorized" })
     }
+
+    
 
     const picks = draft.picks.map(pick => pick.player_id)
 
@@ -39,7 +45,8 @@ export async function load({ locals: {supabase}, request, params }) {
         return fail(401, { error_message: "Unauthorized" })
     }
     return {
-        players: filteredPlayers,
+        players: players,
+        availablePlayers: filteredPlayers,
         draft: draft,
     }
 }
@@ -48,7 +55,8 @@ export const actions = {
     /**
      * This should modify the draft table to add the player to the draft
      */
-    draft: async ({ request, params, locals }) => {
+    draft: async ({ request, params, locals:{getSession, supabase} }) => {
+        const session = await getSession();
         //we need player_id, user_id, round, pick, possibly team id if we allow multiple teams per user
         //get player id
         const formData = await request.formData();
@@ -63,11 +71,11 @@ export const actions = {
 
         //TODO create player_instance here and assing position
 
-        if (currentPick.teams.manager !== locals.user.id) {
+        if (currentPick.teams.manager !== session.user.id) {
             return fail(401, { error_message: "You are not authorized to make this pick" })
         }
 
-        const { error } = await draft_player(currentPick, player_id, nextPick, draft)
+        const { error } = await draft_player(currentPick, player_id, nextPick, draft, supabase)
 
         if (error) {
             console.log(error)
@@ -111,11 +119,15 @@ export const actions = {
 
 
     },
-    start: async ({ request, params, locals }) => {
+    start: async ({ request, params, locals: {getSession, supabase} }) => {
+        const session = await getSession();
+        if (!session.user) {
+            return fail(401, "Unauthorized")
+        }
         const formData = await request.formData();
         const draft = JSON.parse(formData.get('draft'))
         //is user the commish?
-        if (draft.leagues[0].commissioners[0].user_id !== locals.user.id) {
+        if (draft.leagues[0].commissioners[0].user_id !== session.user.id) {
             return fail(401, "Must be commisionner ")
         }
         
@@ -140,7 +152,7 @@ export const actions = {
 
 
     },
-    pause: async ({ request, params, locals }) => {
+    pause: async ({ request, params, locals: {supabase} }) => {
         const formData = await request.formData();
         const draft = JSON.parse(formData.get('draft'))
 
@@ -174,7 +186,7 @@ export const actions = {
  * @param {{ round: any; pick: any; }} nextPick
  * @param {{ id: any; }} draft
  */
-async function draft_player(currentPick, player_id, nextPick, draft) {
+async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     //get new pick end 
 
     let timestamp = Date.now();
@@ -199,7 +211,7 @@ async function draft_player(currentPick, player_id, nextPick, draft) {
   
 
     if (nextPick.round > rounds) {
-        endDraft(draft)
+        endDraft(draft, supabase)
     }
 
     return {
@@ -208,7 +220,7 @@ async function draft_player(currentPick, player_id, nextPick, draft) {
     }
 }
 
-async function endDraft(draft) {
+async function endDraft(draft, supabase) {
     //TODO handle errors here 
     console.log("draft has ended")
     //update the status

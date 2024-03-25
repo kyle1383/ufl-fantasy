@@ -8,9 +8,9 @@ import { fail } from "@sveltejs/kit"
  * Active: Defaults to false - set to true when the draft is started
  * Order: Pull from the league object
  */
-export async function init_draft(user, leagueJSON, isMock = true, supabase) {
+export async function init_draft(user, league, isMock = false, supabase) {
 
-    const league = JSON.parse(leagueJSON)
+   // const league = JSON.parse(leagueJSON)
 
     const draft = {
         mock: isMock,

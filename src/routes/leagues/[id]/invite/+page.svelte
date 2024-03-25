@@ -8,7 +8,7 @@
 	let league = data?.league[0];
 </script>
 
-<h1>{league.name}</h1>
+<p class="text-3xl py-2 border-b-2 border-solid mb-4">Welcome to {league.name}</p>
 
 <form use:enhance={({  }) => {
     return async ({ result}) => {

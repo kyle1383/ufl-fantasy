@@ -2,10 +2,11 @@
 
 
 import { redirect } from '@sveltejs/kit';
-export async function load({ fetch, params, setHeaders, locals: { getSession, supabase}}) {
+export async function load({ fetch, params, setHeaders, locals: { getSession, supabase}, cookies}) {
     const session = await getSession()
     if (!session) {
-        throw redirect(303, '/profile?url=/leagues/' + params.id + '/invite')
+        cookies.set('redirect', '/leagues/' + params.id + '/invite', {path: '/'})
+        throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
     }
     const { data, error } = await supabase
         .from('leagues')

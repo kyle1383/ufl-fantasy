@@ -12,14 +12,20 @@
 			response = result;
 		};
 	}}
+	action="?/updatePlayers"
 	method="POST"
 >
 	<label>
 		<button class="btn" type="submit">Update Players</button>
 	</label>
+
 	{#if response.status === 200}
 		{#each response.data?.duplicates as player}
 			{player.name}
 		{/each}
 	{/if}
+</form>
+
+<form method="POST" action="?/processWaivers" use:enhance>
+	<button class="btn btn-primary">Process waivers</button>
 </form>

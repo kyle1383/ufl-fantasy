@@ -1,14 +1,12 @@
 // @ts-nocheck
 
 import { fail, redirect } from "@sveltejs/kit";
-export async function load({ locals: {supabase}, params, parent }) {
+export async function load({ locals: {supabase, getSession}, params, parent }) {
     const { league } = await parent();
-
-    if (!locals.user) {
-        throw redirect(303, '/profile?url=/leagues/')
-    }
-
-    const roster_id = params.roster_id ? params.roster_id : league[0].teams.filter(team => team.manager == locals.user.id)[0].id;
+    const session = await getSession();
+    const user = session.user;
+    
+    const roster_id = params.roster_id ? params.roster_id : league[0].teams.filter(team => team.manager == user.id)[0].id;
 
     //get teams from league_id and user_id
     const { data: team, error: teamError } = await supabase

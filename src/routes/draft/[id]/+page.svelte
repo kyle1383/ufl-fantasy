@@ -1,25 +1,29 @@
 <script>
 	// @ts-nocheck
 	import { onDestroy, onMount } from 'svelte';
-
 	import Timer from './Timer.svelte';
 	import Players from './Players.svelte';
 	import { getTimeRemaining } from './draftFunctions';
 	import { enhance } from '$app/forms';
+	import Selections from './Selections.svelte';
+	import DraftHeader from './DraftHeader.svelte';
 
 	//Define Reactive/load Variables
 	let autodraftSubmit;
 
 	export let data;
 	let { supabase } = data;
-	let players = data.players;
+	let players = data.availablePlayers;
 	let draft = data.draft;
+	let allPlayers = data.players;
+	let picks = draft.picks;
+
+	$: picks;
 	$: draft;
 	$: players;
 	$: currentPick = draft.picks.find(
 		(pick) => pick.round === draft.round && pick.pick === draft.pick
 	);
-
 	let timerInterval;
 	let autodrafting = false;
 	/**
@@ -33,9 +37,17 @@
 		.channel('picks-channel')
 		.on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, (payload) => {
 			{
-				payload.eventType === 'UPDATE'
-					? (players = players.filter((player) => player.name_id !== payload.new.player_id))
-					: null;
+				if (payload.eventType === 'UPDATE') {
+					players = players.filter((player) => player.name_id !== payload.new.player_id);
+					//replace pick with same round and pick number
+					let updatedPicks = picks;
+					let index = updatedPicks.findIndex(
+						(pick) => pick.round === payload.new.round && pick.pick === payload.new.pick
+					);
+					updatedPicks[index] = payload.new;
+					picks = updatedPicks;
+
+				}
 			}
 		})
 		.subscribe();
@@ -99,7 +111,7 @@
 	<div>Draft over</div>
 {:else}
 	<div class="w-full">
-		<form
+		<!--<form
 			method="POST"
 			action="?/autodraft"
 			use:enhance={({ form, data, action, cancel }) => {
@@ -111,8 +123,10 @@
 			}}
 		>
 			<button bind:this={autodraftSubmit} class="btn" type="submit">AutoDraft</button>
-		</form>
-		
+		</form>-->
+		<DraftHeader {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
+		<Selections size={draft.leagues[0].size} {picks} players={allPlayers} />
+		<Timer {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
 		<Players {players} {draft} {currentPick} />
 	</div>
 {/if}

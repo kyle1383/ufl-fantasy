@@ -1,4 +1,5 @@
 // @ts-ignore
+
 export function findPlayer(position, depth, players) {
   const player = players.find(p => p.team_position === position && (p.depth === depth || p.team_position === 'BENCH'));
   return player ? player : null;

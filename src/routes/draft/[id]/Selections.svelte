@@ -1,0 +1,63 @@
+<script lang="ts">
+    import Pick from "./Pick.svelte";
+	export let size: number;
+	export let picks: object[];
+    export let players: object[];
+   
+	$: picks;
+
+	//filter through the number of picks = size and return each team
+	let teams = [];
+	for (let i = 0; i < size; i++) {
+		teams.push(picks[i].teams.name);
+	}
+    //sort picks by round and pick
+    picks.sort((a, b) => {
+        if (a.round > b.round) {
+            return 1;
+        } else if (a.round < b.round) {
+            return -1;
+        } else {
+            if (a.pick > b.pick) {
+                return 1;
+            } else if (a.pick < b.pick) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    });
+
+	const gridCols = `grid-cols-${size.toString()}`
+</script>
+
+<div class="grid header-grid px-12 py-4 gap-8 bg-primary text-white rounded" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
+	{#each teams as team}
+		<div>
+			<p>{team}</p>
+		</div>
+	{/each}
+</div>
+<div class="grid grid-cols-{size.toString()} p-8 pb-24 bg-base-300 pt-24 grid-body" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
+	{#each picks as pick}
+        <Pick {pick} player={players.find(player => player.name_id == pick.player_id) || null}/>
+		
+	{/each}
+</div>
+
+<style>
+	.header-grid {
+		
+		position: fixed;
+		width: 100%;
+		left: 0;
+		z-index: 1;
+	}
+
+	.grid-body {
+		max-height: 50%;
+		overflow: scroll;
+		position: fixed;
+		width: 100%;
+	}
+</style>

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
-  /*theme: {
+  theme: {
     extend: {
       colors: {
         'oxford': '#10162E',
@@ -17,7 +17,7 @@ module.exports = {
         'K': '#e9c46a',
       },
     },
-  },*/
+  },
   plugins: [require("daisyui")],
   daisyui: {
     themes: [{
@@ -25,8 +25,9 @@ module.exports = {
         "primary": "#f95738",
         "secondary": "#ee964b",
         "accent": "#f4d35e",
-        "neutral": "#faf0ca",
+        "neutral": "#FFEBB7",
         "base-100": "#0d3b66",
+        
       },
     },]
   },

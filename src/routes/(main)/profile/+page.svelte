@@ -5,7 +5,6 @@
 	let {supabase} = data;
 	onMount(async ()=>{
 		const session = await supabase.auth.getSession()
-		console.log(session)
 	})
 </script>
 

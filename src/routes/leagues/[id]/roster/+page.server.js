@@ -3,7 +3,7 @@
 import { fail } from "@sveltejs/kit";
 
 export const actions = {
-    updateRosterPosition: async ({ request, params, locals: {supabase} }) => {
+    updateRosterPosition: async ({ request, params, locals: { supabase } }) => {
         const formData = await request.formData();
         const playerJSON = formData.get('player');
         const swapOutPlayerJSON = formData.get('swapOutPlayer');
@@ -20,7 +20,7 @@ export const actions = {
         }
 
         if (typeof swapOutPlayer === 'object') {
-           
+
             const { data: updatedSwapOutPlayer, error: updatedSwapOutPlayerError } = await supabase
                 .from('player_leagues')
                 .update({ team_position: player.team_position, depth: player.depth })
@@ -51,6 +51,28 @@ export const actions = {
         return {
             message: 'success',
             players: players
+        }
+
+    },
+    drop: async ({ request, params, locals: { supabase } }) => {
+        const formData = await request.formData();
+        const player_id = formData.get('player_id');
+
+        const { data: deletedPlayer, error: deletedPlayerError } = await supabase
+            .from('player_leagues')
+            .update({ rostered: false, team: null, waiver: true, team_position: null, depth: null })
+            //.update({ rostered: true})
+            .eq('player_id', player_id)
+            .eq('league_id', params.id)
+            .select();
+
+        if (deletedPlayerError) {
+            return fail(401, { error_message: 'error deleting player', errors: deletedPlayerError })
+        }
+
+        return {
+            message: 'success',
+            player: deletedPlayer
         }
 
     }

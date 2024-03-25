@@ -1,5 +1,5 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
 	/**
 	 * @type {any}
@@ -13,15 +13,17 @@
 	export let draft;
 	export let currentPick;
 	let submitted = false;
-	$: onClock = $page.data.session.user.id === currentPick.teams.manager && draft.status === 'ACTIVE' && !submitted;
-	
-	
+	$: onClock =
+		$page.data.session.user.id === currentPick.teams.manager &&
+		draft.status === 'ACTIVE' &&
+		!submitted;
 </script>
-<div class="max-w-full w-full" style="max-width: 100%" >
+
+<div class="max-w-full w-full table-container" style="max-width: 100%">
 	<table class="table w-full" style="max-width: 100%">
-		<thead>
+		<thead class="table-header">
 			<tr>
-				<th/>
+				<th />
 				<th>Name</th>
 				<th />
 			</tr>
@@ -34,9 +36,13 @@
 							<img src={player.img_url} alt={player.name} class="w-8 h-8" />
 						</div>
 					</td>
-					<td class="break-words"><p>{player.name}</p><sub class="font"><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub></td>
-					
-				
+					<td class="break-words"
+						><p>{player.name}</p>
+						<sub class="font"
+							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
+						></td
+					>
+
 					<td
 						><form
 							method="POST"
@@ -45,7 +51,7 @@
 								submitted = true;
 								//add roster_limits to the form data
 								data.set('player_id', player.name_id);
-								data.set('draft', JSON.stringify(draft) )
+								data.set('draft', JSON.stringify(draft));
 								//add size to the form data as an
 								return async ({ result, update }) => {
 									setTimeout(() => {
@@ -54,7 +60,8 @@
 								};
 							}}
 						>
-							<button type="submit" class="btn btn-circle btn-primary" disabled={!onClock}>+</button>
+							<button type="submit" class="btn btn-circle btn-primary" disabled={!onClock}>+</button
+							>
 						</form></td
 					>
 				</tr>
@@ -63,3 +70,21 @@
 	</table>
 	<div>{draft.status}</div>
 </div>
+
+<style>
+	.table-container {
+		max-height: 50%; /* Adjust based on your requirement */
+		overflow-y: auto; /* Enables vertical scrolling */
+		display: block;
+		position: fixed;
+		top: 50%;
+	}
+
+	thead th {
+		position: sticky;
+		top: 0;
+		z-index: 1; /* Ensures the header is above other content */
+	}
+
+	
+</style>

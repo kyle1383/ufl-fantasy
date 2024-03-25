@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import {page} from '$app/stores';
 	// @ts-ignore
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
@@ -52,6 +53,11 @@
 					class="input input-primary w-full max-w-xs rounded-xl mt-4"
 					name="password"
 					required
+				/>
+				<input
+				type="hidden"
+				name="redirect"
+				value={$page.url.searchParams.get('url')}
 				/>
 				<button type="submit" class="btn w-full max-w-xs rounded-xl mt-4"
 					>Sign {signUpMode ? 'up' : 'in'}</button

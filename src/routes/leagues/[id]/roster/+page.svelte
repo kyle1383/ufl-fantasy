@@ -1,8 +1,11 @@
 <script>
     import Roster from './Roster.svelte';
     export let data;
-    const { team } = data;
-    const { league } = data;
+    //const { team } = data;
+    //const { league } = data;
+    $: team = data.team
+    $: league = data.league
+
     
 </script>
 

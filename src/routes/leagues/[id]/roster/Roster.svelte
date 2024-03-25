@@ -12,14 +12,18 @@
 	
 
 	//drawer initial values
-	const players = team.player_leagues
-	$: newPlayers = players;
+	$: players = team.player_leagues
+	$: newPlayers = team.player_leagues;
 	$: roster = roster_spots;
 	$: swapPosition = 'QB';
 	$: swapDepth = 1;
 	$: swapPlayers = players.filter((player) => swapPosition === 'FLEX' ? player.players.position === 'RB' || 'WR' || 'TE': player.players.position === swapPosition);
 	$: checked = false;
 	$: swapOutPlayer = null;
+
+	$: team;
+	$: openBenchSpots = roster.BENCH - players.filter((player) => player.team_position === 'BENCH').length;
+
 	
 
 </script>
@@ -29,8 +33,10 @@
 		<tbody>
 			
 			{#each Object.keys(roster) as position}
+		
 				{#if position !== 'BENCH'}
 					{#each Array.from({ length: roster[position] }, (_, index) => index + 1) as depth}
+					
 						<PlayerSlot
 							{position}
 							{depth}
@@ -49,6 +55,11 @@
 					<PlayerSlot position={player.team_position} depth={0} {player}/>
 				{/if}
 			{/each}
+			{#if openBenchSpots > 0}
+				{#each Array.from({ length: openBenchSpots }, (_, index) => index + 1) as depth}
+					<PlayerSlot position='BENCH' depth={0} player='null' />
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 
