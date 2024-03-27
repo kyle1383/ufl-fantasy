@@ -3,7 +3,8 @@ import { redirect } from '@sveltejs/kit';
 
 
 export async function load({ locals: {getSession} }) {
-    const { user } = await getSession()
+    const session = await getSession()
+    const user = session?.user
     if (user) {
         throw redirect(303, '/leagues/')
     } else{

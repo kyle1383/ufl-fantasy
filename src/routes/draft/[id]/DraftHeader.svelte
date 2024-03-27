@@ -3,9 +3,23 @@
     export let draft;
     export let currentTeamName;
     export let timeRemaining;
+    console.log(draft)
    
 </script>
-
-<div class="p-4 bg-gray-700 draft-header">
-   <!--TIMER-->
+<div class="w-full px-8 draft-header">
+<div class="text-white text-xl font-bold bg-gray-700 p-8 rounded-lg border-gray-600 border-2 w-full mt-4 flex justify-between items-center">
+    <p>Welcome to the <span class="text-primary orbitron">{draft.leagues[0].name}</span> draft</p>
+   <Timer draft={draft} currentTeamName={currentTeamName} timeRemaining={timeRemaining}/>
 </div>
+</div>
+
+<style>
+    .draft-header{
+        position: fixed;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+
+    }
+</style>

@@ -11,7 +11,7 @@
 
 {#if draft.status === 'PREDRAFT'}
 	{#if draft.leagues[0]?.commissioners[0].user_id === user.id}
-		<header class="navbar">
+	
 			<form
 				method="POST"
 				action="?/start"
@@ -24,11 +24,12 @@
 			>
 				<button class="btn btn-primary">Start</button>
 			</form>
-		</header>
+	{:else}
+		<p class="text-center flex">Waiting for commissioner to start the draft </p>
 	{/if}
 {:else if draft.status === 'PAUSED'}
 	{#if draft.leagues[0].commissioners[0].user_id === user.id}
-		<header class="navbar">
+		
 			<form
 				method="POST"
 				action="?/start"
@@ -41,10 +42,10 @@
 			>
 				<button class="btn btn-ivory">Start</button>
 			</form>
-		</header>
+		
 	{/if}
 {:else}
-	<header class="navbar">
+	
 		<div class="flex justify-center items-center">
 			<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
 			<p><strong>On Clock: </strong>{currentTeamName}</p>
@@ -66,5 +67,5 @@
 				<button class="btn btn-ivory">Pause</button>
 			</form>
 		</div>
-	</header>
+
 {/if}
