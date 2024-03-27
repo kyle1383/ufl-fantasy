@@ -19,7 +19,7 @@
 	$: managedTeams = teams.filter((t: Team) => t.manager !== null);
 </script>
 
-<div class="grid grid-cols-1 gap-4 w-max my-8">
+<div class="grid grid-cols-1 gap-4 lg:w-max my-8">
 	{#if  managedTeams.length < league.size}
 		<Invite size={league.size} teams={managedTeams.length} />
 	{/if}

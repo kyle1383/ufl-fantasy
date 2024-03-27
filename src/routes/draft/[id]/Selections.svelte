@@ -32,10 +32,10 @@
 </script>
 
 
-<div class="grid grid-cols-{size.toString()} gap-2 p-8 pb-24 bg-black pt-48 grid-body" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
+<div class="grid grid-cols-{size.toString()} gap-2 p-8 pb-24 bg-black pt-24 lg:pt-48 grid-body" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
 	{#each teams as team}
 		<div>
-			<p class="text-white text-center pb-2 font-bold">{team}</p>
+			<p class="text-white text-center pt-4 lg:pt-0 lg:pb-2 font-bold">{team}</p>
 		</div>
 	{/each}
 	{#each picks as pick}

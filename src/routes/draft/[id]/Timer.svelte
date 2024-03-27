@@ -25,7 +25,7 @@
 				<button class="btn btn-primary">Start</button>
 			</form>
 	{:else}
-		<p class="text-center flex">Waiting for commissioner to start the draft </p>
+		<p class=" lg:text-center ">Waiting for the draft to begin </p>
 	{/if}
 {:else if draft.status === 'PAUSED'}
 	{#if draft.leagues[0].commissioners[0].user_id === user.id}

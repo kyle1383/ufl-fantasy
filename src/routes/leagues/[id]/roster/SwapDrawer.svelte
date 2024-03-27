@@ -26,7 +26,7 @@
 <input type="checkbox" id="swap-modal" class="modal-toggle" {checked} />
 <div class="modal modal-bottom sm:modal-middle cursor-pointer">
 	<div
-		class="modal-box text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2"
+		class="modal-box text-white bg-gray-700 p-8 rounded-b-0 rounded-t-lg lg:rounded-lg border-gray-600 border-2"
 		use:clickOutside
 		on:click_outside={handleClickOutside}
 	>

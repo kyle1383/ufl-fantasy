@@ -11,7 +11,7 @@
 	async function google() {
 		supabase.auth.signInWithOAuth({
 			provider: 'google',
-			options: { redirectTo: `http://localhost:5173/leagues` }
+			options: { redirectTo: `/leagues` }
 		});
 	}
 

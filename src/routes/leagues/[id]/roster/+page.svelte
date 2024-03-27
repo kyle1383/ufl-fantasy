@@ -9,10 +9,10 @@
 </script>
 
 <div class="flex">
-    <div class="basis-1/3">
+    <div class="basis-1/3 hidden lg:block">
 		<PlayerUpdates />
 	</div>
-	<div class="basis-2/3">
+	<div class="lg:basis-2/3">
 		<Roster {team} roster_spots={JSON.parse(league.roster_limits)} />
 	</div>
 	

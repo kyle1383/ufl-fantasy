@@ -7,7 +7,7 @@
    
 </script>
 <div class="w-full px-8 draft-header">
-<div class="text-white text-xl font-bold bg-gray-700 p-8 rounded-lg border-gray-600 border-2 w-full mt-4 flex justify-between items-center">
+<div class="text-white text-sm lg:text-xl font-bold bg-gray-700 p-4 lg:p-8 rounded-lg border-gray-600 border-2 w-full mt-4 flex flex-col lg:flex-row justify-between items-center">
     <p>Welcome to the <span class="text-primary orbitron">{draft.leagues[0].name}</span> draft</p>
    <Timer draft={draft} currentTeamName={currentTeamName} timeRemaining={timeRemaining}/>
 </div>

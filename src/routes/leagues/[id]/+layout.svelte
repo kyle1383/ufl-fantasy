@@ -8,7 +8,7 @@
 
 </script>
 <LeagueHeader />
-<div class="mx-24 ">
+<div class="lg:mx-24 mx-8">
 	
 	<slot />
 </div>

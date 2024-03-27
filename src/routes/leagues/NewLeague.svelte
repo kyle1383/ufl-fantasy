@@ -40,7 +40,7 @@
 <button
 	on:click={() => (checked = true)}
 	for="new-league-modal"
-	class="border-2 border-solid border-primary text-primary text-2xl py-4 px-8 league flex justify-between items-center rounded-lg hover:bg-primary hover:text-gray-700"
+	class="border-2 border-solid border-primary text-primary text-2xl py-8 px-8 league flex justify-between items-center rounded-lg hover:bg-primary hover:text-gray-700"
 	>Create League <span class="text-4xl">+</span></button
 >
 <input type="checkbox" id="new-league-modal" class="modal-toggle" {checked} />

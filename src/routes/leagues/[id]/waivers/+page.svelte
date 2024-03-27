@@ -33,11 +33,11 @@
 	});
 </script>
 
-<div class="flex">
-	<div class="basis-1/3">
+<div class="flex lg:flex-row flex-col">
+	<div class="lg:basis-1/3  lg:block">
 		<WaiverClaims {claims}/>
 	</div>
-	<div class="basis-2/3">
+	<div class="basis-1 grow lg:basis-2/3">
 		<AvailablePlayers {team} {rosterSize} {unRosteredPlayers} />
 	</div>
 </div>
