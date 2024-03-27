@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>XFL Fantasy</title>
+	<title>UFL Fantasy</title>
 	<meta name="description" content="SvelteKit using supabase-js v2" />
 </svelte:head>
 
