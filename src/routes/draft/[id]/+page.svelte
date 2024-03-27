@@ -131,13 +131,13 @@
 		</form>-->
 		<DraftHeader {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
 		<Selections size={draft.leagues[0].size} {picks} players={allPlayers} />
-		<Timer {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
+		
 		<div class="player-section w-full">
-			<div class="flex">
-				<div class="basis-2/3">
+			<div class="flex w-full">
+				<div class="lg:basis-2/3 w-full lg:w-auto relative">
 					<PlayerGrid {players} {draft} {currentPick} bind:positionFilter={positionFilter}/>
 				</div>
-				<div class="basis-1/3"><Favorites players={favoritePlayers}/></div>
+				<div class="lg:basis-1/3 hidden lg:block"><Favorites players={favoritePlayers}/></div>
 			</div>
 		</div>
 	</div>
@@ -148,5 +148,6 @@
 		display: block;
 		position: fixed;
 		top: 50%;
+		
 	}
 </style>

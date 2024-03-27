@@ -90,7 +90,8 @@
 
 	.table-container {
 		overflow-y: auto; /* Enables vertical scrolling */
-		
+		max-height: 50vh;
+		height: 50vh;
 	}
 
 	thead th,
