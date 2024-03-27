@@ -94,6 +94,10 @@
 		height: 50vh;
 	}
 
+	.table-container::-webkit-scrollbar {
+		display: none;
+	}
+
 	thead th,
 	
 	td {
