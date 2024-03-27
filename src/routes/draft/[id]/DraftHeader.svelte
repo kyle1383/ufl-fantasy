@@ -3,7 +3,9 @@
     export let draft;
     export let currentTeamName;
     export let timeRemaining;
+   
 </script>
-<div class=" p-4 bg-slate-900 draft-header">
-    <Timer {draft} {currentTeamName} {timeRemaining} />
+
+<div class="p-4 bg-gray-700 draft-header">
+   <!--TIMER-->
 </div>

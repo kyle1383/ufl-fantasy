@@ -22,20 +22,20 @@
 	});
 </script>
 
-<div class="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+<div class="min-h-screen flex flex-col items-center justify-center bg-slate-900">
 	<div class="login">
 		<div class="flex justify-center items-end max-w-xs w-xs relative">
-			
-			<img src="/fg_white.gif" alt="UFL Logo" class="w-24"/>
+			<img src="/field_themed.png" alt="UFL Logo" class="w-full field hidden" />
+			<img src="/fg.gif" alt="UFL Logo" class="w-24"/>
 		</div>
-		<div class="rounded-lg p-8 max-w-xs bg-black border-white border-2">
+		<div class="rounded-lg p-8 max-w-xs bg-base-100">
 			<form method="POST" action={signUpMode ? '?/signUp' : '?/signIn'} use:enhance>
-				<p class="orbitron text-2xl pb-4">Welcome to UFL Fantasy Football</p>
+				<p class="gothic text-3xl pb-8">Welcome to UFL Fantasy Football</p>
 				{#if signUpMode}
 					<input
 						type="text"
 						placeholder="Enter your username"
-						class="input input-primary w-full max-w-xs rounded-xl mb-4"
+						class="gothic input input-primary w-full max-w-xs rounded-xl mb-4"
 						name="username"
 						required
 					/>
@@ -43,14 +43,14 @@
 				<input
 					type="email"
 					placeholder="Enter your Email"
-					class="input border-white w-full max-w-xs rounded-xl bg-black"
+					class="input input-primary w-full max-w-xs rounded-xl"
 					name="email"
 					required
 				/>
 				<input
 					type="password"
 					placeholder="Enter your Password"
-					class="input  border-white w-full max-w-xs rounded-xl mt-4 bg-black"
+					class="input input-primary w-full max-w-xs rounded-xl mt-4"
 					name="password"
 					required
 				/>
@@ -59,14 +59,14 @@
 				name="redirect"
 				value={$page.url.searchParams.get('url')}
 				/>
-				<button type="submit" class="btn btn-primary w-full max-w-xs rounded-xl mt-4"
+				<button type="submit" class="btn w-full max-w-xs rounded-xl mt-4"
 					>Sign {signUpMode ? 'up' : 'in'}</button
 				>
 				<div class="divider">OR</div>
 			</form>
 
-			<button on:click={() => google()} class="btn bg-white text-black w-full max-w-xs rounded-xl px-1 flex"
-				><img src="/google-logo.png" class="w-8 ml-2" alt="google logo" />
+			<button on:click={() => google()} class="btn w-full max-w-xs rounded-xl px-1 flex"
+				><img src="/google-logo.png" class="w-8" alt="google logo" />
 				<p class="grow">Sign {signUpMode ? 'up' : 'in'} with Google</p></button
 			>
 

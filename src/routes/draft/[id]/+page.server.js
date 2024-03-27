@@ -13,7 +13,6 @@ export async function load({  request, params, locals: {supabase, getSession} })
         throw redirect(303, '/profile/')
     }
 
-    return fail(401, { error_message: "Unauthorized" })
     //picks!public_picks_draft_id_fkey', 'picks!drafts_currentPick_id_fkey
     const { data: draft, error: draftError } = await supabase
         .from('drafts')

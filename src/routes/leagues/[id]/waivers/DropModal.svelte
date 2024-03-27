@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { clickOutside } from '$lib/helpers';
-
+	import Icon from '@iconify/svelte';
 	export let player = null;
 	export let checked;
 	export let team;
@@ -15,21 +15,27 @@
 
 <input type="checkbox" id="swap-modal" class="modal-toggle" {checked} />
 <div class="modal modal-bottom sm:modal-middle cursor-pointer">
-	<div class="modal-box" use:clickOutside on:click_outside={handleClickOutside}>
-		<p>You are adding</p>
+	<div
+		class="modal-box text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2 w-max"
+		use:clickOutside
+		on:click_outside={handleClickOutside}
+	>
+		
 		{#if player}
-			<div class="flex flex-col mb-4">
-				<div class="flex items-center my-2">
-					<div class="w-10 rounded-full">
-						<img src={player.img_url} alt={player.name} class="w-8 h-8" />
-					</div>
-
-					<p>{player.name}</p>
+			<div class="flex mb-4">
+				
+					<Icon icon="clarity:plus-line" width="15" class="my-auto text-acc3 mr-2" />
+					
+				<div class="w-10 rounded-full">
+					<img src={player.img_url} alt={player.name} class="w-8 h-8" />
 				</div>
-
-				<sub class="font"
-					><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
-				>
+				<div class="flex flex-col">
+					
+					<p>{player.name}</p>
+					<sub class=""
+						><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
+					>
+				</div>
 			</div>
 		{/if}
 
@@ -40,21 +46,20 @@
 				checked = true;
 				formData.append('add_player_id', player.name_id);
 				return async ({ result, update }) => {
-                  
-                    if (result.data.status === 200){
-                        checked = false;
-				
-						showToast(result.data.body)
-                    } else{
-                        alert(result.data.body)
-                    }
-                };
+					if (result.data.status === 200) {
+						checked = false;
+
+						showToast(result.data.body);
+					} else {
+						alert(result.data.body);
+					}
+				};
 			}}
 		>
 			Who would you like to drop?
 			<div class="flex flex-col">
 				{#if underRosterLimit}
-                <small class="text-primary">!! You have room on your roster !!</small>
+					<small class="text-primary">You are not required to drop anyone</small>
 					<div class="flex my-1">
 						<input
 							type="radio"
@@ -75,13 +80,15 @@
 							id="drop-{player.name_id}"
 							value={player.name_id}
 							class="radio radio-primary mr-2"
-                            checked={index === 0 && !underRosterLimit}
+							checked={index === 0 && !underRosterLimit}
 						/>
-						<label for="drop-{player.name_id}">{player.name} - <small>{player.position}</small></label>
+						<label for="drop-{player.name_id}"
+							>{player.name} - <small>{player.position}</small></label
+						>
 					</div>
 				{/each}
 			</div>
-			<button type="submit" class="btn btn-primary">Confirm</button>
+			<button type="submit" class="btn btn-primary btn-outline mt-4">Confirm</button>
 		</form>
 	</div>
 </div>

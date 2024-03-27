@@ -1,6 +1,11 @@
 <script>
-	import LeaguesHeader from './[id]/LeaguesHeader.svelte';
+	import LeaguesHeader from './LeaguesHeader.svelte';
+	export let data;
+	const { user_leagues } = data;
+	
 </script>
-<div class="bg-neutral min-h-screen">
-<slot />
+
+<div class="bg-black min-h-screen">
+	<LeaguesHeader leagues={user_leagues} />
+	<slot />
 </div>

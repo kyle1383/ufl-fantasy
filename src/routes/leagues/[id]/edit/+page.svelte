@@ -6,7 +6,7 @@
 	import { prevent_default } from 'svelte/internal';
    
     export let data;
-    let size = data.league[0].size
+    let size = data.league.size
 </script>
 
 <form use:enhance={({ form, data, action, cancel }) => {
@@ -15,7 +15,7 @@
     };
   }} method="POST">
 	<label>
-		Name: <input type="text" value={data.league[0].name} required name="name" id="name" />
+		Name: <input type="text" value={data.league.name} required name="name" id="name" />
 	</label>
 	<label>
 		<button class="minus" on:click={(e)=>{e.preventDefault();size-=2}}>-</button>

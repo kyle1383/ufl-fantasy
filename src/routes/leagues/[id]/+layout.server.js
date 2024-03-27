@@ -10,13 +10,14 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
         .from('leagues')
         .select('*, teams ( * ), player_leagues ( *, players (*, xfl_teams(*)) )')
         .eq('id', params.id)
+        .single();
 
     if (error) {
        return error(500, error.message)
     }
 
     if (data) {
-        /*let { teams } = data[0]
+        let { teams } = data
         teams = await Promise.all(teams.map(async (team) => {
             if (team.manager) {
                 const { data, error, status } = await supabase
@@ -30,9 +31,9 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
                 team.manager_name = "none"
             }
             return team
-        }));*/
+        }));
 
-        const roster_id = params.roster_id ? params.roster_id : data[0].teams.filter(team => team.manager == user.id)[0].id;
+        const roster_id = params.roster_id ? params.roster_id : data.teams.filter(team => team.manager == user.id)[0]?.id;
 
         //get teams from league_id and user_id
         const { data: team, error: teamError } = await supabase

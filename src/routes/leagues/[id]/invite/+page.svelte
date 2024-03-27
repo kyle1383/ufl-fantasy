@@ -5,10 +5,11 @@
 
 	export let data;
 	
-	let league = data?.league[0];
+	let {league} = data
+	
 </script>
 
-<p class="text-3xl py-2 border-b-2 border-solid mb-4">Welcome to {league.name}</p>
+<p class="text-3xl py-2 mb-4 text-white">Welcome to {league.name}</p>
 
 <form use:enhance={({  }) => {
     return async ({ result}) => {
@@ -17,8 +18,8 @@
     };
   }} method="POST">
 
-	 <input type="text" class="input input-bordered w-full max-w-xs" placeholder="Team name" required name="name" id="name" />
+	 <input type="text" class="input input-bordered max-w-xs text-white bg-gray-700 rounded-lg border-gray-600 border-2 mr-2" placeholder="Team name" required name="name" id="name" />
 	<label>
-		<button class="btn" type="submit">Join League</button>
+		<button class="btn btn-primary btn-outline" type="submit">Join League</button>
 	</label>
 </form>

@@ -1,9 +1,14 @@
 <script>
 	import { page } from '$app/stores';
-	import LeaguesHeader from './LeaguesHeader.svelte';
+	import LeagueHeader from './LeagueHeader.svelte';
 	//get last url paramater
-</script>
+	export let data;
+	
+	const {league, user_leagues} = data
 
+</script>
+<LeagueHeader />
 <div class="mx-24 ">
+	
 	<slot />
 </div>

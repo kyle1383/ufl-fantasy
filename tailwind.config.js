@@ -3,7 +3,7 @@ module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
-      colors: {
+     colors: {
         'oxford': '#10162E',
         'raisin': '#2A2828',
         'ivory': '#FBFFF1',
@@ -15,6 +15,16 @@ module.exports = {
         'QB': '#2a9d8f',
         'TE': '#264653',
         'K': '#e9c46a',
+        'black': '#000000',
+        'gray-900': '#0a0a0a',
+        'gray-800': '#090A0B',
+        'gray-700': '#121416',
+        'gray-600': '#1d1d1d',
+        'gray-500': '#2a2a2a',
+        'gray-400': '#383838',
+        'gray-300': '#4f4f4f',
+        'gray-200': '#828282',
+        'gray-100': '#bcbcbc',
       },
     },
   },

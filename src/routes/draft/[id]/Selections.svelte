@@ -31,14 +31,13 @@
 	const gridCols = `grid-cols-${size.toString()}`
 </script>
 
-<div class="grid header-grid px-12 py-4 gap-8 bg-primary text-white rounded" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
+
+<div class="grid grid-cols-{size.toString()} gap-2 p-8 pb-24 bg-black pt-24 grid-body" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
 	{#each teams as team}
 		<div>
-			<p>{team}</p>
+			<p class="text-white text-center pb-2 font-bold">{team}</p>
 		</div>
 	{/each}
-</div>
-<div class="grid grid-cols-{size.toString()} p-8 pb-24 bg-base-300 pt-24 grid-body" style="grid-template-columns: repeat({size}, minmax(0, 1fr));">
 	{#each picks as pick}
         <Pick {pick} player={players.find(player => player.name_id == pick.player_id) || null}/>
 		

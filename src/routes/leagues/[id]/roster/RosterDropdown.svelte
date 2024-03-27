@@ -9,7 +9,7 @@
 	}
 </script>
 {#if players}
-<div class="dropdown">
+<div class="dropdown ">
     
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <ul tabindex="0" class="dropdown-content menu p-2 shadow rounded-box w-52 list-none">

@@ -22,7 +22,7 @@
 					return async ({ result, update }) => {};
 				}}
 			>
-				<button class="btn btn-ivory">Start</button>
+				<button class="btn btn-primary">Start</button>
 			</form>
 		</header>
 	{/if}

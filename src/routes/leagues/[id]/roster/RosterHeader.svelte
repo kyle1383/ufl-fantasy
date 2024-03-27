@@ -1,9 +1,7 @@
 <script>
-	export let data;
-	const { team } = data;
+export let team;
 </script>
-<div class="bg-gradient-to-br from-acc5 from-10% to-raisin to-90%">
-<div class="flex p-4 justify-center ">
+<div class="hidden flex p-4 justify-center ">
 	<div class="w-10  avatar mx-4 h-12 w-12">
 		<img
 			src="https://placeimg.com/80/80/people"
@@ -20,8 +18,4 @@
 			{team.wins}-{team.losses}
 		</p>
 	</div>
-</div>
-
-<slot />
-
 </div>

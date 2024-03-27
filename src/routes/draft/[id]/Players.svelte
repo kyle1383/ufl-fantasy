@@ -19,26 +19,26 @@
 		!submitted;
 </script>
 
-<div class="max-w-full w-full table-container" style="max-width: 100%">
+<div class="max-w-full w-full table-container text-white" style="max-width: 100%">
 	<table class="table w-full" style="max-width: 100%">
 		<thead class="table-header">
 			<tr>
-				<th />
-				<th>Name</th>
-				<th />
+				<th class="rounded-none"/>
+				<th class="">Name</th>
+				<th class="rounded-none"/>
 			</tr>
 		</thead>
 		<tbody>
 			{#each players as player}
 				<tr>
-					<td class="whitespace-normal">
+					<td class=" whitespace-nowrap w-fit">
 						<div class="w-10 rounded-full">
 							<img src={player.img_url} alt={player.name} class="w-8 h-8" />
 						</div>
 					</td>
 					<td class="break-words"
 						><p>{player.name}</p>
-						<sub class="font"
+						<sub class="font text-gray-100"
 							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
 						></td
 					>
@@ -84,6 +84,15 @@
 		position: sticky;
 		top: 0;
 		z-index: 1; /* Ensures the header is above other content */
+		background-color: #2a2a2a;
+		color: white;
+		
+		
+	}
+	td{
+		background-color: #000;
+		border-color: #1d1d1d;
+
 	}
 
 	

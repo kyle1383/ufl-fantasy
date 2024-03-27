@@ -156,17 +156,7 @@ export const actions = {
                 console.log(waiverError)
                 return { status: 500, body: waiverError.message }
             }
-            //remove old player 
-            const { data: removePlayerFromTeam, error: removePlayerError } = await supabase
-                .from('player_leagues')
-                .update([{ team: null, rostered: false, waiver: true }])
-                .eq('player_id', drop_player)
-                .eq('league_id', params.id)
-
-
-            if (removePlayerError) {
-                return { status: 500, body: removePlayerError.message }
-            }
+         
 
             return { status: 200, body: 'Waiver Claim Submitted' }
         }

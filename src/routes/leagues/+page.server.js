@@ -4,31 +4,6 @@ import { generate_matchups } from './matchup';
 import { fail } from '@sveltejs/kit'
 import { init_draft } from '$lib/draft.server.js';
 //TODO figure out how to use event as well as fetch
-export async function load({ locals: { supabase, getSession } }) {
-    const session = await getSession()
-    if (!session) {
-        return { user_leagues: [] }
-    }
-    const { data: leagues, error: leaguesError } = await supabase
-        .from('members')
-        .select('league_id')
-        .eq('user_id', session.user.id)
-    
-    const leagueIds = leagues.map((member) => member.league_id);
-    const { data, error } = await supabase
-        .from('leagues')
-        .select('*')
-        .in('id', leagueIds)
-    
-   
-    if (error) {
-        console.log('error')
-        return { user_leagues: [] }
-    }
-    return {
-        user_leagues: data
-    };
-}
 
 
 export const actions = {
@@ -38,7 +13,7 @@ export const actions = {
         const name = formData.get('name');
         const size = formData.get('size');
         const roster_limits = formData.get('roster_limits');
-        const { user } = session
+        const { user } = session;
         const currentWeek = 0;
 
         let errors = []
@@ -57,6 +32,7 @@ export const actions = {
 }
 
 async function getUsernameOrEmail(user, errors, supabase) {
+
     //get username
     const { data: profile, error } = await supabase
         .from('profiles')
@@ -76,11 +52,12 @@ async function getUsernameOrEmail(user, errors, supabase) {
 }
 
 async function createLeague(name, size, roster_limits, errors, supabase) {
-    const roster_size = Object.values(roster_limits).reduce((a, b) => a + b, 0)
+
+    const roster_size = Object.values(JSON.parse(roster_limits)).reduce((a, b) => a + b, 0)
     const { data, error } = await supabase
         .from('leagues')
         .insert([
-            { name: name, size: size, order: [], roster_limits: roster_limits, roster_size: roster_size},
+            { name: name, size: size, order: [], roster_limits: roster_limits, roster_size: roster_size },
         ]).select()
         .single()
 

@@ -40,13 +40,13 @@
 <button
 	on:click={() => (checked = true)}
 	for="new-league-modal"
-	class="border-2 border-solid border-primary text-primary text-2xl py-4 px-8 league flex justify-between items-center rounded"
+	class="border-2 border-solid border-primary text-primary text-2xl py-4 px-8 league flex justify-between items-center rounded-lg hover:bg-primary hover:text-gray-700"
 	>Create League <span class="text-4xl">+</span></button
 >
 <input type="checkbox" id="new-league-modal" class="modal-toggle" {checked} />
 <div class="modal">
-	<div class="modal-box">
-		<label for="new-league-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+	<div class="modal-box text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2 w-max">
+		<label for="new-league-modal" class="btn btn-sm btn-circle btn-ghost text-gray-500 absolute right-2 top-2">✕</label>
 		<form
 			use:enhance={({ form, data, action, cancel }) => {
 				loading = true;
@@ -66,25 +66,25 @@
 					} 
 				};
 			}}
-			class="flex flex-col mx-8"
+			class="flex flex-col "
 			method="POST"
 		>
-			<div class="flex items-center space-x-4">
-				<label for="name" class="block font-medium">Name:</label>
+			<div class="flex flex-col items-start space-y-2">
+				<label for="name" class="block font-medium">Name</label>
 				<input
 					type="text"
 					required
 					name="name"
 					id="name"
-					class="form-input rounded-md shadow-sm text-black p-2 font-semibold"
+					class="form-input rounded-md shadow-sm text-black p-2 font-semibold bg-gray-700  rounded-lg border-gray-600 border-2 text-white min-w-64"
 					disabled={loading}
 				/>
 			</div>
 
-			<div class="flex items-center space-x-4 mt-4">
-				<label for="size" class="block font-medium">Size:</label>
+			<div class="flex flex-col items-start space-y-2 mt-4">
+				<label for="size" class="block font-medium">Size</label>
 				<select
-					class="select max-w-xs rounded-md shadow-sm"
+					class="select max-w-xs rounded-md shadow-sm bg-gray-700  rounded-lg border-gray-600 border-2 text-white w-full disabled:bg-gray-900"
 					bind:value={size}
 					id="size"
 					disabled={loading}
@@ -104,7 +104,7 @@
 				</div>
 			{:else}
 				<div class="mt-8">
-					<button type="submit" class="btn btn-primary">Create League</button>
+					<button type="submit" class="btn btn-primary btn-outline ">Create League</button>
 				</div>
 			{/if}
 		</form>

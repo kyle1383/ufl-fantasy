@@ -1,6 +1,6 @@
 <script>
 	// @ts-nocheck
-
+	import Icon from '@iconify/svelte';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 	import { clickOutside } from '$lib/helpers';
@@ -14,7 +14,8 @@
 	export let roster;
 	export let checked;
 	let loading = '';
-
+	$: swapOutPlayer
+	$: console.log(swapOutPlayer)
 	//check for click event outside of modal
 	function handleClickOutside(event) {
 		checked ? (checked = false) : null;
@@ -24,8 +25,12 @@
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="swap-modal" class="modal-toggle" {checked} />
 <div class="modal modal-bottom sm:modal-middle cursor-pointer">
-	<div class="modal-box" use:clickOutside on:click_outside={handleClickOutside}>
-		<h3 class="font-bold text-lg">{position}{depth}</h3>
+	<div
+		class="modal-box text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2"
+		use:clickOutside
+		on:click_outside={handleClickOutside}
+	>
+		<h3 class="font-bold text-lg py-4">Replacing <span class="text-{position} border-2 rounded-lg bg-gray-700 border-gray-600 py-1 text-sm px-2">{position}</span></h3>
 		{#each swapPlayers as player}
 			<form
 				method="post"
@@ -60,15 +65,16 @@
 				}}
 			>
 				<button class="w-full">
-					<div class="flex flex-row">
-						<div class="w-10 rounded-full">
+					<div class="flex flex-row items-center">
+						<Icon icon="ion:swap-vertical-sharp" class="mr-4" />
+						<div class="w-10 rounded-full mr-2">
 							<img src={player.players.img_url} alt={player.players.name} class="w-8 h-8" />
 						</div>
-						<div class="break-words">
+						<div class="flex flex-col items-start">
 							<p>{player.players.name}</p>
-							<sub class="font">
+							<span class="text-xs">
 								{`${player.players.xfl_teams.city} ${player.players.xfl_teams.name}`}
-							</sub>
+							</span>
 						</div>
 					</div>
 				</button>

@@ -5,7 +5,7 @@
 </script>
 
 {#if !player}
-	<div class="bg-slate-900 rounded p-4 m-1">
+	<div class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
 		<p class="text-right">{pick.round}.{pick.pick}</p>
 	</div>
 {:else}

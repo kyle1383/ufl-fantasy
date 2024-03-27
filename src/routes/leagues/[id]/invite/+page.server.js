@@ -8,14 +8,7 @@ export async function load({ fetch, params, setHeaders, locals: { getSession, su
         cookies.set('redirect', '/leagues/' + params.id + '/invite', {path: '/'})
         throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
     }
-    const { data, error } = await supabase
-        .from('leagues')
-        .select('*')
-        .eq('id', params.id)
-
-    return {
-        league: data
-    };
+  
 }
 
 export const actions = {

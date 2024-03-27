@@ -7,7 +7,9 @@
 	import { enhance } from '$app/forms';
 	import Selections from './Selections.svelte';
 	import DraftHeader from './DraftHeader.svelte';
-
+	import PlayerGrid from './PlayerGrid.svelte';
+	import Favorites from './Favorites.svelte';
+	import favorites from './favorites';
 	//Define Reactive/load Variables
 	let autodraftSubmit;
 
@@ -18,12 +20,14 @@
 	let allPlayers = data.players;
 	let picks = draft.picks;
 
+	$: positionFilter = 'ALL';
 	$: picks;
 	$: draft;
-	$: players;
+	$: players = positionFilter === 'ALL' ? data.availablePlayers : data.availablePlayers.filter((player) => player.position === positionFilter);
 	$: currentPick = draft.picks.find(
 		(pick) => pick.round === draft.round && pick.pick === draft.pick
 	);
+	
 	let timerInterval;
 	let autodrafting = false;
 	/**
@@ -46,7 +50,6 @@
 					);
 					updatedPicks[index] = payload.new;
 					picks = updatedPicks;
-
 				}
 			}
 		})
@@ -105,6 +108,8 @@
 		clearInterval(timerInterval);
 		if (error) console.log('error: Draft not paused successdully', error);
 	});
+ 	
+	$: favoritePlayers = data.availablePlayers.filter((player) => JSON.parse($favorites).includes(player.name_id));
 </script>
 
 {#if !currentPick}
@@ -127,6 +132,21 @@
 		<DraftHeader {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
 		<Selections size={draft.leagues[0].size} {picks} players={allPlayers} />
 		<Timer {draft} currentTeamName={currentPick.teams.name} {timeRemaining} />
-		<Players {players} {draft} {currentPick} />
+		<div class="player-section w-full">
+			<div class="flex">
+				<div class="basis-2/3">
+					<PlayerGrid {players} {draft} {currentPick} bind:positionFilter={positionFilter}/>
+				</div>
+				<div class="basis-1/3"><Favorites players={favoritePlayers}/></div>
+			</div>
+		</div>
 	</div>
 {/if}
+
+<style>
+	.player-section {
+		display: block;
+		position: fixed;
+		top: 50%;
+	}
+</style>
