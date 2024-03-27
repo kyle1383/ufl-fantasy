@@ -92,6 +92,7 @@
 		overflow-y: auto; /* Enables vertical scrolling */
 		max-height: 50vh;
 		height: 50vh;
+		overscroll-behavior: none;
 	}
 
 	.table-container::-webkit-scrollbar {
