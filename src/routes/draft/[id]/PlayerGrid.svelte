@@ -34,7 +34,7 @@
 	
 </script>
 
-<div class="w-full table-container text-white">
+<div class="w-full table-container text-white bg-black">
 	<PlayerGridHeader bind:positionFilter={positionFilter}/>
 	<div class="grid gap-y-4 w-full bg-black basis-2/3 pt-4">
 		{#each players as player}
