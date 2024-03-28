@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit'
 
 export async function load({ locals: { supabase, getSession } }) {
     const session = await getSession()
-    if (!session || !session.user) {
+    if (!session || !session?.user) {
         //throw redirect(303, '/sign-in')
         return { user_leagues: [] }
     }

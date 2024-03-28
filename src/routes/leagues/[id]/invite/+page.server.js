@@ -5,7 +5,7 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ fetch, params, setHeaders, locals: { getSession, supabase }, cookies }) {
     const session = await getSession()
     console.log('on page')
-    const user = session.user;
+    const user = session?.user;
     /*if (user) {
         const { data: membersData, error: membersError } = await supabase
             .from('members')
