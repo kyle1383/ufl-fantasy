@@ -3,9 +3,9 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ fetch, params, setHeaders, locals: { supabase, getSession } }) {
     const session = await getSession();
     const user = session.user;
-    if (!user) {
+   /*if (!user) {
         return redirect(303, '/sign-in')
-    }
+    }*/
     const { data, error } = await supabase
         .from('leagues')
         .select('*, teams ( * ), player_leagues ( *, players (*, xfl_teams(*)) )')
