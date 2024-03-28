@@ -21,8 +21,9 @@ export async function load({ fetch, params, setHeaders, locals: { getSession, su
 
     if (!user) {
         console.log('setting cookie')
-        cookies.set('invite', '/leagues/' + params.id + '/invite', { path: '/' })
-        throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
+        const dog = cookies.set('invite', '/leagues/' + params.id + '/invite', { path: '/' })
+        console.log(dog)
+        //throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
     }
 
 }
