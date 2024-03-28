@@ -1,15 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import type { SupabaseClient } from '@supabase/supabase-js';
 	import type { League } from '../types';
 	import Icon from '@iconify/svelte';
+	import { invalidateAll } from '$app/navigation';
 	export let leagues: League[] = [];
-
+	export let supabase: SupabaseClient;
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
 	const nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
+
+	function signOut(){
+		supabase.auth.signOut()
+		invalidateAll();
+	}
 </script>
 
-<div class="flex justify-between items-center w-full px-8 lg:px-24 py-2 bg-gray-700 text-white z-30 relative">
+<div
+	class="flex justify-between items-center w-full px-8 lg:px-24 py-2 bg-gray-700 text-white z-30 relative"
+>
 	<div class="dropdown hidden lg:block">
 		<div tabindex="0" role="button" class="m-1 flex items-center space-x-8 font-bold">
 			{league?.name || 'Leagues Dashboard'}
@@ -24,32 +33,59 @@
 			{/each}
 		</ul>
 	</div>
-	<a href="/" on:click={()=>mobileMenu=false} class="orbitron">UFL FANTASY <span class="text-xs text-acc4">(BETA)</span></a>
-	<p class="flex space-x-2">
-		<Icon icon="clarity:settings-line" width="20" class="hidden lg:block"/>
-		<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block" />
+	<a href="/" on:click={() => (mobileMenu = false)} class="orbitron"
+		>UFL FANTASY <span class="text-xl lg:text-xs text-acc4">(BETA)</span></a
+	>
+	<div class="flex space-x-2">
+		<Icon icon="clarity:settings-line" width="20" class="hidden" />
+		<div class="dropdown dropdown-end">
+			<div tabindex="0" role="button" class="btn btn-ghost">
+				<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block" />
+			</div>
+			<ul
+				
+				class="menu menu-sm dropdown-content mt-3 p-0 shadow  w-52 z-30 text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2"
+			>
+				<li><button on:click={signOut}>Logout</button></li>
+			</ul>
+		</div>
+		
+		
 		<button on:click={() => (mobileMenu = !mobileMenu)} class="lg:hidden my-auto"
 			><Icon icon="clarity:bars-line" class="" width="20" /></button
 		>
-	</p>
+	</div>
 </div>
-<div class="bg  {mobileMenu ? '' : 'hidden'}"></div>
-<div class="flex bg-gray-600 text-white px-8 py-4 absolute w-full z-30 {mobileMenu ? '' : 'hidden'}">
-	
+<div class="bg {mobileMenu ? '' : 'hidden'}" />
+<div
+	class="flex bg-gray-600 text-white px-8 py-4 absolute w-full z-30 {mobileMenu ? '' : 'hidden'}"
+>
 	<ul class="space-y-4 flex flex-col">
 		{#if league}
-			<li><a on:click={()=>mobileMenu=false} href="/leagues/{$page.params.id}">Dashboard</a></li>
-			<li><a on:click={()=>mobileMenu=false} href="/leagues/{$page.params.id}/roster">Roster</a></li>
-			<li><a on:click={()=>mobileMenu=false} href="/leagues/{$page.params.id}/waivers">Waivers</a></li>
-			<li><a on:click={()=>mobileMenu=false} class="" href="/leagues/{$page.params.id}/draft">Draft</a></li>
+			<li>
+				<a on:click={() => (mobileMenu = false)} href="/leagues/{$page.params.id}">Dashboard</a>
+			</li>
+			<li>
+				<a on:click={() => (mobileMenu = false)} href="/leagues/{$page.params.id}/roster">Roster</a>
+			</li>
+			<li>
+				<a on:click={() => (mobileMenu = false)} href="/leagues/{$page.params.id}/waivers"
+					>Waivers</a
+				>
+			</li>
+			<li>
+				<a on:click={() => (mobileMenu = false)} class="" href="/leagues/{$page.params.id}/draft"
+					>Draft</a
+				>
+			</li>
 		{/if}
-		<li><a on:click={()=>mobileMenu=false}>Settings</a></li>
-		<li><button on:click={()=>mobileMenu=false}>Log Out</button></li>
+		<li><a on:click={() => (mobileMenu = false)}>Settings</a></li>
+		<li><button on:click={() => (mobileMenu = false)}>Log Out</button></li>
 	</ul>
 </div>
 
 <style>
-	.bg{
+	.bg {
 		width: 100%;
 		height: 100%;
 		background-color: black;
