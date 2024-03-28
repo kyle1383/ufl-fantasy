@@ -6,7 +6,7 @@ export async function load({ fetch, params, setHeaders, locals: { getSession, su
     const session = await getSession()
     console.log('on page')
     const user = session.user;
-    if (user) {
+    /*if (user) {
         const { data: membersData, error: membersError } = await supabase
             .from('members')
             .select('user_id')
@@ -17,7 +17,8 @@ export async function load({ fetch, params, setHeaders, locals: { getSession, su
         if (membersData.length > 0) {
             throw redirect(303, '/leagues/' + params.id)
         }
-    }
+    }*/
+    console.log('user', user)
 
     if (!user) {
         console.log('setting cookie')
