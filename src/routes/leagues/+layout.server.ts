@@ -2,10 +2,10 @@ import { redirect } from '@sveltejs/kit'
 
 export async function load({ locals: { supabase, getSession } }) {
     const session = await getSession()
-    /*if (!session || !session.user) {
-        throw redirect(303, '/sign-in')
+    if (!session || !session.user) {
+        //throw redirect(303, '/sign-in')
         return { user_leagues: [] }
-    }*/
+    }
     const { data: leagues, error: leaguesError } = await supabase
         .from('members')
         .select('league_id')

@@ -14,7 +14,7 @@
 			? currentRedirects
 			: [...currentRedirects, redirectUrl];
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
-		console.log(currentRedirects)
+		
 
 		
 	});
