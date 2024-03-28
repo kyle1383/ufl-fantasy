@@ -22,7 +22,7 @@
 	});
 </script>
 
-<div class="min-h-screen flex flex-col items-center justify-center bg-black text-white ">
+<div class="flex flex-col items-center justify-center bg-black text-white ">
 	<div class="login">
 		<div class="flex justify-center items-end max-w-xs w-xs relative invisible lg:visible">
 			

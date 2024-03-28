@@ -26,8 +26,8 @@
 	</div>
 	<a href="/" on:click={()=>mobileMenu=false} class="orbitron">UFL FANTASY <span class="text-xs text-acc4">(BETA)</span></a>
 	<p class="flex space-x-2">
-		<Icon icon="clarity:settings-line hidden lg:block" width="20" />
-		<Icon icon="clarity:avatar-line hidden lg:block" width="20" />
+		<Icon icon="clarity:settings-line" width="20" class="hidden lg:block"/>
+		<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block" />
 		<button on:click={() => (mobileMenu = !mobileMenu)} class="lg:hidden my-auto"
 			><Icon icon="clarity:bars-line" class="" width="20" /></button
 		>
