@@ -4,7 +4,7 @@
 	const positions = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 </script>
 
-<div class="grid-header bg-black border-gray-600 border-t-2 border-b-2 lg:border-t-[1px] lg:border-b-[1px] flex items-center">
+<div class="grid-header bg-black border-gray-600 border-t-[1px] border-b-[1px] flex items-center">
 	<p class="hidden lg:block text-xl font-bold py-4 pl-8 pr-8">Available Players</p>
 	<div class="flex gap-x-2 mx-auto my-2 lg:my-0 lg:mx-0">
 		{#each positions as position}

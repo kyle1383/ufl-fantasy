@@ -24,7 +24,7 @@
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+			<ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-black rounded-box w-52">
 				<li>
 					<a href="/profile" class="justify-between">
 						Profile

@@ -58,6 +58,7 @@
 		overflow: scroll;
 		position: fixed;
 		width: 100%;
+		overscroll-behavior: none;
 	}
 	.grid-body::-webkit-scrollbar {
 		display: none;
