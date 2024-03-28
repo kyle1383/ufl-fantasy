@@ -44,7 +44,7 @@ export const actions = {
         const formData = await request.formData();
         const email = formData.get('email');
         const pw = formData.get('password');
-        const redirectUrl = formData.get('redirect')?.toString() || cookies.get('redirect') || '/leagues'
+        const redirectUrl = formData.get('redirect')?.toString() || cookies.get('invite') || '/leagues'
 
         if (!email || !pw) return { status: 400, body: 'email and password are required' }
         const { error } = await supabase.auth.signInWithPassword(

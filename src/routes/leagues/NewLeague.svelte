@@ -59,6 +59,7 @@
 				//add size to the form data as an
 				data.set('size', JSON.stringify(size));
 				return async ({ result, update }) => {
+					loading = false;
 					//close modal if result okay
 					if (result.type === 'success') {
 						await getLeagues();

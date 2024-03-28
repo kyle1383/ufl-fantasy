@@ -3,7 +3,7 @@
 </script>
 
 {#if isLoading}
-	<div class="spinner">
+	<div class="spinner pt-4">
 		<div class="bounce1 bg-primary" />
 		<div class="bounce2 bg-primary" />
 		<div class="bounce3 bg-primary" />

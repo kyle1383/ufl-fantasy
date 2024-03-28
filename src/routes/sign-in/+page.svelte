@@ -60,7 +60,7 @@
 					<input
 						type="text"
 						placeholder="Enter your username"
-						class="input input-primary w-full max-w-xs rounded-xl mb-4 w-full"
+						class="form-input rounded-md shadow-sm text-black p-4 font-semibold bg-gray-700 rounded-lg border-gray-600 border-2 text-white min-w-64 w-full"
 						name="username"
 						required
 					/>
