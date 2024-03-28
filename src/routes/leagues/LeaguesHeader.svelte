@@ -12,6 +12,7 @@
 
 	function signOut(){
 		supabase.auth.signOut()
+		mobileMenu = false;
 		invalidateAll();
 	}
 </script>
@@ -80,7 +81,7 @@
 			</li>
 		{/if}
 		<li><a on:click={() => (mobileMenu = false)}>Settings</a></li>
-		<li><button on:click={() => (mobileMenu = false)}>Log Out</button></li>
+		<li><button on:click={signOut}>Log Out</button></li>
 	</ul>
 </div>
 
