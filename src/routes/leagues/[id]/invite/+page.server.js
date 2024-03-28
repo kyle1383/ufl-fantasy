@@ -4,6 +4,7 @@ import { fail } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 export async function load({ fetch, params, setHeaders, locals: { getSession, supabase }, cookies }) {
     const session = await getSession()
+    console.log('on page')
     const user = session.user;
     if (user) {
         const { data: membersData, error: membersError } = await supabase
@@ -18,7 +19,7 @@ export async function load({ fetch, params, setHeaders, locals: { getSession, su
         }
     }
 
-    if (!session) {
+    if (!user) {
         console.log('setting cookie')
         cookies.set('invite', '/leagues/' + params.id + '/invite', { path: '/' })
         throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
