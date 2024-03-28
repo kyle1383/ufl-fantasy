@@ -1,11 +1,17 @@
 import { redirect } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
 export const load = async ({ locals: { getSession }, cookies }) => {
+    
     const cook = cookies.getAll()
+    
     const session = await getSession()
-    const redirectUrl = cookies.get('redirect') || '/leagues'
-    console.log(redirectUrl)
+    const redirectUrl = cookies.get('invite') || '/leagues'
+ 
     if (session) throw redirect(303, redirectUrl)
+
+    return {
+        redirectUrl,
+    }
 
 }
 

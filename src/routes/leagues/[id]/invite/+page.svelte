@@ -1,25 +1,64 @@
 <script>
-	import { page } from "$app/stores";
-    import { enhance } from "$app/forms";
-    import { goto } from "$app/navigation";
+	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
+	import { goto, invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data;
-	
-	let {league} = data
-	
+	let { league } = data;
+	$: loading = false;
+	onMount(() => {
+		const redirectUrl = `/leagues/${$page.params.id}/invite`;
+		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		const updatedRedirects = currentRedirects.includes(redirectUrl)
+			? currentRedirects
+			: [...currentRedirects, redirectUrl];
+		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
+		console.log(currentRedirects)
+
+		
+	});
+
+	function removeLeagueFromInvites() {
+		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		console.log(currentRedirects)
+		const updatedRedirects = currentRedirects.includes(`/leagues/${$page.params.id}/invite`)
+			? currentRedirects.filter((r) => r !== `/leagues/${$page.params.id}/invite`)
+			: currentRedirects;
+			console.log(updatedRedirects)
+		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
+	}
 </script>
 
 <p class="text-3xl pt-8 pb-4 text-white">Welcome to {league.name}</p>
 
-<form use:enhance={({  }) => {
-    return async ({ result}) => {
-		result.type === 'success' 
-			goto(`/leagues/${league.id}`);
-    };
-  }} method="POST">
-
-	 <input type="text" class="input w-full input-bordered lg:max-w-xs text-white bg-gray-700 rounded-lg border-gray-600 border-2 lg:mr-2 mr-0 m" placeholder="Team name" required name="name" id="name" />
+<form
+	use:enhance={({}) => {
+		loading = true;
+		return async ({ result }) => {
+			loading = false;
+			if (result.type === 'success') {
+				removeLeagueFromInvites();
+				invalidateAll();
+				goto(`/leagues/${league.id}`);
+			} else {
+				alert(result.data);
+			}
+		};
+	}}
+	method="POST"
+>
+	<input
+		type="text"
+		class="input w-full input-bordered lg:max-w-xs text-white bg-gray-700 rounded-lg border-gray-600 border-2 lg:mr-2 mr-0 m"
+		placeholder="Team name"
+		required
+		name="name"
+		id="name"
+	/>
 	<label>
-		<button class="btn btn-primary btn-outline mt-4 lg:mt-0 w-full lg:w-auto" type="submit">Join League</button>
+		<button class="btn btn-primary btn-outline mt-4 lg:mt-0 w-full lg:w-auto" type="submit" disabled={loading}
+			>Join League</button
+		>
 	</label>
 </form>

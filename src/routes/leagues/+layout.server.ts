@@ -10,6 +10,11 @@ export async function load({ locals: { supabase, getSession } }) {
         .from('members')
         .select('league_id')
         .eq('user_id', session.user.id)
+
+    if (leaguesError) {
+        console.log(leaguesError)
+        return {user_leagues: []}
+    }
     
     const leagueIds = leagues.map((member) => member.league_id);
     const { data, error } = await supabase

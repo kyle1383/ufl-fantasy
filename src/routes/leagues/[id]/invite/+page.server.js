@@ -1,18 +1,32 @@
 // @ts-nocheck
-
+import { fail } from '@sveltejs/kit';
 
 import { redirect } from '@sveltejs/kit';
-export async function load({ fetch, params, setHeaders, locals: { getSession, supabase}, cookies}) {
+export async function load({ fetch, params, setHeaders, locals: { getSession, supabase }, cookies }) {
     const session = await getSession()
+    const user = session.user;
+    if (user) {
+        const { data: membersData, error: membersError } = await supabase
+            .from('members')
+            .select('user_id')
+            .eq('user_id', user.id)
+            .eq('league_id', params.id)
+
+        
+        if (membersData.length > 0) {
+            throw redirect(303, '/leagues/' + params.id)
+        }
+    }
+
     if (!session) {
-        cookies.set('redirect', '/leagues/' + params.id + '/invite', {path: '/'})
+        cookies.set('invite', '/leagues/' + params.id + '/invite', { path: '/' })
         throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
     }
-  
+
 }
 
 export const actions = {
-    default: async ({ request, params, locals: {supabase, getSession} }) => {
+    default: async ({ request, params, locals: { supabase, getSession } }) => {
         const formData = await request.formData();
         const name = formData.get('name');
         const session = await getSession()
@@ -23,6 +37,20 @@ export const actions = {
             .from('leagues')
             .select('teams (id, manager)')
             .eq('id', params.id)
+
+        //confirm that user is not in league already 
+        const { data: membersData, error: membersError } = await supabase
+            .from('members')
+            .select('user_id')
+            .eq('user_id', user.id)
+            .eq('league_id', params.id)
+
+        if (membersError){
+            return fail(401, 'error fetching league members')
+        }
+        if (membersData && membersData.length > 0) {
+            return fail(401, 'User already in league')
+        }
 
         const { teams } = data[0]
         const unownedTeam = teams.find((team) => { return team.manager === null })
@@ -36,7 +64,7 @@ export const actions = {
             // Add current user as a member of the league  
             const { error: membersError } = await supabase
                 .from('members')
-                .insert([{ user_id: user.id, league_id: params.id}])
+                .insert([{ user_id: user.id, league_id: params.id }])
 
         }
 

@@ -9,7 +9,7 @@
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
 	const nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
-	$:console.log($page.data.session)
+	
 	$: if (!$page.data.session){
 		goto('/sign-in');
 	}

@@ -1,26 +1,30 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	// @ts-ignore
-	
+
 	$: signUpMode = false;
 	export let data;
-	let { supabase } = data;
+	let { supabase, redirectUrl } = data;
+
 	$: error = '';
 	$: loading = false;
+	console.log(redirectUrl);
+	onMount(() => {
+		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		const updatedRedirects = currentRedirects.includes(redirectUrl) ? currentRedirects : [...currentRedirects, redirectUrl];
+		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
+	});
 	async function google() {
 		loading = true;
-		const { error ,data } = await supabase.auth.signInWithOAuth({
+		const { error, data } = await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-    redirectTo: `${$page.url.origin}/auth/callback`,
-  },
-			
+				redirectTo: `${$page.url.origin}/auth/callback`
+			}
 		});
-		console.log(error, data)
 	}
-
-	
 </script>
 
 <div class="flex flex-col items-center justify-center bg-black text-white min-h-screen">
@@ -30,16 +34,14 @@
 		</div>
 		<div class="text-white bg-gray-700 p-8 rounded-lg border-gray-600 mx-4 border-2 sm:max-w-xs">
 			<form
-			class="text-center"
+				class="text-center"
 				method="POST"
 				action={signUpMode ? '?/signUp' : '?/signIn'}
 				use:enhance={({ formElement, data, action, cancel }) => {
 					loading = true;
 					return async ({ result, update }) => {
-					
-						
 						if (result.type === 'failure') {
-							loading=false;
+							loading = false;
 							if (result.data && result.data.toString() === 'Invalid login credentials') {
 								error = 'Invalid username or password';
 							} else {
