@@ -7,9 +7,11 @@ export const GET = async (event) => {
 	} = event;
 	const code = url.searchParams.get('code') as string;
 	const next = url.searchParams.get('next') ?? '/';
-
+  
+  
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
     if (!error) {
       throw redirect(303, `/${next.slice(1)}`);
     }

@@ -3,17 +3,20 @@
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import type { League } from '../types';
 	import Icon from '@iconify/svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	export let leagues: League[] = [];
 	export let supabase: SupabaseClient;
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
 	const nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
-
-	function signOut(){
+	$:console.log($page.data.session)
+	$: if (!$page.data.session){
+		goto('/sign-in');
+	}
+	async function signOut(){
 		supabase.auth.signOut()
 		mobileMenu = false;
-		invalidateAll();
+		await invalidateAll();
 	}
 </script>
 
@@ -34,8 +37,8 @@
 			{/each}
 		</ul>
 	</div>
-	<a href="/" on:click={() => (mobileMenu = false)} class="orbitron"
-		>UFL FANTASY <span class="text-xl lg:text-xs text-acc4">(BETA)</span></a
+	<a href="/" on:click={() => (mobileMenu = false)} class="text-xl lg:text-md orbitron"
+		>UFL FANTASY <span class=" lg:text-xs text-acc4">(BETA)</span></a
 	>
 	<div class="flex space-x-2">
 		<Icon icon="clarity:settings-line" width="20" class="hidden" />
@@ -45,7 +48,7 @@
 			</div>
 			<ul
 				
-				class="menu menu-sm dropdown-content mt-3 p-0 shadow  w-52 z-30 text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2"
+				class="menu menu-sm dropdown-content mt-3 p-2 shadow  w-52 z-30 text-white bg-gray-700 rounded-lg border-gray-600 border-2"
 			>
 				<li><button on:click={signOut}>Logout</button></li>
 			</ul>
@@ -95,5 +98,8 @@
 		top: 0;
 		left: 0;
 		z-index: 20;
+	}
+	menu{
+		padding: 0 !important;
 	}
 </style>

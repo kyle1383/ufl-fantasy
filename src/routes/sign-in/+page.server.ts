@@ -1,11 +1,10 @@
 import { redirect } from '@sveltejs/kit';
-
+import { fail } from '@sveltejs/kit';
 export const load = async ({ locals: { getSession }, cookies }) => {
     const cook = cookies.getAll()
-    console.log(cook)
     const session = await getSession()
     const redirectUrl = cookies.get('redirect') || '/leagues'
-   
+    console.log(redirectUrl)
     if (session) throw redirect(303, redirectUrl)
 
 }
@@ -49,20 +48,11 @@ export const actions = {
 
             }
         )
-        console.log(error)
-        if (error) return { status: 500, body: error.message }
+       
+        if (error) return fail(400, error.message)
         throw redirect(303, redirectUrl)
         return { status: 200 };
     },
-    signInGoogle: async ({ request, params, locals: { supabase } }) => {
-        console.log('google')
-        supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: '/leagues'
-            }
-        })
-
-    },
+   
 
 }
