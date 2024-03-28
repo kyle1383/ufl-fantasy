@@ -5,11 +5,11 @@ export const load = async ({ locals: { getSession }, cookies }) => {
     const cook = cookies.getAll()
     
     const session = await getSession()
-    const redirectUrl = cookies.get('invite') || '/leagues'
+    const redirectUrl = cookies.get('invite');
  
-    if (session) throw redirect(303, redirectUrl)
+    if (session) throw redirect(303, redirectUrl || '/leagues')
 
-    return {
+    if (redirectUrl) return {
         redirectUrl,
     }
 
