@@ -9,10 +9,10 @@
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
 	const nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
-	
+	/*
 	$: if (!$page.data.session){
 		goto('/sign-in');
-	}
+	}*/
 	async function signOut(){
 		supabase.auth.signOut()
 		mobileMenu = false;

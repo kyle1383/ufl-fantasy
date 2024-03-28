@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 
 export async function load({ fetch, params, setHeaders, locals: { supabase, getSession } }) {
     const session = await getSession();
-    const user = session.user;
+    const user = session?.user;
     if (!user) {
         return {
             league: null,

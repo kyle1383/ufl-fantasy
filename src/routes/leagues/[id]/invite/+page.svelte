@@ -30,7 +30,7 @@
 	}
 </script>
 
-<p class="text-3xl pt-8 pb-4 text-white">Welcome to {league.name}</p>
+<p class="text-3xl pt-8 pb-4 text-white">Welcome to {league?.name}</p>
 
 <form
 	use:enhance={({}) => {
@@ -40,7 +40,7 @@
 			if (result.type === 'success') {
 				removeLeagueFromInvites();
 				invalidateAll();
-				goto(`/leagues/${league.id}`);
+				//goto(`/leagues/${league.id}`);
 			} else {
 				alert(result.data);
 			}
