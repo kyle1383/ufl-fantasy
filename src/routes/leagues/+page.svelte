@@ -66,13 +66,12 @@
 
 	{#if invitedLeagues.length > 0}
 		<p class="text-xl text-white font-bold mx-8 lg:mx-24">Invites</p>
-		<a
-			href="/leagues/{league.id}/invite"
+		<div
 			class="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:grid-cols-4 my-4 mx-8 gap-x-8 lg:mx-24"
 		>
 			{#each invitedLeagues as league}
 				<div>
-					<div class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
+					<a 	href="/leagues/{league.id}/invite" class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
 						<p class="text-2xl text-white font-bold">{league.name}</p>
 						<div class="flex py-2">
 							<div class="badge badge-primary font-semibold badge-outline mr-2">
@@ -80,12 +79,12 @@
 							</div>
 							<div class="badge badge-secondary badge-outline font-semibold">PPR</div>
 						</div>
-					</div>
+					</a>
 					<a class="btn btn-primary w-full mt-4 btn-outline" href="/leagues/{league.id}/invite"
 						>Join Now</a
 					>
 				</div>
 			{/each}
-		</a>
+			</div>
 	{/if}
 {/if}
