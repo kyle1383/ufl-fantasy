@@ -19,7 +19,10 @@
 		//remove invites from local storage if league i in user_leagues
 		invitesIds = invitesIds.filter((id) => {
 			// Log the first user league for debugging purposes
-			
+			if (id === null ){
+				removeLeagueFromInvites(id)
+				return false;
+			}
 			// Use `some` to check if `user_leagues` contains an element with a matching `id`
 			if (!user_leagues.some((l) => l.id.toString() === id)) {
 				return true; // Keep the id in `invitesIds` if it's not found in `user_leagues`
