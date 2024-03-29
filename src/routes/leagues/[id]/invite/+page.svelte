@@ -11,9 +11,12 @@
 		const redirectUrl = `/leagues/${$page.params.id}/invite`;
 		let currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
 		currentRedirects = currentRedirects.filter(r => r !== null);
+		console.log(currentRedirects)
 		const updatedRedirects = currentRedirects.includes(redirectUrl)
 			? currentRedirects
 			: [...currentRedirects, redirectUrl];
+
+		console.log(updatedRedirects)
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
 		
 

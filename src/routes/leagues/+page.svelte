@@ -71,7 +71,7 @@
 		>
 			{#each invitedLeagues as league}
 				<div>
-					<a 	href="/leagues/{league.id}/invite" class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
+					<div class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
 						<p class="text-2xl text-white font-bold">{league.name}</p>
 						<div class="flex py-2">
 							<div class="badge badge-primary font-semibold badge-outline mr-2">
@@ -79,7 +79,7 @@
 							</div>
 							<div class="badge badge-secondary badge-outline font-semibold">PPR</div>
 						</div>
-					</a>
+					</div>
 					<a class="btn btn-primary w-full mt-4 btn-outline" href="/leagues/{league.id}/invite"
 						>Join Now</a
 					>
