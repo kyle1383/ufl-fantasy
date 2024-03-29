@@ -29,7 +29,7 @@
 		const updatedRedirects = currentRedirects.includes(`/leagues/${$page.params.id}/invite`)
 			? currentRedirects.filter((r) => r !== `/leagues/${$page.params.id}/invite`)
 			: currentRedirects;
-			console.log(updatedRedirects
+
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
 	}
 </script>
