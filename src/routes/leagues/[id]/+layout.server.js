@@ -1,10 +1,11 @@
 import { redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 
 export async function load({ fetch, params, setHeaders, locals: { supabase, getSession } }) {
     const session = await getSession();
     const user = session?.user;
     if (!user) {
-        return redirect(303, '/sign-in')
+        throw redirect(303, '/sign-in')
     }
     const { data, error } = await supabase
         .from('leagues')
@@ -13,7 +14,10 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
         .single();
 
     if (error) {
-       return error(500, error.message)
+        console.log('error', error)
+        console.log('why no red')
+        throw redirect(303, '/leagues')
+        return fail(401, {message:"This league no longer exists"})
     }
 
     if (data) {

@@ -14,7 +14,7 @@
 		goto('/sign-in');
 	}*/
 	async function signOut(){
-		supabase.auth.signOut()
+		await supabase.auth.signOut()
 		mobileMenu = false;
 		await invalidateAll();
 	}
