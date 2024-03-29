@@ -4,10 +4,6 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
     const session = await getSession();
     const user = session?.user;
     if (!user) {
-        return {
-            league: null,
-            team: null,
-        };
         return redirect(303, '/sign-in')
     }
     const { data, error } = await supabase

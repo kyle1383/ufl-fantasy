@@ -43,8 +43,8 @@
 	<div class="flex space-x-2">
 		<Icon icon="clarity:settings-line" width="20" class="hidden" />
 		<div class="dropdown dropdown-end">
-			<div tabindex="0" role="button" class="hidden lg:block btn btn-ghost">
-				<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block" />
+			<div tabindex="0" role="button" class="hidden lg:flex btn btn-ghost">
+				<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block my-auto" />
 			</div>
 			<ul
 				

@@ -10,8 +10,8 @@ export async function load({cookies, params, url, locals: { supabase, getSession
 
             throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
         }
-        //throw redirect(303, '/sign-in')
-        return { user_leagues: [] }
+        throw redirect(303, '/sign-in')
+        //return { user_leagues: [] }
     }
     const { data: leagues, error: leaguesError } = await supabase
         .from('members')
