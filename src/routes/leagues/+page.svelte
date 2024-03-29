@@ -47,8 +47,8 @@
 		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
 
 		const updatedRedirects = currentRedirects.includes(`/leagues/${id}/invite`)
-			? currentRedirects.filter((r) => r !== `/leagues/${id}/invite`)
-			: currentRedirects;
+			? currentRedirects.filter((r) => r !== `/leagues/${id}/invite` && r !== null)
+			: currentRedirects.filter((r) => r !== null);
 
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
 	}

@@ -12,8 +12,10 @@
 	$: loading = false;
 	console.log(redirectUrl);
 	onMount(() => {
-		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		let currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		currentRedirects = currentRedirects.filter((r) => r !== null);
 		const updatedRedirects = currentRedirects.includes(redirectUrl) ? currentRedirects : [...currentRedirects, redirectUrl];
+		
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
 	});
 	async function google() {

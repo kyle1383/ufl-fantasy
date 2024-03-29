@@ -9,7 +9,8 @@
 	$: loading = false;
 	onMount(() => {
 		const redirectUrl = `/leagues/${$page.params.id}/invite`;
-		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		let currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		currentRedirects = currentRedirects.filter(r => r !== null);
 		const updatedRedirects = currentRedirects.includes(redirectUrl)
 			? currentRedirects
 			: [...currentRedirects, redirectUrl];
@@ -20,12 +21,12 @@
 	});
 
 	function removeLeagueFromInvites() {
-		const currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
-		console.log(currentRedirects)
+		let currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
+		currentRedirects = currentRedirects.filter((r) => r !== null);
 		const updatedRedirects = currentRedirects.includes(`/leagues/${$page.params.id}/invite`)
 			? currentRedirects.filter((r) => r !== `/leagues/${$page.params.id}/invite`)
 			: currentRedirects;
-			console.log(updatedRedirects)
+			console.log(updatedRedirects
 		window.localStorage.setItem('invites', JSON.stringify(updatedRedirects));
 	}
 </script>
