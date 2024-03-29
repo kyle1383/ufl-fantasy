@@ -68,7 +68,7 @@
 
 	{#if invitedLeagues.length > 0}
 		<p class="text-xl text-white font-bold mx-8 lg:mx-24">Invites</p>
-		<div class="grid grid-cols-1 gap-y-4 lg:grid-cols-4 my-4 mx-8 gap-x-8 lg:mx-24">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:grid-cols-4 my-4 mx-8 gap-x-8 lg:mx-24">
 			{#each invitedLeagues as league}
 				<div>
 					<div class="text-white bg-gray-700 p-4 rounded-lg border-gray-600 border-2">
