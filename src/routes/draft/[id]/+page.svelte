@@ -25,7 +25,6 @@
 	$: draft;
 	
 	$: availablePlayers;
-	console.log(availablePlayers[2].g_kicking)
 	$: availablePlayers.map((player) => {
 		//passing points = 
 		const passingPts = player.g_passing.reduce((acc, pStats) => acc + (pStats.touchdowns * 4 + pStats.yards/25 - pStats.interceptions * 2), 0);
