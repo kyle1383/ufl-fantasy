@@ -10,7 +10,7 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
     }
     const { data, error } = await supabase
         .from('leagues')
-        .select('*, teams ( * ), player_leagues ( *, players (*, ufl_teams(*)) ), drafts(status), matchups(*), seasons(week)')
+        .select('*, teams ( * ), player_leagues ( *, players (*, ufl_teams(*)) ), drafts(status), matchups(*), seasons(week), commissioners(*)')
         //.eq('id', params.id)
         .or(`id.eq.${params.id},name.eq.${params.id}`)
         .single();

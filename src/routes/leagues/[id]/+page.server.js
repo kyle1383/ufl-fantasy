@@ -45,6 +45,18 @@ export const actions = {
         const session = await getSession();
         const formData = await request.formData();
         const leagueID = formData.get('league');
+
+        //confirm user is a comissioner 
+        const {data: commissionerData, error: commissionerError} = await supabase
+            .from('commissioners')
+            .select('id')
+            .eq('league_id', params.id)
+            .eq('user_id', session.user.id)
+
+        console.log('commissionerData', commissionerData, commissionerError)
+        if (commissionerError || commissionerData.length === 0) {
+            return fail(401, {message: 'You are not a comissioner of this league'})
+        }
        
         const { data: league, error } = await supabase.from('leagues').select('*, teams(*)').eq('id', params.id).single();
         if (error) {

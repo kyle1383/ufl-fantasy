@@ -1,12 +1,13 @@
 <script>
-	import { enhance } from "$app/forms";
-
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+	console.log($page.data.session?.user.id);
 	export let league;
 	export let teams;
 	let order;
 	$: order = league.order;
-    $: teams = teams.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
-	
+	$: teams = teams.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+	$: isCommissioner = league.commissioners.some((c) => c.user_id === $page.data.session?.user.id);
 </script>
 
 <div class="text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2">
@@ -21,19 +22,24 @@
 			<td class="bg-white break-words">{team.manager_name}</td>
 		{/each}
 	</table>
-    <form method="POST" action="?/randomizeOrder" use:enhance={({ form, data, action, cancel }) => {
-		return async ({ result, update }) => {
-            console.log(result)
-			if (result.type === 'failure' || result.type=== 'error'){
-                
-                alert(result.data.message || 'error');
-            } else{
-                order = result.data.order;
-            }
-		};
-	}}>
-	<button class="btn btn-primary mt-4">Randomize Order</button>
-    </form>
+	{#if isCommissioner}
+		<form
+			method="POST"
+			action="?/randomizeOrder"
+			use:enhance={({ form, data, action, cancel }) => {
+				return async ({ result, update }) => {
+					console.log(result);
+					if (result.type === 'failure' || result.type === 'error') {
+						alert(result.data.message || 'error');
+					} else {
+						order = result.data.order;
+					}
+				};
+			}}
+		>
+			<button class="btn btn-primary mt-4">Randomize Order</button>
+		</form>
+	{/if}
 </div>
 
 <style>
