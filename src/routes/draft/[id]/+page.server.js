@@ -129,7 +129,8 @@ export const actions = {
 
     },
     start: async ({ request, params, locals: { getSession, supabase } }) => {
-        const session = await getSession();
+        console.log('starting')
+        /*const session = await getSession();
         if (!session.user) {
             return fail(401, "Unauthorized")
         }
@@ -157,7 +158,7 @@ export const actions = {
         }
         return {
             message: 'Draft has started'
-        }
+        }*/
 
 
     },
@@ -330,8 +331,7 @@ async function autodraft(draft, params, supabase) {
         .neq('player_id', null)
 
 
-    
-    console.log(draft.leagues[0].id)
+
    
     const {data: players, error: playersError} = await supabase
         .from('player_leagues')

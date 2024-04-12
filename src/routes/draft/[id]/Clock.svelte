@@ -13,9 +13,9 @@
 		<form
 			method="POST"
 			action="?/start"
-			use:enhance={({ form, data, action, cancel }) => {
+			use:enhance={({ formData }) => {
 				//add roster_limits to the form data
-				data.set('draft', JSON.stringify(draft));
+				//formData.set('draft', JSON.stringify(draft));
 				//add size to the form data as an
 				return async ({ result, update }) => {};
 			}}
@@ -35,7 +35,7 @@
 				data.set('draft', JSON.stringify(draft));
 				//add size to the form data as an
 				return async ({ result, update }) => {
-					console.log(result);
+					
 					if (result.type === 'failure') {
 						alert(result.message);
 					}
@@ -60,7 +60,7 @@
 				data.set('draft', JSON.stringify(draft));
 				//add size to the form data as an
 				return async ({ result, update }) => {
-					console.log(result);
+					
 					if (result.type === 'failure') {
 						alert(result.message);
 					}
