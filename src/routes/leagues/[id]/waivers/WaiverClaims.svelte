@@ -1,14 +1,13 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import type { WaiverClaim } from '../../../types';
+	import type { WaiverClaim } from '$lib/types';
 	export let claims: WaiverClaim[] = [];
 	console.log(claims);
 </script>
 
-{#if claims.length > 0}
-	<div class="lg:border-r-[1px] border-gray-700 h-full py-4 lg:mr-8 text-white">
-		<p class="text-xl font-bold pb-4">Waiver Claims</p>
-
+<div class="lg:border-r-[1px] border-gray-700 h-full py-4 lg:mr-8 text-white">
+	<p class="text-xl font-bold pb-4">Waiver Claims</p>
+	{#if claims.length > 0}
 		<div class="grid gap-y-4 lg:pr-8 w-full">
 			{#each claims as claim}
 				<div class="flex items-center text-xs ml-8 lg:ml-0">
@@ -16,7 +15,7 @@
 					<p>Add</p>
 				</div>
 				<div />
-				<div class="flex items-center text-xs ">
+				<div class="flex items-center text-xs">
 					<Icon icon="clarity:minus-line" width="15" class="my-auto text-error mr-2" />
 					<p>Drop</p>
 				</div>
@@ -31,20 +30,22 @@
 					<div class="flex flex-col pl-2">
 						<p class="text-sm">{claim.player_add.name}</p>
 						<span class="text-xs"
-							><span>{claim.player_add.position}</span> - {claim.player_add.xfl_teams.city}</span
+							><span>{claim.player_add.position}</span> - {claim.player_add.ufl_teams.city}</span
 						>
 					</div>
 				</div>
 				<Icon icon="clarity:two-way-arrows-line" class="my-auto mx-auto" width="20" />
 				{#if claim.player_drop}
 					<div class="flex items-center relative">
-						<div class="w-10 rounded-full">
-							<img src={claim.player_drop.img_url} alt={claim.player_drop.city} class="w-8 h-8" />
+						<div class="flex items-center justify-center">
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+								<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+							</div>
 						</div>
 						<div class="flex flex-col">
 							<p class="text-sm">{claim.player_drop.name}</p>
 							<span class="text-xs"
-								><span>{claim.player_drop.position}</span> - {claim.player_drop.xfl_teams
+								><span>{claim.player_drop.position}</span> - {claim.player_drop.ufl_teams
 									.city}</span
 							>
 						</div>
@@ -57,8 +58,8 @@
 				{/if}
 			{/each}
 		</div>
-	</div>
-{/if}
+	{/if}
+</div>
 
 <style>
 	.grid {

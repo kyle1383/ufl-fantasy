@@ -1,10 +1,8 @@
 import { error } from 'console';
-
+import { fail } from '@sveltejs/kit';
 export async function load({ parent, params, locals: { getSession, supabase } }) {
     const { team } = await parent();
-    const session = await getSession();
-    const user = session.user;
-
+   
   
     const { data, error: waiverError } = await supabase
         .from('waivers')
@@ -28,6 +26,18 @@ export const actions = {
         const add_player_id = formData.get('add_player_id');
         const drop_player = formData.get('drop_player');
 
+        //check draft status 
+        const { data: league, error: leagueError } = await supabase
+            .from('leagues')
+            .select('drafts(*)')
+            .eq('id', params.id)
+            .single()
+
+        if(!league || league.drafts?.status === 'PREDRAFT' || !league.drafts){
+            console.log(league.draft.status)
+            return fail(401, {body: 'Cannot add player before draft begins '})
+        }
+      
         const { data: team, error: teamError } = await supabase
             .from('teams')
             .select('id, player_leagues(player_id, id), leagues(roster_limits)')

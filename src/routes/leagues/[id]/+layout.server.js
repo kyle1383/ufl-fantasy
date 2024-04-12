@@ -5,17 +5,18 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
     const session = await getSession();
     const user = session?.user;
     if (!user) {
+      
         throw redirect(303, '/sign-in')
     }
     const { data, error } = await supabase
         .from('leagues')
-        .select('*, teams ( * ), player_leagues ( *, players (*, xfl_teams(*)) )')
-        .eq('id', params.id)
+        .select('*, teams ( * ), player_leagues ( *, players (*, ufl_teams(*)) ), drafts(status), matchups(*), seasons(week)')
+        //.eq('id', params.id)
+        .or(`id.eq.${params.id},name.eq.${params.id}`)
         .single();
 
     if (error) {
-        console.log('error', error)
-        console.log('why no red')
+        console.log(error)
         throw redirect(303, '/leagues')
         return fail(401, {message:"This league no longer exists"})
     }
@@ -42,7 +43,7 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
         //get teams from league_id and user_id
         const { data: team, error: teamError } = await supabase
             .from('teams')
-            .select('*, player_leagues ( *, players (*, xfl_teams(*))), profiles(*)')
+            .select('*, player_leagues ( *, players (*, ufl_teams(*))), profiles(*)')
             .eq('id', roster_id)
             .single()
 

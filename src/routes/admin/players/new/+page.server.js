@@ -2,12 +2,75 @@
 import { fail } from '@sveltejs/kit'
 import { createClient } from '@supabase/supabase-js'
 import { PUBLIC_SUPABASE_URL } from '$env/static/public'
-import {SUPABASE_SERVICE_ROLE_KEY} from '$env/static/private'
+import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private'
 import { redirect } from '@sveltejs/kit';
 import { load } from 'cheerio';
-import { sortAndDeduplicateDiagnostics } from 'typescript';
+
+import league from '../../../../teams.json'
+import {  updateWeeklyGameStatistics, uploadSchedule } from '$lib/stats.server';
+
+
 
 export const actions = {
+    uflPlayers: async ({ fetch, locals: { supabase }, request }) => {
+        /* const options = { method: 'GET', headers: { accept: 'application/json' } };
+ 
+         const response = await fetch('https://api.sportradar.com/ufl/trial/v7/en/league/hierarchy.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC', options)
+         
+         const jason = await response.json();
+         console.log(jason)*/
+
+        //store data in fil called ufl.json
+        /*const divisions = league.conferences[0].divisions
+        let teams = [...divisions[0].teams, ...divisions[1].teams];
+        teams = teams.map((t) => { return { name: t.name, city: t.venue.city, sportradar_id: t.id } });
+        console.log(teams)*/
+
+        /* const {data: teamsData, error} = await supabase.from('ufl_teams').insert(teams)
+         console.log(teamsData, error)*/
+
+
+        const options = { method: 'GET', headers: { accept: 'application/json' } };
+
+        const { data: teams, error } = await supabase.from('ufl_teams').select('*')
+        //const shortTeams = [teams[0]]
+        teams.forEach(async (team) => {
+            const teamPlayersJson = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/teams/${team.sportradar_id}/full_roster.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
+            
+            const teamPlayers = await teamPlayersJson.json()
+            const players = teamPlayers.players;
+            const offensivePositions = ['QB', 'RB', 'WR', 'TE', 'K']
+            const offensivePlayers = players.filter(p => offensivePositions.includes(p.position))
+            console.log(offensivePlayers.length)
+            //remove duplicate ids 
+            const noDuplicates = []
+            const ids = []
+            offensivePlayers.forEach(p => {
+                if (!ids.includes(p.id)) {
+                    noDuplicates.push(p)
+                    ids.push(p.id)
+                }
+            })
+            console.log(noDuplicates.length)
+
+            const formattedPlayers = noDuplicates.map(p => {
+                return {
+                    id: p.id,
+                    name: p.name,
+                    number: p.jersey,
+                    position: p.position,
+                    college: p.college,
+                    team_id: team.id,
+                    //img_url: p.headshot,
+                }
+            })
+            const { data: playersData, error } = await supabase.from('players_ids').upsert(formattedPlayers, {onConclict: 'id'})
+            if (error) {
+                console.log(error)
+               
+            }
+        })
+    },
     updatePlayers: async ({ locals: { supabase }, request, fetch }) => {
         //redirect if not logged in
         if (!locals.user) {
@@ -53,7 +116,7 @@ export const actions = {
                                 college: $(cells[4 - tIndex]).text().trim(),
                                 team_id: team.id,
                                 img_url: $(cells[0]).find('img').attr('src'),
-                                name_id: $(cells[1]).text().trim().replace(/\s/g, '_').toLowerCase()
+                                id: $(cells[1]).text().trim().replace(/\s/g, '_').toLowerCase()
                             });
                         }
                     });
@@ -64,7 +127,7 @@ export const actions = {
         let duplicates = []
         for (const player of players) {
             //check if player already exists in newPlayers array
-            if (!unqPlayers.find(p => p.name_id === player.name_id)) {
+            if (!unqPlayers.find(p => p.id === player.id)) {
                 unqPlayers.push(player)
             } else {
                 duplicates.push(player)
@@ -114,11 +177,18 @@ export const actions = {
 
             await processWaiversForLeague(league, supabase)
         }
+    },
+    updateSchedule: async ({ locals: { supabase }, request }) => {
+        uploadSchedule();
+
+    },
+    gameStats: async ({ locals: { supabase }, request }) => {
+        updateWeeklyGameStatistics(2);
     }
 }
 
 async function processWaiversForLeague(league, supabase) {
-    
+
     //return if no waivers 
     if (!league.teams.some(t => t.waivers.length > 0)) {
         return
@@ -154,22 +224,22 @@ async function processWaiversForLeague(league, supabase) {
 
     //check if they're dropping someone 
     if (nextWaiver.drop_player_leagues_id) {
-         //update player_leagues for player being dropped 
-         console.log(`team ${nextWaiver.team_id} is dropping player ${nextWaiver.drop_player_leagues_id}`)
-         const { data: dropPlayer, error: dropPlayerError } = await supabase
-             .from('player_leagues')
-             .update([{ team: null, rostered: false, waiver: true }])
-             .eq('id', nextWaiver.drop_player_leagues_id)
- 
-         if (dropPlayerError) {
-             console.log('dp error', dropPlayerError)
-             return
-             //processWaiversForLeague(remainingWaivers)
-             //TODO handle failure case 
-         }
-     }
+        //update player_leagues for player being dropped 
+        console.log(`team ${nextWaiver.team_id} is dropping player ${nextWaiver.drop_player_leagues_id}`)
+        const { data: dropPlayer, error: dropPlayerError } = await supabase
+            .from('player_leagues')
+            .update([{ team: null, rostered: false, waiver: true }])
+            .eq('id', nextWaiver.drop_player_leagues_id)
 
-    
+        if (dropPlayerError) {
+            console.log('dp error', dropPlayerError)
+            return
+            //processWaiversForLeague(remainingWaivers)
+            //TODO handle failure case 
+        }
+    }
+
+
 
     //attempt to add player to team 
     console.log(`team ${nextWaiver.team_id} is adding player ${nextWaiver.add_player_leagues_id}`)
@@ -214,7 +284,7 @@ async function processWaiversForLeague(league, supabase) {
         return t;
     })
 
-   
+
     //update waivers in DB 
     const { data: updateWaivers, error: updateWaiversError } = await supabase
         .from('waivers')

@@ -6,7 +6,7 @@
 
 	const { league, team, waiver_requests } = data;
 	let players = league.player_leagues;
-
+	let draftStatus = league?.drafts?.status;
 	players = players.map((player) => {
 		const waiver_request_exists = waiver_requests.find(
 			(w) => w.add_player_leagues_id === player.id
@@ -38,6 +38,6 @@
 		<WaiverClaims {claims}/>
 	</div>
 	<div class="basis-1 grow lg:basis-2/3">
-		<AvailablePlayers {team} {rosterSize} {unRosteredPlayers} />
+		<AvailablePlayers {team} {rosterSize} {unRosteredPlayers} {draftStatus}/>
 	</div>
 </div>

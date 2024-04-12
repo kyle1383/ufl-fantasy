@@ -43,7 +43,9 @@ export const actions = {
             
             return fail(401, 'Error fetching teams')
         }
-        if(data.teams.length >= data.size){
+        console.log(data)
+        const filledTeams = data.teams.filter(t => t.manager !== null)
+        if(filledTeams >= data.size){
             return fail(401, 'League is full')
         }
         //confirm that user is not in league already 
@@ -62,7 +64,7 @@ export const actions = {
             return fail(401, 'User already in league')
         }
 
-        const { teams } = data[0]
+        const { teams } = data
         const unownedTeam = teams.find((team) => { return team.manager === null })
         if (unownedTeam) {
             // update team 
@@ -71,10 +73,20 @@ export const actions = {
                 .update({ name: name, manager: user.id })
                 .eq('id', unownedTeam.id)
 
+                if (error){
+                    console.log(error)
+                    return fail(401, 'error updating team')
+                }
+
             // Add current user as a member of the league  
             const { error: membersError } = await supabase
                 .from('members')
                 .insert([{ user_id: user.id, league_id: params.id }])
+
+                if (error){
+                    console.log(error)
+                    return fail(401, 'error updating members ')
+                }
 
         }
 

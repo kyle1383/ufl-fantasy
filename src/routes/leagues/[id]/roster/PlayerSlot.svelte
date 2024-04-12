@@ -29,14 +29,16 @@
 	</div>
 	<div class="flex">
 		<div class="my-auto">
-			<div class="w-10 rounded-full -">
-				<img src={player.players.img_url} alt={player.players.name} class="w-8 h-8" />
+			<div class="flex items-center justify-center">
+				<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+					<img src={player.players.img_url} alt={player.players.name} class="w-full h-full object-cover" />
+				</div>
 			</div>
 		</div>
 		<div class="flex flex-col justify-center">
 			<p>{player.players.name}</p>
 			<span class="text-xs">
-				{`${player.players.xfl_teams.city} ${player.players.xfl_teams.name}`}</span
+				{`${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
 			>
 		</div>
 	</div>
@@ -61,7 +63,7 @@
 				};
 			}}
 		>
-			<input type="hidden" name="player_id" value={player.players.name_id} />
+			<input type="hidden" name="player_id" value={player.players.id} />
 			{#if loading}
 				<div
 					class="btn btn-sm my-auto btn-error btn-outline btn-circle loading loading-spinner loading-lg"

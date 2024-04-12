@@ -1,0 +1,1830 @@
+{
+    "season": {
+      "id": "885f1348-9da8-42e9-b0a3-e8620be24242",
+      "year": 2024,
+      "type": "REG",
+      "name": "REG"
+    },
+    "weeks": [
+      {
+        "id": "bbc0c65c-63b7-4353-904c-31004d8c66a3",
+        "sequence": 1,
+        "title": "1",
+        "current": true,
+        "games": [
+          {
+            "id": "229fc955-8be5-40fa-8506-97fdef74f26d",
+            "status": "closed",
+            "scheduled": "2024-03-30T17:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660513",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "119efd60-c046-11ee-8baf-e746db70974a",
+              "name": "Choctaw Stadium",
+              "city": "Arlington",
+              "state": "TX",
+              "country": "USA",
+              "zip": "76011",
+              "address": "1000 Ballpark Way",
+              "capacity": 25000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:52669"
+            },
+            "home": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 1,
+              "sr_id": "sr:competitor:661843"
+            },
+            "away": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 1,
+              "sr_id": "sr:competitor:882409"
+            },
+            "broadcast": {
+              "network": "FOX"
+            },
+            "weather": {
+              "condition": "Overcast",
+              "humidity": 71,
+              "temp": 71,
+              "wind": {
+                "speed": 14,
+                "direction": "S"
+              }
+            },
+            "scoring": {
+              "home_points": 14,
+              "away_points": 27,
+              "periods": [
+                {
+                  "period_type": "quarter",
+                  "id": "01634d8b-d7c3-40a8-abf8-9c644ccc8844",
+                  "number": 1,
+                  "sequence": 1,
+                  "home_points": 3,
+                  "away_points": 0
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "ddacf4f0-7a63-454a-9767-e4ff34bea8e7",
+                  "number": 2,
+                  "sequence": 2,
+                  "home_points": 8,
+                  "away_points": 11
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "6eadd025-83d3-49ae-a264-a385dade9950",
+                  "number": 3,
+                  "sequence": 3,
+                  "home_points": 3,
+                  "away_points": 8
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "bdc2065f-8403-41c2-87f2-5e0089663573",
+                  "number": 4,
+                  "sequence": 4,
+                  "home_points": 0,
+                  "away_points": 8
+                }
+              ]
+            }
+          },
+          {
+            "id": "13bd34f7-8eb2-452a-b7b8-384e9b0266aa",
+            "status": "closed",
+            "scheduled": "2024-03-30T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660515",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "cffc6a20-9d94-11ed-8c02-458a555ebdac",
+              "name": "Ford Field",
+              "city": "Detroit",
+              "state": "MI",
+              "country": "USA",
+              "zip": "48226",
+              "address": "2000 Brush Street",
+              "capacity": 65000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:175445460"
+            },
+            "home": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 1,
+              "sr_id": "sr:competitor:882417"
+            },
+            "away": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 1,
+              "sr_id": "sr:competitor:661855"
+            },
+            "broadcast": {
+              "network": "FOX"
+            },
+            "weather": {
+              "condition": "Mist",
+              "humidity": 85,
+              "temp": 42,
+              "wind": {
+                "speed": 7,
+                "direction": "ENE"
+              }
+            },
+            "scoring": {
+              "home_points": 18,
+              "away_points": 16,
+              "periods": [
+                {
+                  "period_type": "quarter",
+                  "id": "1f8f63eb-a46d-45f0-94e2-913d695140b5",
+                  "number": 1,
+                  "sequence": 1,
+                  "home_points": 0,
+                  "away_points": 0
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "df5f0450-b913-4c26-822c-d79f947b2ba2",
+                  "number": 2,
+                  "sequence": 2,
+                  "home_points": 0,
+                  "away_points": 3
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "8c552f61-3673-44ca-a057-0a859458bb54",
+                  "number": 3,
+                  "sequence": 3,
+                  "home_points": 7,
+                  "away_points": 0
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "d3c95b07-405f-4b22-aa19-49b3a5da3125",
+                  "number": 4,
+                  "sequence": 4,
+                  "home_points": 11,
+                  "away_points": 13
+                }
+              ]
+            }
+          },
+          {
+            "id": "41e826f3-a8e5-4434-a852-4e2defac6b99",
+            "status": "closed",
+            "scheduled": "2024-03-31T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660517",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "8124cb60-c046-11ee-9772-5f005754c5a2",
+              "name": "Alamodome",
+              "city": "San Antonio",
+              "state": "TX",
+              "country": "USA",
+              "zip": "78203",
+              "address": "100 Montana Street",
+              "capacity": 64000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:17734"
+            },
+            "home": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 1,
+              "sr_id": "sr:competitor:978099"
+            },
+            "away": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 1,
+              "sr_id": "sr:competitor:661851"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            },
+            "weather": {
+              "condition": "Overcast",
+              "humidity": 83,
+              "temp": 72,
+              "wind": {
+                "speed": 12,
+                "direction": "S"
+              }
+            },
+            "scoring": {
+              "home_points": 27,
+              "away_points": 12,
+              "periods": [
+                {
+                  "period_type": "quarter",
+                  "id": "d15c44c6-bcf4-482c-ac90-8af694272bf5",
+                  "number": 1,
+                  "sequence": 1,
+                  "home_points": 7,
+                  "away_points": 3
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "4368639a-cf67-4567-af01-709b3dc3af07",
+                  "number": 2,
+                  "sequence": 2,
+                  "home_points": 13,
+                  "away_points": 6
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "f68cd5de-fa3a-41b0-8dbc-b7671489213c",
+                  "number": 3,
+                  "sequence": 3,
+                  "home_points": 0,
+                  "away_points": 3
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "c69743ba-e9c3-487b-b447-10c25cf31651",
+                  "number": 4,
+                  "sequence": 4,
+                  "home_points": 7,
+                  "away_points": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "abf407a6-cf59-483c-b1fc-e95f8ed1ea67",
+            "status": "closed",
+            "scheduled": "2024-03-31T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660519",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "f6f630f0-c045-11ee-9772-5f005754c5a2",
+              "name": "Rice Stadium",
+              "city": "Houston",
+              "state": "TX",
+              "country": "USA",
+              "zip": "77005",
+              "address": "6100 South Main Street",
+              "capacity": 47000,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:35694"
+            },
+            "home": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 1,
+              "sr_id": "sr:competitor:882411"
+            },
+            "away": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 1,
+              "sr_id": "sr:competitor:982997"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            },
+            "weather": {
+              "condition": "Haze",
+              "humidity": 65,
+              "temp": 79,
+              "wind": {
+                "speed": 19,
+                "direction": "S"
+              }
+            },
+            "scoring": {
+              "home_points": 12,
+              "away_points": 18,
+              "periods": [
+                {
+                  "period_type": "quarter",
+                  "id": "e425af9a-c089-4873-bdcd-6c06ab9307e4",
+                  "number": 1,
+                  "sequence": 1,
+                  "home_points": 0,
+                  "away_points": 9
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "8f477de9-bd52-47bc-8817-3eeae87a91be",
+                  "number": 2,
+                  "sequence": 2,
+                  "home_points": 3,
+                  "away_points": 6
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "25742b4f-d47b-497c-a322-ae63ce53bee1",
+                  "number": 3,
+                  "sequence": 3,
+                  "home_points": 0,
+                  "away_points": 0
+                },
+                {
+                  "period_type": "quarter",
+                  "id": "2aa0d984-8422-4121-9dae-32e4434c2c9d",
+                  "number": 4,
+                  "sequence": 4,
+                  "home_points": 9,
+                  "away_points": 3
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "d62f08f3-8356-4ddc-8eaf-2846659c1a8d",
+        "sequence": 2,
+        "title": "2",
+        "games": [
+          {
+            "id": "a96e93df-b0c7-4f3b-bf53-c49a615976f3",
+            "status": "scheduled",
+            "scheduled": "2024-04-06T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660521",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "cbdfea20-65c7-11ed-ba73-2996f7aad028",
+              "name": "Simmons Bank Liberty Stadium",
+              "city": "Memphis",
+              "state": "TN",
+              "country": "USA",
+              "zip": "38104",
+              "address": "335 South Hollywood Street",
+              "capacity": 58325,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:21266"
+            },
+            "home": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 2,
+              "sr_id": "sr:competitor:982997"
+            },
+            "away": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 2,
+              "sr_id": "sr:competitor:978099"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "9d376f6d-919e-4292-a21f-001cf302ed17",
+            "status": "scheduled",
+            "scheduled": "2024-04-07T00:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660523",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "582c0e30-c046-11ee-8baf-e746db70974a",
+              "name": "The Dome at America's Center",
+              "city": "St. Louis",
+              "state": "MO",
+              "country": "USA",
+              "zip": "63101",
+              "address": "701 Convention Plaza",
+              "capacity": 67277,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:8203"
+            },
+            "home": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 2,
+              "sr_id": "sr:competitor:661855"
+            },
+            "away": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 2,
+              "sr_id": "sr:competitor:661843"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "d376b2a2-dea6-46ae-a052-ea6b435fda0f",
+            "status": "scheduled",
+            "scheduled": "2024-04-07T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660525",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cffc6a20-9d94-11ed-8c02-458a555ebdac",
+              "name": "Ford Field",
+              "city": "Detroit",
+              "state": "MI",
+              "country": "USA",
+              "zip": "48226",
+              "address": "2000 Brush Street",
+              "capacity": 65000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:175445460"
+            },
+            "home": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 2,
+              "sr_id": "sr:competitor:882417"
+            },
+            "away": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 2,
+              "sr_id": "sr:competitor:882409"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "44113a3b-6520-4607-a6a5-9f94278721e1",
+            "status": "scheduled",
+            "scheduled": "2024-04-07T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660527",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "59e88b40-c046-11ee-9772-5f005754c5a2",
+              "name": "Audi Field",
+              "city": "Washington",
+              "state": "DC",
+              "country": "USA",
+              "zip": "20024",
+              "address": "100 Potomac Avenue SQ",
+              "capacity": 20000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:27207"
+            },
+            "home": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 2,
+              "sr_id": "sr:competitor:661851"
+            },
+            "away": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 2,
+              "sr_id": "sr:competitor:882411"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      },
+      {
+        "id": "38cff8cc-4ad8-45cf-a5f1-dc98ce485caf",
+        "sequence": 3,
+        "title": "3",
+        "games": [
+          {
+            "id": "0487fd24-ccaa-411a-9a0f-9d811e59abb0",
+            "status": "scheduled",
+            "scheduled": "2024-04-13T17:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660529",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "119efd60-c046-11ee-8baf-e746db70974a",
+              "name": "Choctaw Stadium",
+              "city": "Arlington",
+              "state": "TX",
+              "country": "USA",
+              "zip": "76011",
+              "address": "1000 Ballpark Way",
+              "capacity": 25000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:52669"
+            },
+            "home": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 3,
+              "sr_id": "sr:competitor:661843"
+            },
+            "away": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 3,
+              "sr_id": "sr:competitor:661851"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "b6415261-7131-46d8-8400-eb82d724e9be",
+            "status": "scheduled",
+            "scheduled": "2024-04-13T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660531",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "b1f3fd20-90f4-11ec-bf38-efe8ff3d0b79",
+              "name": "Protective Stadium",
+              "city": "Birmingham",
+              "state": "AL",
+              "country": "USA",
+              "zip": "35203",
+              "address": "1020 24th St N",
+              "capacity": 47100,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:58724"
+            },
+            "home": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 3,
+              "sr_id": "sr:competitor:882409"
+            },
+            "away": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 3,
+              "sr_id": "sr:competitor:982997"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "779a4bd3-92ac-4663-916b-9f7bf8f276c7",
+            "status": "scheduled",
+            "scheduled": "2024-04-14T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660533",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cffc6a20-9d94-11ed-8c02-458a555ebdac",
+              "name": "Ford Field",
+              "city": "Detroit",
+              "state": "MI",
+              "country": "USA",
+              "zip": "48226",
+              "address": "2000 Brush Street",
+              "capacity": 65000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:175445460"
+            },
+            "home": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 3,
+              "sr_id": "sr:competitor:882417"
+            },
+            "away": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 3,
+              "sr_id": "sr:competitor:882411"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "206f3713-e5c9-4281-89a5-bf04fd3bfc21",
+            "status": "scheduled",
+            "scheduled": "2024-04-14T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660535",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "8124cb60-c046-11ee-9772-5f005754c5a2",
+              "name": "Alamodome",
+              "city": "San Antonio",
+              "state": "TX",
+              "country": "USA",
+              "zip": "78203",
+              "address": "100 Montana Street",
+              "capacity": 64000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:17734"
+            },
+            "home": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 3,
+              "sr_id": "sr:competitor:978099"
+            },
+            "away": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 3,
+              "sr_id": "sr:competitor:661855"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          }
+        ]
+      },
+      {
+        "id": "5d6fd049-da7a-4e7a-ad73-eaa9816274b6",
+        "sequence": 4,
+        "title": "4",
+        "games": [
+          {
+            "id": "912c0c25-e3c1-4475-b9b1-2d5d24eee06a",
+            "status": "scheduled",
+            "scheduled": "2024-04-20T16:30:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660537",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "582c0e30-c046-11ee-8baf-e746db70974a",
+              "name": "The Dome at America's Center",
+              "city": "St. Louis",
+              "state": "MO",
+              "country": "USA",
+              "zip": "63101",
+              "address": "701 Convention Plaza",
+              "capacity": 67277,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:8203"
+            },
+            "home": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 4,
+              "sr_id": "sr:competitor:661855"
+            },
+            "away": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 4,
+              "sr_id": "sr:competitor:982997"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "50718efa-9d1a-4494-9eb7-7a19936a3c22",
+            "status": "scheduled",
+            "scheduled": "2024-04-20T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660539",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "b1f3fd20-90f4-11ec-bf38-efe8ff3d0b79",
+              "name": "Protective Stadium",
+              "city": "Birmingham",
+              "state": "AL",
+              "country": "USA",
+              "zip": "35203",
+              "address": "1020 24th St N",
+              "capacity": 47100,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:58724"
+            },
+            "home": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 4,
+              "sr_id": "sr:competitor:882409"
+            },
+            "away": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 4,
+              "sr_id": "sr:competitor:661851"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "65ecbeb2-a4ec-463f-a7b8-113a7cc4c3a1",
+            "status": "scheduled",
+            "scheduled": "2024-04-20T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660541",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "8124cb60-c046-11ee-9772-5f005754c5a2",
+              "name": "Alamodome",
+              "city": "San Antonio",
+              "state": "TX",
+              "country": "USA",
+              "zip": "78203",
+              "address": "100 Montana Street",
+              "capacity": 64000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:17734"
+            },
+            "home": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 4,
+              "sr_id": "sr:competitor:978099"
+            },
+            "away": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 4,
+              "sr_id": "sr:competitor:882417"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "21d9c9aa-cfee-45a4-84cb-beb7cf5ca1b1",
+            "status": "scheduled",
+            "scheduled": "2024-04-21T18:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660543",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "f6f630f0-c045-11ee-9772-5f005754c5a2",
+              "name": "Rice Stadium",
+              "city": "Houston",
+              "state": "TX",
+              "country": "USA",
+              "zip": "77005",
+              "address": "6100 South Main Street",
+              "capacity": 47000,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:35694"
+            },
+            "home": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 4,
+              "sr_id": "sr:competitor:882411"
+            },
+            "away": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 4,
+              "sr_id": "sr:competitor:661843"
+            },
+            "broadcast": {
+              "network": "FS1"
+            }
+          }
+        ]
+      },
+      {
+        "id": "db6e2bbe-1873-4ebb-a0ca-ba131b9059dd",
+        "sequence": 5,
+        "title": "5",
+        "games": [
+          {
+            "id": "0b245854-1735-414f-b4ab-89a2aa2673b1",
+            "status": "scheduled",
+            "scheduled": "2024-04-27T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660545",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "119efd60-c046-11ee-8baf-e746db70974a",
+              "name": "Choctaw Stadium",
+              "city": "Arlington",
+              "state": "TX",
+              "country": "USA",
+              "zip": "76011",
+              "address": "1000 Ballpark Way",
+              "capacity": 25000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:52669"
+            },
+            "home": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 5,
+              "sr_id": "sr:competitor:661843"
+            },
+            "away": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 5,
+              "sr_id": "sr:competitor:978099"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "7f6816ab-cfb3-41ef-bc5b-43596557a591",
+            "status": "scheduled",
+            "scheduled": "2024-04-27T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660547",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "f6f630f0-c045-11ee-9772-5f005754c5a2",
+              "name": "Rice Stadium",
+              "city": "Houston",
+              "state": "TX",
+              "country": "USA",
+              "zip": "77005",
+              "address": "6100 South Main Street",
+              "capacity": 47000,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:35694"
+            },
+            "home": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 5,
+              "sr_id": "sr:competitor:882411"
+            },
+            "away": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 5,
+              "sr_id": "sr:competitor:882409"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "56cbc218-f019-4018-9a32-23292a29fba5",
+            "status": "scheduled",
+            "scheduled": "2024-04-28T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660549",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "59e88b40-c046-11ee-9772-5f005754c5a2",
+              "name": "Audi Field",
+              "city": "Washington",
+              "state": "DC",
+              "country": "USA",
+              "zip": "20024",
+              "address": "100 Potomac Avenue SQ",
+              "capacity": 20000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:27207"
+            },
+            "home": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 5,
+              "sr_id": "sr:competitor:661851"
+            },
+            "away": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 5,
+              "sr_id": "sr:competitor:661855"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "05e8671d-cf4f-43e1-a967-a057d9e83448",
+            "status": "scheduled",
+            "scheduled": "2024-04-28T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660551",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cbdfea20-65c7-11ed-ba73-2996f7aad028",
+              "name": "Simmons Bank Liberty Stadium",
+              "city": "Memphis",
+              "state": "TN",
+              "country": "USA",
+              "zip": "38104",
+              "address": "335 South Hollywood Street",
+              "capacity": 58325,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:21266"
+            },
+            "home": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 5,
+              "sr_id": "sr:competitor:982997"
+            },
+            "away": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 5,
+              "sr_id": "sr:competitor:882417"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cc72489d-b40a-4924-9f4d-d120c8835818",
+        "sequence": 6,
+        "title": "6",
+        "games": [
+          {
+            "id": "d9216d88-97fc-40a9-b60b-640c80267505",
+            "status": "scheduled",
+            "scheduled": "2024-05-04T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660553",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cbdfea20-65c7-11ed-ba73-2996f7aad028",
+              "name": "Simmons Bank Liberty Stadium",
+              "city": "Memphis",
+              "state": "TN",
+              "country": "USA",
+              "zip": "38104",
+              "address": "335 South Hollywood Street",
+              "capacity": 58325,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:21266"
+            },
+            "home": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 6,
+              "sr_id": "sr:competitor:982997"
+            },
+            "away": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 6,
+              "sr_id": "sr:competitor:882409"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "97d9534e-c202-4b3c-b4dd-6552bde26af1",
+            "status": "scheduled",
+            "scheduled": "2024-05-04T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660555",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "582c0e30-c046-11ee-8baf-e746db70974a",
+              "name": "The Dome at America's Center",
+              "city": "St. Louis",
+              "state": "MO",
+              "country": "USA",
+              "zip": "63101",
+              "address": "701 Convention Plaza",
+              "capacity": 67277,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:8203"
+            },
+            "home": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 6,
+              "sr_id": "sr:competitor:661855"
+            },
+            "away": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 6,
+              "sr_id": "sr:competitor:882411"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "e385a82e-e07b-49ce-8f4f-adc67ab41eaa",
+            "status": "scheduled",
+            "scheduled": "2024-05-05T17:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660557",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "cffc6a20-9d94-11ed-8c02-458a555ebdac",
+              "name": "Ford Field",
+              "city": "Detroit",
+              "state": "MI",
+              "country": "USA",
+              "zip": "48226",
+              "address": "2000 Brush Street",
+              "capacity": 65000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:175445460"
+            },
+            "home": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 6,
+              "sr_id": "sr:competitor:882417"
+            },
+            "away": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 6,
+              "sr_id": "sr:competitor:661843"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "d87a72a9-76fc-463e-bc42-20a960d1e541",
+            "status": "scheduled",
+            "scheduled": "2024-05-05T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660559",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "59e88b40-c046-11ee-9772-5f005754c5a2",
+              "name": "Audi Field",
+              "city": "Washington",
+              "state": "DC",
+              "country": "USA",
+              "zip": "20024",
+              "address": "100 Potomac Avenue SQ",
+              "capacity": 20000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:27207"
+            },
+            "home": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 6,
+              "sr_id": "sr:competitor:661851"
+            },
+            "away": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 6,
+              "sr_id": "sr:competitor:978099"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      },
+      {
+        "id": "65796902-b80f-4366-bb39-23418239d777",
+        "sequence": 7,
+        "title": "7",
+        "games": [
+          {
+            "id": "b72ca927-428f-4f1e-87af-bad4ab43cdd8",
+            "status": "scheduled",
+            "scheduled": "2024-05-11T17:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660561",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "119efd60-c046-11ee-8baf-e746db70974a",
+              "name": "Choctaw Stadium",
+              "city": "Arlington",
+              "state": "TX",
+              "country": "USA",
+              "zip": "76011",
+              "address": "1000 Ballpark Way",
+              "capacity": 25000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:52669"
+            },
+            "home": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 7,
+              "sr_id": "sr:competitor:661843"
+            },
+            "away": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 7,
+              "sr_id": "sr:competitor:982997"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "b546b569-32e8-4cab-bbb1-33e9d624b70d",
+            "status": "scheduled",
+            "scheduled": "2024-05-11T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660563",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "b1f3fd20-90f4-11ec-bf38-efe8ff3d0b79",
+              "name": "Protective Stadium",
+              "city": "Birmingham",
+              "state": "AL",
+              "country": "USA",
+              "zip": "35203",
+              "address": "1020 24th St N",
+              "capacity": 47100,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:58724"
+            },
+            "home": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 7,
+              "sr_id": "sr:competitor:882409"
+            },
+            "away": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 7,
+              "sr_id": "sr:competitor:661855"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "e7637f5c-1d16-4c86-a45b-f9ed28ad65fb",
+            "status": "scheduled",
+            "scheduled": "2024-05-12T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660565",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "59e88b40-c046-11ee-9772-5f005754c5a2",
+              "name": "Audi Field",
+              "city": "Washington",
+              "state": "DC",
+              "country": "USA",
+              "zip": "20024",
+              "address": "100 Potomac Avenue SQ",
+              "capacity": 20000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:27207"
+            },
+            "home": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 7,
+              "sr_id": "sr:competitor:661851"
+            },
+            "away": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 7,
+              "sr_id": "sr:competitor:882417"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "b125454c-53a6-40fb-9acd-b6b8fc420ca9",
+            "status": "scheduled",
+            "scheduled": "2024-05-12T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660567",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "f6f630f0-c045-11ee-9772-5f005754c5a2",
+              "name": "Rice Stadium",
+              "city": "Houston",
+              "state": "TX",
+              "country": "USA",
+              "zip": "77005",
+              "address": "6100 South Main Street",
+              "capacity": 47000,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:35694"
+            },
+            "home": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 7,
+              "sr_id": "sr:competitor:882411"
+            },
+            "away": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 7,
+              "sr_id": "sr:competitor:978099"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          }
+        ]
+      },
+      {
+        "id": "a2d047e7-da6f-43a9-9901-8b15816ab5ba",
+        "sequence": 8,
+        "title": "8",
+        "games": [
+          {
+            "id": "665611d9-6d88-4b89-9bed-8d2fa19d717b",
+            "status": "scheduled",
+            "scheduled": "2024-05-18T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660569",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cffc6a20-9d94-11ed-8c02-458a555ebdac",
+              "name": "Ford Field",
+              "city": "Detroit",
+              "state": "MI",
+              "country": "USA",
+              "zip": "48226",
+              "address": "2000 Brush Street",
+              "capacity": 65000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:175445460"
+            },
+            "home": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 8,
+              "sr_id": "sr:competitor:882417"
+            },
+            "away": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 8,
+              "sr_id": "sr:competitor:982997"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "73830dc0-6c87-4c5e-86a4-508f5cb5e4c0",
+            "status": "scheduled",
+            "scheduled": "2024-05-19T00:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660571",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "b1f3fd20-90f4-11ec-bf38-efe8ff3d0b79",
+              "name": "Protective Stadium",
+              "city": "Birmingham",
+              "state": "AL",
+              "country": "USA",
+              "zip": "35203",
+              "address": "1020 24th St N",
+              "capacity": 47100,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:58724"
+            },
+            "home": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 8,
+              "sr_id": "sr:competitor:882409"
+            },
+            "away": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 8,
+              "sr_id": "sr:competitor:882411"
+            },
+            "broadcast": {
+              "network": "ESPN2"
+            }
+          },
+          {
+            "id": "f6847ae4-6827-4e5e-946c-f62cc99f9016",
+            "status": "scheduled",
+            "scheduled": "2024-05-19T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660573",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "582c0e30-c046-11ee-8baf-e746db70974a",
+              "name": "The Dome at America's Center",
+              "city": "St. Louis",
+              "state": "MO",
+              "country": "USA",
+              "zip": "63101",
+              "address": "701 Convention Plaza",
+              "capacity": 67277,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:8203"
+            },
+            "home": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 8,
+              "sr_id": "sr:competitor:661855"
+            },
+            "away": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 8,
+              "sr_id": "sr:competitor:661851"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "0780f125-ac29-45fa-981f-7194105731c8",
+            "status": "scheduled",
+            "scheduled": "2024-05-19T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660575",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "8124cb60-c046-11ee-9772-5f005754c5a2",
+              "name": "Alamodome",
+              "city": "San Antonio",
+              "state": "TX",
+              "country": "USA",
+              "zip": "78203",
+              "address": "100 Montana Street",
+              "capacity": 64000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:17734"
+            },
+            "home": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 8,
+              "sr_id": "sr:competitor:978099"
+            },
+            "away": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 8,
+              "sr_id": "sr:competitor:661843"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      },
+      {
+        "id": "3647cb6f-7685-4a0e-93e7-20e02afebbff",
+        "sequence": 9,
+        "title": "9",
+        "games": [
+          {
+            "id": "80a51b3e-eb4a-4221-a293-ee074f5899ac",
+            "status": "scheduled",
+            "scheduled": "2024-05-25T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660577",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "119efd60-c046-11ee-8baf-e746db70974a",
+              "name": "Choctaw Stadium",
+              "city": "Arlington",
+              "state": "TX",
+              "country": "USA",
+              "zip": "76011",
+              "address": "1000 Ballpark Way",
+              "capacity": 25000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:52669"
+            },
+            "home": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 9,
+              "sr_id": "sr:competitor:661843"
+            },
+            "away": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 9,
+              "sr_id": "sr:competitor:661855"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "64f8b1e4-b7b6-46df-9b75-04343fc77e1f",
+            "status": "scheduled",
+            "scheduled": "2024-05-25T19:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660579",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "8124cb60-c046-11ee-9772-5f005754c5a2",
+              "name": "Alamodome",
+              "city": "San Antonio",
+              "state": "TX",
+              "country": "USA",
+              "zip": "78203",
+              "address": "100 Montana Street",
+              "capacity": 64000,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:17734"
+            },
+            "home": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 9,
+              "sr_id": "sr:competitor:978099"
+            },
+            "away": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 9,
+              "sr_id": "sr:competitor:882409"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "d4ea256b-f7b3-4b94-b1cf-e5d9881153e6",
+            "status": "scheduled",
+            "scheduled": "2024-05-26T18:30:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660583",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "f6f630f0-c045-11ee-9772-5f005754c5a2",
+              "name": "Rice Stadium",
+              "city": "Houston",
+              "state": "TX",
+              "country": "USA",
+              "zip": "77005",
+              "address": "6100 South Main Street",
+              "capacity": 47000,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:35694"
+            },
+            "home": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 9,
+              "sr_id": "sr:competitor:882411"
+            },
+            "away": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 9,
+              "sr_id": "sr:competitor:882417"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "78d135cf-7d17-4a37-8277-1e0fd6121545",
+            "status": "scheduled",
+            "scheduled": "2024-05-26T18:30:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660581",
+            "game_type": "regular",
+            "conference_game": false,
+            "venue": {
+              "id": "cbdfea20-65c7-11ed-ba73-2996f7aad028",
+              "name": "Simmons Bank Liberty Stadium",
+              "city": "Memphis",
+              "state": "TN",
+              "country": "USA",
+              "zip": "38104",
+              "address": "335 South Hollywood Street",
+              "capacity": 58325,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:21266"
+            },
+            "home": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 9,
+              "sr_id": "sr:competitor:982997"
+            },
+            "away": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 9,
+              "sr_id": "sr:competitor:661851"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      },
+      {
+        "id": "d411f22e-560c-4085-99aa-8de3a3be58c7",
+        "sequence": 10,
+        "title": "10",
+        "games": [
+          {
+            "id": "b0d7b8a2-3788-4fbe-b368-8c531d5d7281",
+            "status": "scheduled",
+            "scheduled": "2024-06-01T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660585",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "b1f3fd20-90f4-11ec-bf38-efe8ff3d0b79",
+              "name": "Protective Stadium",
+              "city": "Birmingham",
+              "state": "AL",
+              "country": "USA",
+              "zip": "35203",
+              "address": "1020 24th St N",
+              "capacity": 47100,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:58724"
+            },
+            "home": {
+              "id": "f4305130-9675-11ec-8570-4594a07130f0",
+              "name": "Birmingham Stallions",
+              "alias": "BHAM",
+              "game_number": 10,
+              "sr_id": "sr:competitor:882409"
+            },
+            "away": {
+              "id": "8bcdfcd0-9677-11ec-9ad0-d3ebe46bbb12",
+              "name": "Michigan Panthers",
+              "alias": "MICH",
+              "game_number": 10,
+              "sr_id": "sr:competitor:882417"
+            },
+            "broadcast": {
+              "network": "ESPN"
+            }
+          },
+          {
+            "id": "bbfbac8e-b7c3-458e-846a-ffaeeaad583d",
+            "status": "scheduled",
+            "scheduled": "2024-06-01T20:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660587",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "582c0e30-c046-11ee-8baf-e746db70974a",
+              "name": "The Dome at America's Center",
+              "city": "St. Louis",
+              "state": "MO",
+              "country": "USA",
+              "zip": "63101",
+              "address": "701 Convention Plaza",
+              "capacity": 67277,
+              "surface": "artificial",
+              "roof_type": "dome",
+              "sr_id": "sr:venue:8203"
+            },
+            "home": {
+              "id": "d4799bc0-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "St. Louis Battlehawks",
+              "alias": "STL",
+              "game_number": 10,
+              "sr_id": "sr:competitor:661855"
+            },
+            "away": {
+              "id": "b7951020-c045-11ee-ad92-cf16c0a8aa31",
+              "name": "San Antonio Brahmas",
+              "alias": "SA",
+              "game_number": 10,
+              "sr_id": "sr:competitor:978099"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          },
+          {
+            "id": "f1c12b0f-3b36-4583-8085-6cd0e461d63b",
+            "status": "scheduled",
+            "scheduled": "2024-06-02T16:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660589",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "59e88b40-c046-11ee-9772-5f005754c5a2",
+              "name": "Audi Field",
+              "city": "Washington",
+              "state": "DC",
+              "country": "USA",
+              "zip": "20024",
+              "address": "100 Potomac Avenue SQ",
+              "capacity": 20000,
+              "surface": "turf",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:27207"
+            },
+            "home": {
+              "id": "a3407150-c045-11ee-b66f-5d382d09dbaf",
+              "name": "DC Defenders",
+              "alias": "DC",
+              "game_number": 10,
+              "sr_id": "sr:competitor:661851"
+            },
+            "away": {
+              "id": "38355600-c045-11ee-8037-85feac748e1f",
+              "name": "Arlington Renegades",
+              "alias": "ARL",
+              "game_number": 10,
+              "sr_id": "sr:competitor:661843"
+            },
+            "broadcast": {
+              "network": "ABC"
+            }
+          },
+          {
+            "id": "681c94e9-a5e2-45ae-b32b-1c8f4de0fa0f",
+            "status": "scheduled",
+            "scheduled": "2024-06-02T23:00:00+00:00",
+            "entry_mode": "LDE",
+            "sr_id": "sr:match:47660591",
+            "game_type": "regular",
+            "conference_game": true,
+            "venue": {
+              "id": "cbdfea20-65c7-11ed-ba73-2996f7aad028",
+              "name": "Simmons Bank Liberty Stadium",
+              "city": "Memphis",
+              "state": "TN",
+              "country": "USA",
+              "zip": "38104",
+              "address": "335 South Hollywood Street",
+              "capacity": 58325,
+              "surface": "artificial",
+              "roof_type": "outdoor",
+              "sr_id": "sr:venue:21266"
+            },
+            "home": {
+              "id": "b88f3e30-66c1-11ed-bbea-376dc2cc7dc0",
+              "name": "Memphis Showboats",
+              "alias": "MEM",
+              "game_number": 10,
+              "sr_id": "sr:competitor:982997"
+            },
+            "away": {
+              "id": "42b04b80-9676-11ec-9ad0-d3ebe46bbb12",
+              "name": "Houston Roughnecks",
+              "alias": "HOU",
+              "game_number": 10,
+              "sr_id": "sr:competitor:882411"
+            },
+            "broadcast": {
+              "network": "FOX"
+            }
+          }
+        ]
+      }
+    ],
+    "_comment": "Generation started @ 2024-04-02 02:40:34 UTC ended @ 2024-04-02 02:40:34 UTC"
+  }

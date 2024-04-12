@@ -26,14 +26,16 @@
 				
 					<Icon icon="clarity:plus-line" width="15" class="my-auto text-acc3 mr-2" />
 					
-				<div class="w-10 rounded-full">
-					<img src={player.img_url} alt={player.name} class="w-8 h-8" />
-				</div>
+					<div class="flex items-center justify-center">
+						<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+							<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+						</div>
+					</div>
 				<div class="flex flex-col">
 					
 					<p>{player.name}</p>
 					<sub class=""
-						><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
+						><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</sub
 					>
 				</div>
 			</div>
@@ -44,13 +46,14 @@
 			action="?/add"
 			use:enhance={({ formData, action, cancel, submitter }) => {
 				checked = true;
-				formData.append('add_player_id', player.name_id);
+				formData.append('add_player_id', player.id);
 				return async ({ result, update }) => {
 					if (result.data.status === 200) {
 						checked = false;
 
 						showToast(result.data.body);
 					} else {
+						console.log(result)
 						alert(result.data.body);
 					}
 				};
@@ -77,12 +80,12 @@
 						<input
 							type="radio"
 							name="drop_player"
-							id="drop-{player.name_id}"
-							value={player.name_id}
+							id="drop-{player.id}"
+							value={player.id}
 							class="radio radio-primary mr-2"
 							checked={index === 0 && !underRosterLimit}
 						/>
-						<label for="drop-{player.name_id}"
+						<label for="drop-{player.id}"
 							>{player.name} - <small>{player.position}</small></label
 						>
 					</div>

@@ -32,14 +32,16 @@
 			{#each players as player}
 				<tr>
 					<td class=" whitespace-nowrap w-fit">
-						<div class="w-10 rounded-full">
-							<img src={player.img_url} alt={player.name} class="w-8 h-8" />
+						<div class="flex items-center justify-center">
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+								<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+							</div>
 						</div>
 					</td>
 					<td class="break-words"
 						><p>{player.name}</p>
 						<sub class="font text-gray-100"
-							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
+							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</sub
 						></td
 					>
 
@@ -50,7 +52,7 @@
 							use:enhance={({ form, data, action, cancel }) => {
 								submitted = true;
 								//add roster_limits to the form data
-								data.set('player_id', player.name_id);
+								data.set('player_id', player.id);
 								data.set('draft', JSON.stringify(draft));
 								//add size to the form data as an
 								return async ({ result, update }) => {

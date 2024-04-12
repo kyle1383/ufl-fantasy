@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Team } from '../../types';
+	import type { Team } from '$lib/types';
 	import { page } from '$app/stores';
 	export let teams: Team[];
 </script>

@@ -6,7 +6,8 @@
 
 	export let data;
 	let { league } = data;
-	const full = league.teams.length >= league.size
+	const filledTeams = league.teams.filter(t => t.manager !== null)
+	const full = filledTeams.length >= league.size
 	$: loading = false;
 	onMount(() => {
 		const redirectUrl = `/leagues/${$page.params.id}/invite`;
@@ -66,7 +67,7 @@
 		disabled={full}
 	/>
 	<label>
-		<button class="btn btn-primary btn-outline mt-4 lg:mt-0 w-full lg:w-auto" type="submit" disabled={loading}
+		<button class="btn btn-primary btn-outline mt-4 lg:mt-0 w-full lg:w-auto" type="submit" disabled={loading || full}
 			>Join League</button
 		>
 	</label>

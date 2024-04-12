@@ -46,7 +46,7 @@
 <input type="checkbox" id="new-league-modal" class="modal-toggle" {checked} />
 <div class="modal">
 	<div class="modal-box text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2 w-max">
-		<label for="new-league-modal" class="btn btn-sm btn-circle btn-ghost text-gray-500 absolute right-2 top-2">✕</label>
+		<label on:click={()=>checked=false} class="btn btn-sm btn-circle btn-ghost text-gray-500 absolute right-2 top-2">✕</label>
 		<form
 			use:enhance={({ form, data, action, cancel }) => {
 				loading = true;

@@ -9,9 +9,12 @@
 	const supabase = $page.data.supabase;
 	export let data;
 
-	const user_leagues = data.user_leagues;
+	$: user_leagues = data.user_leagues;
+	
 	let invites: string[] = [];
 	let invitedLeagues: League[] = [];
+
+	
 
 	onMount(async () => {
 		invites = JSON.parse(window.localStorage.getItem('invites') || '[]');

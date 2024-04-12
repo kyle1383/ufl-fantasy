@@ -22,7 +22,13 @@ export const actions = {
         const league = await createLeague(name, size, roster_limits, errors, supabase)
         await addUserAsMemberAndCommissioner(user, league, errors, supabase)
         const teams = await createTeams(league, userIdentifier, user, size, errors, supabase)
-        await setDraftOrder(teams, league, errors, supabase)
+        const order = await setDraftOrder(teams, league, errors, supabase)
+
+        await createPlayerLeagues(league, errors, supabase)
+
+        await createDraft(league, teams, order, false, errors, supabase)
+
+        console.log(errors)
 
         return {
             message: "Created Leauge",
@@ -108,4 +114,86 @@ async function setDraftOrder(teams, league, errors, supabase) {
         .eq('id', league.id)
 
     error && errors.push(error)
+    return order;
+}
+
+async function createPlayerLeagues(league, errors, supabase) {
+    //create player instances for every player in the league 
+    //TODO: perhaps do this live while draft is happening? otherwise assign positions here
+    const { data: playersData, error: playersError } = await supabase
+        .from('players')
+        .select('id, ufl_teams (id)')
+
+    playersError && errors.push(playersError)
+
+    const playerLeagues = []
+    playersData?.forEach(player => {
+        playerLeagues.push({ player_id: player.id, league_id: league.id, rostered: false, waiver: false })
+    })
+
+    const { data: playerLeaguesData, error: playerLeaguesError } = await supabase
+        .from('player_leagues')
+        .insert(playerLeagues)
+
+    playerLeaguesError && errors.push(playerLeaguesError)
+}
+
+async function createDraft(league, teams, order, isMock = false, errors, supabase) {
+
+    // const league = JSON.parse(leagueJSON)
+
+    const draft = {
+        mock: isMock,
+        order: order,
+        season: 2024,
+        roster_limits: league.roster_limits
+    }
+
+
+    const rounds = Object.values(JSON.parse(league.roster_limits)).reduce((partialSum, a) => partialSum + a, 0);
+
+
+    //create the draft
+    const { data: draftData, error: draftError } = await supabase
+        .from('drafts')
+        .insert(draft)
+        .select()
+        .single()
+
+    draftError && errors.push(draftError)
+    console.log(draftError, 'de')
+
+    let picks = []
+
+    for (let i = 1; i < rounds + 1; i++) {
+        Object.values(teams).forEach((team, index) => {
+            picks.push({
+                draft_id: draftData.id,
+                round: i,
+                pick: index + 1,
+                team_id: team.id
+            })
+        });
+
+    }
+
+    //add the picks 
+    const { data: picksData, error: picksError } = await supabase
+        .from('picks')
+        .insert(picks)
+        .select()
+
+    console.log(picksError, 'pe')
+
+    picksError && errors.push(picksError)
+
+    //update league 
+    const { error: leagueError } = await supabase
+        .from('leagues')
+        .update({ draft_id: draftData.id })
+        .eq('id', league.id)
+
+    leagueError && errors.push(leagueError)
+
+
 }

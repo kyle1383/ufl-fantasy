@@ -6,6 +6,7 @@
 	//const { league } = data;
 	$: team = data.team;
 	$: league = data.league;
+
 </script>
 
 <div class="flex">

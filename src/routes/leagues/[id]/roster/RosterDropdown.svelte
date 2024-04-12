@@ -41,8 +41,9 @@
                             </div>
                             <div class="text-black">
                                 <p>{player.players.name}</p>
+                                <p>{player.players.img_url}</p>
                                 <sub class="font">
-                                    {`${player.players.xfl_teams.city} ${player.players.xfl_teams.name}`}</sub
+                                    {`${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</sub
                                 >
                             </div></td
                         >

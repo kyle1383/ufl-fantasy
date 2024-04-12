@@ -2,6 +2,7 @@
 	export let player;
 	export let waiver;
 	export let waiver_request;
+	export let draftStatus;
 	export let rosterSize;
 	export let team;
 
@@ -9,15 +10,19 @@
 	export let addPlayer;
 </script>
 
-<div class="">
-	<div class="w-10 rounded-full">
-		<img src={player.img_url} alt={player.name} class="w-8 h-8" />
+<div class="flex items-center justify-center">
+	<div class="flex items-center justify-center">
+		<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+			<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+		</div>
 	</div>
 </div>
+
+
 <div class="">
 	<p>{player.name}</p>
-	<sub class="font"
-		><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</sub
+	<p class="text-xs lg:text-sm"
+		><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</p
 	>
 </div>
 <div class="flex justify-end">
@@ -26,7 +31,7 @@
 			checked = true;
 			addPlayer = player;
 		}}
-		disabled={waiver_request}
+		disabled={waiver_request || draftStatus === 'PREDRAFT'}
 		class="btn btn-circle {waiver_request ? '' : 'btn-outline'} flex flex-col {waiver
 			? 'btn-secondary'
 			: 'btn-primary'}"

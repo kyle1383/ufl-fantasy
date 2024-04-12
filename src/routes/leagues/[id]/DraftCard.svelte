@@ -2,7 +2,7 @@
     import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
     import Icon from '@iconify/svelte';
-    import type { League } from '../../types';
+    import type { League } from '$lib/types';
     export let league: League;
 </script>
 
@@ -11,7 +11,7 @@
 		<p class="text-xl">Draft Center</p>
 		<Icon icon="clarity:settings-line" width="20" />
 	</div>
-	<form
+	<!--<form
 		use:enhance={({ form, data, action, cancel }) => {
 			//TODO is stringify neccessary? why?
 
@@ -19,7 +19,7 @@
 				cancel();
 				goto(`/draft/${league.draft_id}`);
 			}
-			data.set('league', league.id.toString());
+			/*data.set('league', league.id.toString());
 			return async ({ result, update }) => {
                 console.log(result)
 				if (result.error) {
@@ -27,11 +27,12 @@
 					return;
 				}
 				goto(`/draft/${result.data.draft?.id}`);
-			};
+			};*/
 		}}
 		method="POST"
 		action="?/init"
 	>
 		<button class="btn btn-primary rounded">Enter Draft</button>
-	</form>
+	</form>-->
+	<a href="/draft/{league.draft_id}" class="btn btn-primary rounded">Enter Draft</a>
 </div>

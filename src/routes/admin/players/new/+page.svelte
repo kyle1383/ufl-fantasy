@@ -29,3 +29,15 @@
 <form method="POST" action="?/processWaivers" use:enhance>
 	<button class="btn btn-primary">Process waivers</button>
 </form>
+
+<form method="POST" action="?/uflPlayers" use:enhance>
+	<button class="btn btn-primary">ufl waivers</button>
+</form>
+
+<form method="POST" action="?/updateSchedule" use:enhance>
+	<button class="btn btn-primary">upload schedule</button>
+</form>
+
+<form method="POST" action="?/gameStats" use:enhance>
+	<button class="btn btn-primary">game stats</button>
+</form>

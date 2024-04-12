@@ -1,5 +1,6 @@
 <script>
 	export let players = [];
+	$: players;
 </script>
 
 <div class="border-l-[1px] border-gray-700 h-full text-white bg-black">
@@ -11,14 +12,16 @@
 			{#each players as player}
 				<div class="flex">
 					<div class="flex items-center">
-						<div class="w-10 rounded-full">
-							<img src={player.img_url} alt={player.name} class="w-8 h-8" />
+						<div class="flex items-center justify-center">
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+								<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+							</div>
 						</div>
 					</div>
 					<div class="flex flex-col justify-center">
 						<p>{player.name}</p>
 						<span class="font text-gray-100 text-xs"
-							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.xfl_teams.city} ${player.xfl_teams.name}`}</span
+							><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
 						>
 					</div>
 				</div>

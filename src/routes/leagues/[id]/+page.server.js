@@ -1,22 +1,23 @@
 import { init_draft } from '$lib/draft.server.js';
 
-import { fail } from 'assert';
+import { fail } from '@sveltejs/kit';
 export const actions = {
     init: async ({ request, params, locals: { supabase, getSession } }) => {
+        return
         const session = await getSession();
-   
+
         const formData = await request.formData();
         const leagueID = formData.get('league');
-        const {data: league, error} = await supabase.from('leagues').select('*, teams(*)').eq('id', leagueID).single();
+        const { data: league, error } = await supabase.from('leagues').select('*, teams(*)').eq('id', leagueID).single();
         if (league.draft_id) {
             return {
                 status: 200,
                 body: { error_message: 'Draft already exists for this league' }
-            
+
             }
         }
-       
-        
+
+
         if (!league) {
             throw error('League not found');
         }
@@ -30,25 +31,7 @@ export const actions = {
 
         draftError && errors.push(draftError)
 
-        //create player instances for every player in the league 
-        //TODO: perhaps do this live while draft is happening? otherwise assign positions here
-       const { data: playersData, error: playersError } = await supabase
-            .from('players')
-            .select('name_id, xfl_teams (id)')
 
-        playersError && errors.push(playersError)
-
-        const playerLeagues = []
-        playersData?.forEach(player => {
-            playerLeagues.push({ player_id: player.name_id, league_id: league.id, rostered: false, waiver: false })
-        })
-
-        const { data: playerLeaguesData, error: playerLeaguesError } = await supabase
-            .from('player_leagues')
-            // @ts-ignore
-            .insert(playerLeagues)
-
-        playerLeaguesError && errors.push(playerLeaguesError)
         //return error 
         if (errors.length !== 0) {
             console.log('errors', errors)
@@ -57,8 +40,65 @@ export const actions = {
         }
         return result
 
+    },
+    randomizeOrder: async ({ request, params, locals: { supabase, getSession } }) => {
+        const session = await getSession();
+        const formData = await request.formData();
+        const leagueID = formData.get('league');
+       
+        const { data: league, error } = await supabase.from('leagues').select('*, teams(*)').eq('id', params.id).single();
+        if (error) {
+            return fail(401, {message: error.error_message})
+        }
+
+        const order = randomOrder(league.order)
+       
+        const {data: picks, error: picksError} = await supabase
+            .from('picks')
+            .select('id, round, pick, team_id, draft_id')
+            .eq('draft_id', league.draft_id)
+
+        //update picks with new order 
+        picks.forEach((pick, index) => {
+            pick.team_id = order[index % order.length]
+        })
+
+       
+        const { data: updateLeague, error: updateLeaugeError } = await supabase
+            .from('leagues')
+            .update({ order: order })
+            .eq('id', params.id)
+
+
+        
+
+        if (updateLeaugeError) {
+            return fail(401, {message: updateLeaugeError.message})
+        }
+
+        const {data: updatePicks, error: updatePicksError} = await supabase
+            .from('picks')
+            .upsert(picks)
+
+        if (updatePicksError) {
+            console.log('updatePicksError', updatePicksError)
+            return fail(401, {message: updatePicksError.message})
+        }
+        return { order: order }
     }
 }
+
+const randomOrder = (order) => {
+    for (let i = order.length - 1; i > 0; i--) {
+        // Pick a random index from 0 to i
+        const j = Math.floor(Math.random() * (i + 1));
+
+        // Swap elements array[i] and array[j]
+        [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+};
+
 
 //TODO move to after completion of draft
 /*

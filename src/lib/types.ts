@@ -12,6 +12,19 @@ export interface League {
     player_leagues: PlayerLeague[];
 }
 
+export interface Matchup {
+    id: number;
+    week: number;
+    team_id_1: number;
+    team_id_2: number;
+    league_id: number;
+    created_at: string;
+    team_1: Team
+    team_2: Team;
+
+}
+
+
 export interface Team {
     id: number;
     name: string;
@@ -22,6 +35,7 @@ export interface Team {
     league_id: number;
     created_at: string;
     manager_name: string;
+    player_leagues: PlayerLeague[];
 }
 
 export interface PlayerLeague {
@@ -41,10 +55,10 @@ export interface Player {
     number: number;
     college: string;
     img_url: string;
-    name_id: string;
+    id: string;
     team_id: number;
     position: string;
-    xfl_teams: XflTeam;
+    ufl_teams: XflTeam;
 }
 
 export interface XflTeam {

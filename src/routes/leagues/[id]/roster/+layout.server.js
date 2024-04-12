@@ -11,7 +11,7 @@ export async function load({ locals: {supabase, getSession}, params, parent }) {
     //get teams from league_id and user_id
     const { data: team, error: teamError } = await supabase
         .from('teams')
-        .select('*, player_leagues ( *, players (*, xfl_teams(*))), profiles(*)')
+        .select('*, player_leagues ( *, players (*, ufl_teams(*))), profiles(*)')
         .eq('id', roster_id)
         .single()
 
@@ -33,7 +33,7 @@ export async function load({ locals: {supabase, getSession}, params, parent }) {
         const { data: player_leagues_res, error: playerLeaguesErrorRes } = await supabase
             .from('player_leagues')
             .upsert(playerData, { onConflict: 'id' })
-            .select('*, players (*, xfl_teams(*)))');
+            .select('*, players (*, ufl_teams(*)))');
 
         player_leagues_new = player_leagues_res;
         playerLeaguesError = playerLeaguesErrorRes;

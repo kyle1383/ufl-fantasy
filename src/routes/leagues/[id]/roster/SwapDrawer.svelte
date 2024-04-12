@@ -67,13 +67,15 @@
 				<button class="w-full">
 					<div class="flex flex-row items-center">
 						<Icon icon="ion:swap-vertical-sharp" class="mr-4" />
-						<div class="w-10 rounded-full mr-2">
-							<img src={player.players.img_url} alt={player.players.name} class="w-8 h-8" />
+						<div class="flex items-center justify-center">
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+								<img src={player.players.img_url} alt={player.name} class="w-full h-full object-cover" />
+							</div>
 						</div>
 						<div class="flex flex-col items-start">
 							<p>{player.players.name}</p>
 							<span class="text-xs">
-								{`${player.players.xfl_teams.city} ${player.players.xfl_teams.name}`}
+								{`${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}
 							</span>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { SupabaseClient } from '@supabase/supabase-js';
-	import type { League } from '../types';
+	import type { League } from '$lib/types';
 	import Icon from '@iconify/svelte';
 	import { goto, invalidateAll } from '$app/navigation';
 	export let leagues: League[] = [];

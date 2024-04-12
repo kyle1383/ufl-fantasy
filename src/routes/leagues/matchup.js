@@ -4,17 +4,14 @@
  * @param {any} league_id
  * @param {number} start_week
  */
-export async function generate_matchups(league_id, start_week, supabase) {
+export async function generate_matchups(league, start_week, supabase) {
 
   //get current year as int 
   const currentYear = new Date().getFullYear();
   const season = parseInt(currentYear);
 
-  const { data: league, error } = await supabase
-    .from('leagues')
-    .select('id, teams ( id )')
-    .eq('id', league_id)
-    .single()
+  
+    
 
   const teams = league?.teams?.map((/** @type {{ id: any; }} */ team) => team.id)
   const weeks = generatePairings(shuffleArray(teams), start_week, season, league?.id);

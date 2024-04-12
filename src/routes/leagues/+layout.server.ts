@@ -1,15 +1,18 @@
 import { redirect } from '@sveltejs/kit'
 
 export async function load({cookies, params, url, locals: { supabase, getSession } }) {
-
+    
     const session = await getSession()
+   
     if (!session || !session?.user) {
+        
         if (url.pathname.includes('invite')) {
             console.log('setting cookie')
             cookies.set('invite', '/leagues/' + params.id + '/invite', { path: '/' })
 
             throw redirect(303, '/sign-in?url=/leagues/' + params.id + '/invite')
         }
+   
         throw redirect(303, '/sign-in')
         //return { user_leagues: [] }
     }
@@ -17,6 +20,8 @@ export async function load({cookies, params, url, locals: { supabase, getSession
         .from('members')
         .select('league_id')
         .eq('user_id', session.user.id)
+
+   
 
     if (leaguesError) {
         console.log(leaguesError)
