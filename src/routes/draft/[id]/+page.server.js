@@ -129,8 +129,8 @@ export const actions = {
 
     },
     start: async ({ request, params, locals: { getSession, supabase } }) => {
-        console.log('starting')
-        /*const session = await getSession();
+        
+        const session = await getSession();
         if (!session.user) {
             return fail(401, "Unauthorized")
         }
@@ -144,7 +144,7 @@ export const actions = {
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
         let pickEnd = new Date(timestamp).toISOString();
-
+        /*
         const { data: updatedDraft, error: draftError } = await supabase
             .from('drafts')
             .update({ status: "ACTIVE", pickEnd: pickEnd })
@@ -155,10 +155,10 @@ export const actions = {
         if (draftError) {
             console.log('draftError', draftError)
             return fail(401, { error_message: draftError?.message || "Something went wrong" })
-        }
+        }*/
         return {
             message: 'Draft has started'
-        }*/
+        }
 
 
     },
