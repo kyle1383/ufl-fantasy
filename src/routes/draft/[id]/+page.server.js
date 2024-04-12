@@ -135,15 +135,16 @@ export const actions = {
             return fail(401, "Unauthorized")
         }
         const formData = await request.formData();
-        const draft = JSON.parse(formData.get('draft'))
+        const draftJSON = formData.get('draft')
+        const draft = JSON.parse(draftJSON)
         //is user the commish?
-        if (draft.leagues[0].commissioners[0].user_id !== session.user.id) {
+        /*if (draft.leagues[0].commissioners[0].user_id !== session.user.id) {
             return fail(401, "Must be commisionner ")
         }
 
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
-        let pickEnd = new Date(timestamp).toISOString();
+        let pickEnd = new Date(timestamp).toISOString();*/
         /*
         const { data: updatedDraft, error: draftError } = await supabase
             .from('drafts')
