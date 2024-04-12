@@ -33,7 +33,7 @@
 		favorites.set(JSON.stringify(parsedFavorites));
 		parsedFavorites = JSON.parse($favorites);
 	};
-	console.log(players[2])
+
 </script>
 
 <div class="w-full table-container text-white bg-black lg:pl-8">
