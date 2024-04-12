@@ -15,7 +15,7 @@
 			action="?/start"
 			use:enhance={({ formData }) => {
 				//add roster_limits to the form data
-				formData.set('draft', JSON.stringify(draft));
+				formData.append('draft', JSON.stringify(draft));
 				//add size to the form data as an
 				return async ({ result, update }) => {};
 			}}
