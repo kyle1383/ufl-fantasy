@@ -134,9 +134,9 @@ export const actions = {
         if (!session.user) {
             return fail(401, "Unauthorized")
         }
-        const formData = await request.formData();
+        /*const formData = await request.formData();
         const draftJSON = formData.get('draft')
-        const draft = JSON.parse(draftJSON)
+        const draft = JSON.parse(draftJSON)*/
         //is user the commish?
         /*if (draft.leagues[0].commissioners[0].user_id !== session.user.id) {
             return fail(401, "Must be commisionner ")
