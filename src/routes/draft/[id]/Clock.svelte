@@ -13,11 +13,15 @@
 		<form
 			method="POST"
 			action="?/start"
-			use:enhance={({ formData }) => {
+			use:enhance={() => {
 				//add roster_limits to the form data
-				formData.append('draft', JSON.stringify(draft));
+				
 				//add size to the form data as an
-				return async ({ result, update }) => {};
+				return async ({ result, update }) => {
+					if (result.type === 'failure'){
+						alert(result.data.message || 'error starting draft')
+					}
+				};
 			}}
 		>
 			<button class="btn btn-primary">Start</button>

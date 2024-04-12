@@ -128,35 +128,44 @@ export const actions = {
 
 
     },
-    start: async ({ request, params, locals: { getSession, supabase } }) => {
+    start: async ({params, locals: { getSession, supabase } }) => {
         
         const session = await getSession();
         if (!session.user) {
             return fail(401, "Unauthorized")
         }
-        const formData = await request.formData();
+       
         
-        /*
-        //is user the commish?
-        if (draft.leagues[0].commissioners[0].user_id !== session.user.id) {
+        const {data: draft, error: draftError} = await supabase
+            .from('drafts')
+            .select('id, leagues(commissioners(user_id)), roundLength')
+            .eq('id', params.id)
+            .single();
+
+        
+        const isCommish = draft.leagues[0].commissioners.some(c => c.user_id === session.user.id)
+       
+        console.log(draft)
+        if (!isCommish) {
             return fail(401, "Must be commisionner ")
         }
 
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
-        let pickEnd = new Date(timestamp).toISOString();*/
-        /*
-        const { data: updatedDraft, error: draftError } = await supabase
+        let pickEnd = new Date(timestamp).toISOString();
+        
+        
+        const { data: updatedDraft, error: updateDraftError } = await supabase
             .from('drafts')
             .update({ status: "ACTIVE", pickEnd: pickEnd })
             .eq('id', params.id)
             .select()
 
 
-        if (draftError) {
+        if (updateDraftError) {
             console.log('draftError', draftError)
             return fail(401, { error_message: draftError?.message || "Something went wrong" })
-        }*/
+        }
         return {
             message: 'Draft has started'
         }
