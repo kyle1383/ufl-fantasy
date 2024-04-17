@@ -4,8 +4,9 @@
     export let size: number;
     export let teams: number;
     async function copyInvite() {
-		await navigator.clipboard.writeText(`${$page.url}/invite`);
-		// Alert the copied text
+		await navigator.clipboard.writeText(`Join my UFL fantasy league: ${$page.url}/invite`);
+		
+        // Alert the copied text
 		alert('Copied invite');
 	}
 </script>
