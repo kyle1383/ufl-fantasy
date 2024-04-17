@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	// @ts-ignore
+	import LogRocket from 'logrocket';
 
 	$: signUpMode = false;
 	export let data;
@@ -12,6 +13,7 @@
 	$: loading = false;
 	console.log(redirectUrl);
 	onMount(() => {
+		LogRocket.init('1zkmlx/ufl-fantasy');
 		let currentRedirects = JSON.parse(window.localStorage.getItem('invites') || '[]') || [];
 		currentRedirects = currentRedirects.filter((r) => r !== null);
 		const updatedRedirects = currentRedirects.includes(redirectUrl) ? currentRedirects : [...currentRedirects, redirectUrl];

@@ -23,7 +23,7 @@ export const actions = {
         const email = formData.get('email');
         const pw = formData.get('password');
         const redirect = formData.get('redirect')
-        console.log(redirect)
+        
         if (!email || !pw) return { status: 400, body: 'email and password are required' }
         const { data, error } = await supabase.auth.signUp(
             {
