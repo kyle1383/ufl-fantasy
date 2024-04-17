@@ -47,54 +47,92 @@ export const actions = {
         const leagueID = formData.get('league');
 
         //confirm user is a comissioner 
-        const {data: commissionerData, error: commissionerError} = await supabase
+        const { data: commissionerData, error: commissionerError } = await supabase
             .from('commissioners')
             .select('id')
             .eq('league_id', params.id)
             .eq('user_id', session.user.id)
 
-        console.log('commissionerData', commissionerData, commissionerError)
+
         if (commissionerError || commissionerData.length === 0) {
-            return fail(401, {message: 'You are not a comissioner of this league'})
-        }
-       
-        const { data: league, error } = await supabase.from('leagues').select('*, teams(*)').eq('id', params.id).single();
-        if (error) {
-            return fail(401, {message: error.error_message})
+            return fail(401, { message: 'You are not a comissioner of this league' })
         }
 
+
+
+        const { data: league, error } = await supabase.from('leagues').select('*, teams(*)').eq('id', params.id).single();
+        if (error) {
+            return fail(401, { message: error.error_message })
+        }
+
+        //confirm it is predraft 
+        const { data: draftStatus, error: draftStatusError } = await supabase
+            .from('drafts')
+            .select('status, id')
+            .eq('id', league.draft_id)
+            .single()
+
+        console.log(draftStatus)
+
+        if (draftStatusError || draftStatus.status !== 'PREDRAFT') {
+            return fail(401, { message: 'Draft has already started' })
+        }
         const order = randomOrder(league.order)
-       
-        const {data: picks, error: picksError} = await supabase
+
+        const { data: picks, error: picksError } = await supabase
             .from('picks')
             .select('id, round, pick, team_id, draft_id')
             .eq('draft_id', league.draft_id)
+
+        picks.sort((a, b) => {
+            if (a.round > b.round) {
+                return 1;
+            } else if (a.round < b.round) {
+                return -1;
+            } else {
+                if (a.pick > b.pick) {
+                    return 1;
+                } else if (a.pick < b.pick) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
 
         //update picks with new order 
         picks.forEach((pick, index) => {
             pick.team_id = order[index % order.length]
         })
 
-       
+
+
+
         const { data: updateLeague, error: updateLeaugeError } = await supabase
             .from('leagues')
             .update({ order: order })
             .eq('id', params.id)
+            .select()
 
 
-        
+
+
+
 
         if (updateLeaugeError) {
-            return fail(401, {message: updateLeaugeError.message})
+            return fail(401, { message: updateLeaugeError.message })
         }
 
-        const {data: updatePicks, error: updatePicksError} = await supabase
+        const { data: updatePicks, error: updatePicksError } = await supabase
             .from('picks')
             .upsert(picks)
+            .select('id, round, pick, team_id')
+
+
 
         if (updatePicksError) {
             console.log('updatePicksError', updatePicksError)
-            return fail(401, {message: updatePicksError.message})
+            return fail(401, { message: updatePicksError.message })
         }
         return { order: order }
     }

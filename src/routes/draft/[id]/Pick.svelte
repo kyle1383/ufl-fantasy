@@ -7,11 +7,13 @@
 	export let player: Player;
 	export let isCommissioner: Boolean;
 	export let draft;
+	let loading = false;
+	$: loading;
 	let pickElement;
 	let isActive = false;
 	$: isCurrentPick = draft.round === pick.round && draft.pick === pick.pick;
 	function handleClick(e) {
-		if (isCommissioner && isCurrentPick) {
+		if (isCommissioner && isCurrentPick && draft.status === 'ACTIVE') {
 			isActive = !isActive;
 		}
 	}
@@ -38,10 +40,23 @@
 		<p class="text-right">{pick.round}.{pick.pick}</p>
 		<div style="display: {isActive ? 'block' : 'none'};" class="text-black rounded-lg dropdownMenu">
 			<!-- Add your dropdown content here -->
-			<form method="POST" action="?/autodraft" use:enhance>
+			<form
+				method="POST"
+				action="?/autodraft"
+				use:enhance={({ form, data, action, cancel }) => {
+					loading = true;
+					return async ({ result, update }) => {
+						if (result.type === 'failure'){
+							alert(result.data?.message)
+						}
+						//goto('/');
+						 loading = false;
+					};
+				}}
+			>
 				<input type="hidden" name="draft" value={JSON.stringify(draft)} />
 				<input type="hidden" name="pick" value={JSON.stringify(pick)} />
-				<button class="flex items-center">
+				<button class="flex items-center" disabled={loading}>
 					<Icon icon="material-symbols:refresh" class="text-primary pr-1" width="20" />AutoDraft
 				</button>
 			</form>

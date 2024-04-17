@@ -11,6 +11,7 @@
 	export let swapPosition = 'BENCH';
 	export let swapOutPlayer = null;
 	let loading = false;
+	$:console.log(player)
 </script>
 
 {#if player !== 'null'}
@@ -38,7 +39,7 @@
 		<div class="flex flex-col justify-center">
 			<p>{player.players.name}</p>
 			<span class="text-xs">
-				{`${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
+				{`${player.players.position} ${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
 			>
 		</div>
 	</div>

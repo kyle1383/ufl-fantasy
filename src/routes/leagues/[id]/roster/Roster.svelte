@@ -18,7 +18,7 @@
 	$: swapDepth = 1;
 	$: swapPlayers = players.filter((player) =>
 		swapPosition === 'FLEX'
-			? player.players.position === 'RB' || 'WR' || 'TE'
+			? player.players.position === 'RB' ||  player.players.position === 'TE' ||  player.players.position === 'WR'
 			: player.players.position === swapPosition
 	);
 	$: checked = false;

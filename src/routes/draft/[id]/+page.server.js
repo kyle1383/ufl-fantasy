@@ -106,14 +106,14 @@ export const actions = {
     },
     autodraft: async ({ request, params, locals: { supabase, getSession } }) => {
         const session = await getSession();
-        
+
         const formData = await request.formData();
         const draft = JSON.parse(formData.get('draft'));
         const pick = JSON.parse(formData.get('pick'));
-       
+
 
         //confirm user is commish 
-        const userIsCommish = draft.leagues[0].commissioners.find(c => c.user_id === session.user.id) 
+        const userIsCommish = draft.leagues[0].commissioners.find(c => c.user_id === session.user.id)
         if (!userIsCommish) {
             return fail(401, "Must be commisionner ")
         }
@@ -124,28 +124,31 @@ export const actions = {
             return fail(401, "Not current pick")
         }
 
-        autodraft(draft, params, supabase)
+        const { error } = await autodraft(draft, params, supabase)
+        if (error){
+            return fail(401, { error_message: error?.message || "Something went wrong" })
+        }
 
 
     },
-    start: async ({params, locals: { getSession, supabase } }) => {
-        
+    start: async ({ params, locals: { getSession, supabase } }) => {
+
         const session = await getSession();
         if (!session.user) {
             return fail(401, "Unauthorized")
         }
-       
-        
-        const {data: draft, error: draftError} = await supabase
+
+
+        const { data: draft, error: draftError } = await supabase
             .from('drafts')
             .select('id, leagues(commissioners(user_id)), roundLength')
             .eq('id', params.id)
             .single();
 
-        
+
         const isCommish = draft.leagues[0].commissioners.some(c => c.user_id === session.user.id)
-       
-        console.log(draft)
+
+
         if (!isCommish) {
             return fail(401, "Must be commisionner ")
         }
@@ -153,8 +156,8 @@ export const actions = {
         let timestamp = Date.now();
         timestamp = timestamp + (draft.roundLength * 1000 * 10);
         let pickEnd = new Date(timestamp).toISOString();
-        
-        
+
+
         const { data: updatedDraft, error: updateDraftError } = await supabase
             .from('drafts')
             .update({ status: "ACTIVE", pickEnd: pickEnd })
@@ -196,15 +199,17 @@ export const actions = {
 
 
     },
-    endDraft: async ({ request, locals: { supabase } }) => {
+    endDraft: async ({ params, request, locals: { supabase } }) => {
 
         //we need player_id, user_id, round, pick, possibly team id if we allow multiple teams per user
         //get player id
-        const formData = await request.formData();
-
-        const draft = JSON.parse(formData.get('draft'));
-
-        endDraft(draft, supabase)
+        const { data: draft, error: draftError } = await supabase
+            .from('drafts')
+            .select('*, leagues(id, teams ( id ))')
+            .eq('id', params.id)
+            .single()
+       
+       await endDraft(draft, supabase)
     }
 }
 
@@ -218,7 +223,7 @@ export const actions = {
  */
 async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     //get new pick end 
-   
+
     let timestamp = Date.now();
     timestamp = timestamp + (draft.roundLength * 1000 * 10);
     let pickEnd = new Date(timestamp).toISOString();
@@ -230,7 +235,7 @@ async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
         .eq('id', currentPick.id)
         .select()
         .single()
-       
+
     const { data: updatedDraft, error: draftError } = await supabase
         .from('drafts')
         .update({ round: nextPick.round, pick: nextPick.pick, pickEnd: pickEnd })
@@ -274,7 +279,7 @@ async function endDraft(draft, supabase) {
 
         teams.push({ id: draft.picks[i].team_id, priority: draft.leagues[0].size - i, league_id: draft.leagues[0].id });
     }
-    console.log(teams)
+
 
     const { data: updatedTeams, error: teamError } = await supabase
         .from('teams')
@@ -307,20 +312,19 @@ async function endDraft(draft, supabase) {
         .eq('id', draft.leagues[0].id)
         .single()
 
-    const {data: week, error: weekError} = await supabase
+    const { data: weekData, error: weekError } = await supabase
         .from('seasons')
         .select('week')
         .eq('year', 2024)
         .single()
-
+    const {week} = weekData
 
     const matchups = await generate_matchups(league, week || 3, supabase)
-
 
     const { data: matchupsData, error: matchupsError } = await supabase
         .from('matchups')
         .insert(matchups)
-
+    
     if (matchupsError) {
         console.log(matchupsError)
         return fail(401, { error_message: matchupsError?.message || "Something went wrong" })
@@ -332,39 +336,36 @@ async function endDraft(draft, supabase) {
 async function autodraft(draft, params, supabase) {
     //check that user is commissioner
     //TODO get draft from server 
-   
+
     //get random player_id
-    const {data: pickedPlayers, error: pickedPlayersError} = await supabase
+    const { data: pickedPlayers, error: pickedPlayersError } = await supabase
         .from('picks')
         .select('player_id')
         .eq('draft_id', params.id)
         .neq('player_id', null)
 
+    if (pickedPlayersError) {
+
+        return { error: pickedPlayersError }
+    }
 
 
-   
-    const {data: players, error: playersError} = await supabase
+    const { data: players, error: playersError } = await supabase
         .from('player_leagues')
         .select('player_id')
         .eq('league_id', draft.leagues[0].id)
         .limit(pickedPlayers.length + 1)
-       
-    if (pickedPlayersError || playersError) {
-        return fail(401, { error_message: "failure finding available players" })
+
+
+    if (playersError) {
+        return { error: playersError }
     }
     const pickedPlayersArray = pickedPlayers.map(player => player.player_id)
     const nextAvailablePlayer = players.find(player => !pickedPlayersArray.includes(player.player_id))
-    
+
     const { error } = await make_selection(draft, nextAvailablePlayer.player_id, supabase)
 
-    if (error) {
-        console.log(error)
-        return fail(401, { error_message: error?.message || "Something went wrong" })
-    }
-
-    return {
-        message: 'success'
-    }
+    return { error: error }
 
 
 
@@ -375,9 +376,12 @@ async function make_selection(draft, player_id, supabase) {
 
     //confirm draft status is active 
     if (draft.status !== "ACTIVE") {
-        return  {error_message: "Draft is not active" }
+
+        return { error: "Draft is not active" }
     }
-  
+
+
+
     //check if player has been drafted 
     //TODO how can we get draft id internally? 
     const { data: playerPicks, error: playerError } = await supabase
@@ -386,12 +390,10 @@ async function make_selection(draft, player_id, supabase) {
         .eq('player_id', player_id)
         .eq('draft_id', draft.id)
 
-   
-    
 
 
     if (playerPicks.length > 0 || playerError) {
-        return  { error_message: "Player has already been drafted" }
+        return { error: "Player has already been drafted" }
     }
 
 
@@ -399,7 +401,7 @@ async function make_selection(draft, player_id, supabase) {
     //TODO is there a better way? Should draft have a current pick property? 
     const currentPick = draft.picks.find((/** @type {{ round: any; pick: any; }} */ pick) => pick.round === draft.round && pick.pick === draft.pick);
     const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
-    
+
     const { error } = await draft_player(currentPick, player_id, nextPick, draft, supabase)
 
     return { error }

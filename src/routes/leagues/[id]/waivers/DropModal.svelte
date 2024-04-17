@@ -1,6 +1,8 @@
 <script>
 	import { enhance } from '$app/forms';
+	import { invalidate, invalidateAll } from '$app/navigation';
 	import { clickOutside } from '$lib/helpers';
+	import { page } from '$app/stores';
 	import Icon from '@iconify/svelte';
 	export let player = null;
 	export let checked;
@@ -14,9 +16,9 @@
 </script>
 
 <input type="checkbox" id="swap-modal" class="modal-toggle" {checked} />
-<div class="modal modal-bottom sm:modal-middle cursor-pointer">
+<div class="modal modal-bottom sm:modal-middle cursor-pointer ">
 	<div
-		class="modal-box text-white bg-gray-700 p-8 lg:rounded-lg border-gray-600 border-2 lg:w-max w-full mx-0 rounded-b-0 rounded-t-lg"
+		class="modal-box text-white bg-gray-700 p-8 lg:rounded-lg border-gray-600 border-2 lg:w-max w-full mx-0 rounded-b-0 rounded-t-lg lg:px-16"
 		use:clickOutside
 		on:click_outside={handleClickOutside}
 	>
@@ -50,8 +52,8 @@
 				return async ({ result, update }) => {
 					if (result.data.status === 200) {
 						checked = false;
-
 						showToast(result.data.body);
+						invalidateAll();
 					} else {
 						console.log(result)
 						alert(result.data.body);

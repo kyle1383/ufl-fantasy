@@ -33,9 +33,9 @@ export const actions = {
             .eq('id', params.id)
             .single()
 
-        if(!league || league.drafts?.status === 'PREDRAFT' || !league.drafts){
+        if(!league || league.drafts?.status === 'PREDRAFT' ||  league.drafts?.status === 'ACTIVE' ||  league.drafts?.status === 'PAUSED' || !league.drafts){
             console.log(league.draft.status)
-            return fail(401, {body: 'Cannot add player before draft begins '})
+            return fail(401, {body: 'Cannot add player until draft is complete'})
         }
       
         const { data: team, error: teamError } = await supabase

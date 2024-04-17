@@ -8,7 +8,7 @@
 <div class="lg:border-r-[1px] border-gray-700 h-full py-4 lg:mr-8 text-white">
 	<p class="text-xl font-bold pb-4">Waiver Claims</p>
 	{#if claims.length > 0}
-		<div class="grid gap-y-4 lg:pr-8 w-full">
+		<div class="grid gap-y-4 lg:pr-8 w-full lg:w-fit">
 			{#each claims as claim}
 				<div class="flex items-center text-xs ml-8 lg:ml-0">
 					<Icon icon="clarity:plus-line" width="15" class="my-auto text-acc3 mr-2" />
@@ -34,12 +34,12 @@
 						>
 					</div>
 				</div>
-				<Icon icon="clarity:two-way-arrows-line" class="my-auto mx-auto" width="20" />
+				<Icon icon="clarity:two-way-arrows-line" class="my-auto mx-auto lg:mx-4" width="20" />
 				{#if claim.player_drop}
 					<div class="flex items-center relative">
 						<div class="flex items-center justify-center">
 							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
-								<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+								<img src={claim.player_drop.img_url} alt={claim.player_drop.name} class="w-full h-full object-cover" />
 							</div>
 						</div>
 						<div class="flex flex-col">
@@ -49,8 +49,8 @@
 									.city}</span
 							>
 						</div>
-						<div class="handle-end">
-							<Icon width="20" icon="clarity:remove-line" class="text-gray-500 ml-4 lg:ml-2" />
+						<div class="handle-end ml-auto lg:ml-4">
+							<Icon width="20" icon="clarity:remove-line" class="text-gray-300 ml-4 lg:ml-2 self-end" />
 						</div>
 					</div>
 				{:else}
@@ -64,7 +64,7 @@
 <style>
 	.grid {
 		grid-template-columns: auto 1fr auto;
-		@media (min-width: 1024px) {
+		@media (min-width: 1280px) {
 			grid-template-columns: minmax(0, max-content) 1fr auto;
 		}
 	}
@@ -80,7 +80,7 @@
 		@media (min-width: 1024px) {
 			position: absolute;
 			top: 50%;
-			right: -25px;
+			right: -30px;
 			transform: translateY(-50%);
 		}
 	}

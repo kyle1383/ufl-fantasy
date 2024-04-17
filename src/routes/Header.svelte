@@ -5,7 +5,7 @@
 </script>
 <header class={`navbar bg-oxford `}>
 	<div class="flex-1">
-		<a href="/" class="btn btn-ghost normal-case text-xl">XFL Fantasy</a>
+		<a href="/" class="btn btn-ghost normal-case text-xl">UFL Fantasy</a>
 	</div>
 	<div class="flex-none gap-2">
 		

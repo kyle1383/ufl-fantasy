@@ -11,12 +11,6 @@
 
 	$: picks;
 
-	//filter through the number of picks = size and return each team
-	let teams = [];
-	for (let i = 0; i < size; i++) {
-		
-		teams.push(picks[i].teams.name);
-	}
 	//sort picks by round and pick
 	picks.sort((a, b) => {
 		if (a.round > b.round) {
@@ -33,7 +27,14 @@
 			}
 		}
 	});
+	//filter through the number of picks = size and return each team
+	let teams = [];
+	for (let i = 0; i < size; i++) {
+		
+		teams.push(picks[i].teams.name);
+	}
 
+	
 	
 
 	const gridCols = `grid-cols-${size.toString()}`;

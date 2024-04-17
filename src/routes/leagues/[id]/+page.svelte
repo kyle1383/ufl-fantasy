@@ -11,16 +11,16 @@
 	if (!data.league) {
 		goto('/leagues');
 	}
+	
 
-	const {league} = data;
-	const { teams } = league;
-
-	$: league;
-	$: teams;
+	
+	$: console.log(league);
+	$: league = data.league;
+	$: teams = league.teams;
 	$: managedTeams = teams.filter((t: Team) => t.manager !== null);
 </script>
 
-<div class="grid grid-cols-2 gap-4 lg:w-max my-8">
+<div class="grid md:grid-cols-2 gap-4 lg:w-max my-8">
 	{#if  managedTeams.length < league.size}
 		<Invite size={league.size} teams={managedTeams.length} />
 	{/if}

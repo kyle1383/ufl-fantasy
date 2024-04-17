@@ -1,13 +1,14 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
-	console.log($page.data.session?.user.id);
+	
 	export let league;
 	export let teams;
 	let order;
 	$: order = league.order;
 	$: teams = teams.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
 	$: isCommissioner = league.commissioners.some((c) => c.user_id === $page.data.session?.user.id);
+
 </script>
 
 <div class="text-white bg-gray-700 p-8 rounded-lg border-gray-600 border-2">
@@ -22,7 +23,7 @@
 			<td class="bg-white break-words">{team.manager_name}</td>
 		{/each}
 	</table>
-	{#if isCommissioner}
+	{#if isCommissioner && league.drafts.status === 'PREDRAFT'}
 		<form
 			method="POST"
 			action="?/randomizeOrder"

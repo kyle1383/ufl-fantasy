@@ -58,8 +58,8 @@
 </script>
 
 <svelte:head>
-	<title>Xfl Fantasy</title>
-	<meta name="description" content="Xfl fantasy app" />
+	<title>UFL Fantasy</title>
+	<meta name="description" content="Ufl fantasy app" />
 </svelte:head>
 
 {#if !$page.data.session}

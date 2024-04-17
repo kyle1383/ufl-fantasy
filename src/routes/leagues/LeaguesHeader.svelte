@@ -7,7 +7,7 @@
 	export let leagues: League[] = [];
 	export let supabase: SupabaseClient;
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
-	const nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
+	$: nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
 	/*
 	$: if (!$page.data.session){
@@ -33,7 +33,7 @@
 				<li><a href="/leagues">Leagues Dashboard</a></li>
 			{/if}
 			{#each nonActiveLeagues as l}
-				<li><a href="/leagues/{l.id}">{l.name}</a></li>
+				<li><a href="/leagues/{l.id}" on:click={invalidateAll}>{l.name}</a></li>
 			{/each}
 		</ul>
 	</div>

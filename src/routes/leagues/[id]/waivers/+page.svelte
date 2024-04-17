@@ -4,20 +4,22 @@
 
 	export let data;
 
-	const { league, team, waiver_requests } = data;
-	let players = league.player_leagues;
-	let draftStatus = league?.drafts?.status;
-	players = players.map((player) => {
+	const {team } = data;
+	$: waiver_requests = data.waiver_requests;
+	$: league = data.league;
+	$: players = league.player_leagues.map((player) => {
 		const waiver_request_exists = waiver_requests.find(
 			(w) => w.add_player_leagues_id === player.id
 		);
 		player.waiver_request = waiver_request_exists ? true : false;
 		return player;
 	});
-
-	const unRosteredPlayers = players.filter((player) => player.rostered === false);
+;
+	let draftStatus = league?.drafts?.status;
 	
-	const rosterSize = Object.values(JSON.parse(league.roster_limits)).reduce(
+	$: unRosteredPlayers = players.filter((player) => player.rostered === false);
+	
+	$: rosterSize = Object.values(JSON.parse(league.roster_limits)).reduce(
 		(acc, cur) => acc + cur,
 		0
 	);

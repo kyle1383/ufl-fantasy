@@ -46,6 +46,7 @@ export interface PlayerLeague {
     players: Player;
     rostered: boolean;
     league_id: number;
+    score: number;
     player_id: string;
     team_position: null | string; // Assuming it's a string, adjust if it's another type
 }

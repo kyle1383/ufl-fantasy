@@ -6,6 +6,7 @@
 	export let draft;
 	export let currentTeamName;
 	$: draft.status;
+	
 </script>
 
 {#if draft.status === 'PREDRAFT'}
@@ -15,11 +16,11 @@
 			action="?/start"
 			use:enhance={() => {
 				//add roster_limits to the form data
-				
+
 				//add size to the form data as an
 				return async ({ result, update }) => {
-					if (result.type === 'failure'){
-						alert(result.data.message || 'error starting draft')
+					if (result.type === 'failure') {
+						alert(result.data.message || 'error starting draft');
 					}
 				};
 			}}
@@ -39,7 +40,6 @@
 				data.set('draft', JSON.stringify(draft));
 				//add size to the form data as an
 				return async ({ result, update }) => {
-					
 					if (result.type === 'failure') {
 						alert(result.message);
 					}
@@ -55,23 +55,11 @@
 		<p><strong>On Clock: </strong>{currentTeamName}</p>
 	</div>
 {:else if draft.status === 'COMPLETE'}
-	<p>The Draft has concluded. Good luck!</p>
-	<form
-			method="POST"
-			action="?/endDraft"
-			use:enhance={({ form, data, action, cancel }) => {
-				//add roster_limits to the form data
-				data.set('draft', JSON.stringify(draft));
-				//add size to the form data as an
-				return async ({ result, update }) => {
-					
-					if (result.type === 'failure') {
-						alert(result.message);
-					}
-				};
-			}}
-		>
-			<button class="btn btn-ivory">Start</button>
-		</form>
-	
+<div class="flex items-center">
+	<p>
+		The Draft has concluded. Good luck!
+		
+	</p>
+	<a class="btn btn-outline ml-4 btn-primary" href="/leagues/{draft.leagues[0].id}">Return to League</a>
+</div>
 {/if}

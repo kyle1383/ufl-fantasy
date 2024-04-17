@@ -31,7 +31,7 @@
 			checked = true;
 			addPlayer = player;
 		}}
-		disabled={waiver_request || draftStatus === 'PREDRAFT'}
+		disabled={waiver_request || draftStatus === 'PREDRAFT' || draftStatus === 'ACTIVE' || draftStatus === 'PAUSED'}
 		class="btn btn-circle {waiver_request ? '' : 'btn-outline'} flex flex-col {waiver
 			? 'btn-secondary'
 			: 'btn-primary'}"
