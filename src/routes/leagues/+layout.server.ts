@@ -3,7 +3,7 @@ import { redirect } from '@sveltejs/kit'
 export async function load({cookies, params, url, locals: { supabase, getSession } }) {
     
     const session = await getSession()
-   
+    
     if (!session || !session?.user) {
         
         if (url.pathname.includes('invite')) {
@@ -24,7 +24,7 @@ export async function load({cookies, params, url, locals: { supabase, getSession
    
 
     if (leaguesError) {
-        console.log(leaguesError)
+        console.log('le', leaguesError)
         return { user_leagues: [] }
     }
 

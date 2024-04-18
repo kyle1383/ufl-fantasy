@@ -10,8 +10,8 @@ import { generate_matchups } from '../../leagues/matchup.js';
 //TODO don't prefetch this page
 export async function load({ request, params, locals: { supabase, getSession } }) {
     const session = await getSession();
-    if (!session.user) {
-        throw redirect(303, '/profile/')
+    if (!session || !session?.user) {
+        throw redirect(303, '/sign-in/')
     }
 
     //picks!public_picks_draft_id_fkey', 'picks!drafts_currentPick_id_fkey
