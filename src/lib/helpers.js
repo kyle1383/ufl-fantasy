@@ -6,7 +6,7 @@ export function findPlayer(position, depth, players) {
 }
 
 export function clickOutside(node) {
-  
+
   const handleClick = event => {
     if (node && !node.contains(event.target) && !event.defaultPrevented) {
       node.dispatchEvent(
@@ -15,13 +15,13 @@ export function clickOutside(node) {
     }
   }
 
-	document.addEventListener('click', handleClick, true);
-  
+  document.addEventListener('click', handleClick, true);
+
   return {
     destroy() {
       document.removeEventListener('click', handleClick, true);
     }
-	}
+  }
 }
 
 export function calculateFantasyScore(player) {
@@ -36,10 +36,10 @@ export function calculateFantasyScore(player) {
   const missedFieldGoalPoints = player.stats.kicking?.missed * -1 || 0;
   const kickingPoints =
     player.stats.kicking?.made_19 * 3 +
-      player.stats.kicking?.made_29 * 3 +
-      player.stats.kicking?.made_39 * 3 +
-      player.stats.kicking?.made_49 * 4 +
-      player.stats.kicking?.made_50 * 5 || 0;
+    player.stats.kicking?.made_29 * 3 +
+    player.stats.kicking?.made_39 * 3 +
+    player.stats.kicking?.made_49 * 4 +
+    player.stats.kicking?.made_50 * 5 || 0;
   const total =
     Math.round(
       (passingYardsPoints +
@@ -51,7 +51,7 @@ export function calculateFantasyScore(player) {
         fumblePoints +
         missedFieldGoalPoints +
         kickingPoints) *
-        100
+      100
     ) / 100;
 
   return total;
@@ -66,15 +66,41 @@ export function mergeArrays(homeArray, awayArray) {
 
   // Loop through the arrays up to the maximum length
   for (let i = 0; i < maxLength; i++) {
-      // Create an object for each pair of home and away
-      const entry = {
-          home: homeArray[i] || null,  // Use the home value or null if undefined
-          away: awayArray[i] || null   // Use the away value or null if undefined
-      };
+    // Create an object for each pair of home and away
+    const entry = {
+      home: homeArray[i] || null,  // Use the home value or null if undefined
+      away: awayArray[i] || null   // Use the away value or null if undefined
+    };
 
-      // Push the created object to the result array
-      result.push(entry);
+    // Push the created object to the result array
+    result.push(entry);
   }
 
   return result;
+}
+
+export function showToast(text) {
+  // Create elements
+  const toastContainer = document.createElement('div');
+  const alertBox = document.createElement('div');
+  const alertText = document.createElement('span');
+
+  // Add classes and styles
+  toastContainer.className = 'toast toast-center w-max';
+  toastContainer.style.transition = 'opacity 0.5s';
+  alertBox.className = 'alert bg-primary text-white min-w-xl';
+
+  // Set text
+  alertText.textContent = text;
+
+  // Assemble the toast structure
+  alertBox.appendChild(alertText);
+  toastContainer.appendChild(alertBox);
+  document.body.appendChild(toastContainer);
+
+  // Make toast visible and auto-hide after 3 seconds
+  setTimeout(() => {
+    toastContainer.style.opacity = '0';
+    setTimeout(() => toastContainer.remove(), 500); // Ensure fade out completes
+  }, 3000);
 }

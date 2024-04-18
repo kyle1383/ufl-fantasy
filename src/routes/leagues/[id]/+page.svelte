@@ -11,10 +11,7 @@
 	if (!data.league) {
 		goto('/leagues');
 	}
-	
 
-	
-	$: console.log(league);
 	$: league = data.league;
 	$: teams = league.teams;
 	$: managedTeams = teams.filter((t: Team) => t.manager !== null);

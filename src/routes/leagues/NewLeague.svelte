@@ -96,7 +96,6 @@
 					<option selected value={8}>8</option>
 					<option value={10}>10</option>
 					<option value={12}>12</option>
-					<option value={14}>14</option>
 				</select>
 			</div>
 			{#if loading}

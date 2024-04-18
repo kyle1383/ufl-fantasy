@@ -7,7 +7,7 @@
 	const {league, user_leagues} = data
 
 </script>
-<LeagueHeader week={league.seasons.week} matchups={league.matchups}/>
+<LeagueHeader week={league.seasons.week} matchups={league.matchups} commissioners={league.commissioners}/>
 <div class="lg:mx-24 mx-8">
 	
 	<slot />

@@ -9,12 +9,11 @@
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
 	$: nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
-	/*
-	$: if (!$page.data.session){
-		goto('/sign-in');
-	}*/
-	async function signOut(){
-		await supabase.auth.signOut()
+	console.log($page.data.session.user.user_metadata);
+	$: isCommissioner = league.commissioners.some((c) => c.user_id === $page.data.session?.user.id);
+	
+	async function signOut() {
+		await supabase.auth.signOut();
 		mobileMenu = false;
 		await invalidateAll();
 	}
@@ -40,21 +39,33 @@
 	<a href="/" on:click={() => (mobileMenu = false)} class="text-xl lg:text-md orbitron"
 		>UFL FANTASY <span class=" lg:text-xs text-acc4">(BETA)</span></a
 	>
-	<div class="flex space-x-2">
+	<div class="flex space-x-2 items-center">
+		
 		<Icon icon="clarity:settings-line" width="20" class="hidden" />
+		
+		
 		<div class="dropdown dropdown-end">
-			<div tabindex="0" role="button" class="hidden lg:flex btn btn-ghost">
+			
+			<div tabindex="0" role="button" class="hidden lg:flex btn btn-ghost space-x-2">
+				
 				<Icon icon="clarity:avatar-line" width="20" class="hidden lg:block my-auto" />
 			</div>
+			
 			<ul
-				
-				class="menu menu-sm dropdown-content mt-3 p-2 shadow  w-52 z-30 text-white bg-gray-700 rounded-lg border-gray-600 border-2"
+				class="menu menu-sm dropdown-content mt-3 p-2 shadow w-52 z-30 text-white bg-gray-700 rounded-lg border-gray-600 border-2"
 			>
+			<p class="text-left ml-4 py-2 font-bold">
+				{$page.data.session.user.user_metadata.username ||
+					$page.data.session.user.user_metadata.full_name ||
+					''}
+			</p>
+				<li>
+					<button>Profile 🚧</button>
+				</li>
 				<li><button on:click={signOut}>Logout</button></li>
 			</ul>
 		</div>
-		
-		
+
 		<button on:click={() => (mobileMenu = !mobileMenu)} class="lg:hidden my-auto p-2"
 			><Icon icon="clarity:bars-line" class="" width="20" /></button
 		>
@@ -77,13 +88,16 @@
 					>Waivers</a
 				>
 			</li>
+			{#if league.seasons.week && league.matchups.length !== 0 && league.matchups}<li>
+					<a href="/leagues/{$page.params.id}/matchups/{league.seasons.week}">Matchups</a>
+				</li>{/if}
 			<li>
 				<a on:click={() => (mobileMenu = false)} class="" href="/leagues/{$page.params.id}/draft"
 					>Draft</a
 				>
 			</li>
 		{/if}
-		<li><a on:click={() => (mobileMenu = false)}>Settings</a></li>
+		{#if isCommissioner}<li><a on:click={() => (mobileMenu = false)}>Settings</a></li>{/if}
 		<li><button on:click={signOut}>Log Out</button></li>
 	</ul>
 </div>
@@ -99,7 +113,7 @@
 		left: 0;
 		z-index: 20;
 	}
-	menu{
+	menu {
 		padding: 0 !important;
 	}
 </style>
