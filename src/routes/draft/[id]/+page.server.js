@@ -61,8 +61,14 @@ export const actions = {
         //get player id
         const formData = await request.formData();
         const player_id = formData.get('player_id');
-        const draft = JSON.parse(formData.get('draft'));
+        //const draft = JSON.parse(formData.get('draft'));
+        const {data: draft, error: draftError} = await supabase
+            .from('drafts')
+            .select('*, picks!public_picks_draft_id_fkey(*,teams (id, manager)), leagues(id, commissioners(user_id), teams ( id ))')
+            .eq('id', params.id)
+            .single()
 
+        
         //confirm draft status is active 
         if (draft.status !== "ACTIVE") {
             return fail(401, { error_message: "Draft is not active" })
@@ -86,7 +92,7 @@ export const actions = {
         const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
 
 
-
+        console.log(currentPick)
         if (currentPick.teams.manager !== session.user.id) {
             return fail(401, { error_message: "You are not authorized to make this pick" })
         }
@@ -108,9 +114,14 @@ export const actions = {
         const session = await getSession();
 
         const formData = await request.formData();
-        const draft = JSON.parse(formData.get('draft'));
-        const pick = JSON.parse(formData.get('pick'));
+        //TODO UPDate this as well
+        const {data: draft, error: draftError} = await supabase
+            .from('drafts')
+            .select('*, picks!public_picks_draft_id_fkey(*,teams (id)), leagues(id, commissioners(user_id), teams ( id ))')
+            .eq('id', params.id)
+            .single()
 
+        console.log(draftError)
 
         //confirm user is commish 
         const userIsCommish = draft.leagues[0].commissioners.find(c => c.user_id === session.user.id)
@@ -118,15 +129,12 @@ export const actions = {
             return fail(401, "Must be commisionner ")
         }
 
-        //pick is current pick? 
-        const isCurrentPick = draft.round === pick.round && draft.pick === pick.pick
-        if (!isCurrentPick) {
-            return fail(401, "Not current pick")
-        }
+       
 
         const { error } = await autodraft(draft, params, supabase)
         if (error){
-            return fail(401, { error_message: error?.message || "Something went wrong" })
+            console.log(error)
+            return fail(401, { message: error?.message || "Something went wrong" })
         }
 
 
@@ -355,7 +363,7 @@ async function autodraft(draft, params, supabase) {
         .neq('player_id', null)
 
     if (pickedPlayersError) {
-
+       
         return { error: pickedPlayersError }
     }
 
@@ -366,8 +374,9 @@ async function autodraft(draft, params, supabase) {
         .eq('league_id', draft.leagues[0].id)
         .limit(pickedPlayers.length + 1)
 
-
+    console.log(players)
     if (playersError) {
+       
         return { error: playersError }
     }
     const pickedPlayersArray = pickedPlayers.map(player => player.player_id)
@@ -386,7 +395,6 @@ async function make_selection(draft, player_id, supabase) {
 
     //confirm draft status is active 
     if (draft.status !== "ACTIVE") {
-
         return { error: "Draft is not active" }
     }
 
@@ -411,7 +419,7 @@ async function make_selection(draft, player_id, supabase) {
     //TODO is there a better way? Should draft have a current pick property? 
     const currentPick = draft.picks.find((/** @type {{ round: any; pick: any; }} */ pick) => pick.round === draft.round && pick.pick === draft.pick);
     const nextPick = draft.pick === draft.order.length ? { round: draft.round + 1, pick: 1 } : { round: draft.round, pick: draft.pick + 1 }
-
+    console.log(draft.pick)
     const { error } = await draft_player(currentPick, player_id, nextPick, draft, supabase)
 
     return { error }
