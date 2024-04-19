@@ -57,7 +57,7 @@
 	//TODO - does this cause issue if start is pressed too 	quickly?
 	const picks_channel = supabase
 		.channel('picks-channel')
-		.on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, (payload) => {
+		.on('postgres_changes', { event: '*', schema: 'public', table: 'picks', filter: `draft_id=eq.${draft.id}` }, (payload) => {
 			{
 				if (payload.eventType === 'UPDATE') {
 					if (payload.new.draft_id !== draft.id) return;
@@ -78,7 +78,7 @@
 
 	const draft_channel = supabase
 		.channel('draft-channel')
-		.on('postgres_changes', { event: '*', schema: 'public', table: 'drafts' }, (payload) => {
+		.on('postgres_changes', { event: '*', schema: 'public', table: 'drafts', filter: `id=eq.${draft.id}` }, (payload) => {
 			
 			if (payload.new.id !== draft.id) return;
 			{
