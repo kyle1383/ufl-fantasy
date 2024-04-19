@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/matchups",
-      "schedule": "* 12-22 * * 6"
+      "schedule": "*/4 12-22 * * 6"
     }
   ]
 }
