@@ -3,7 +3,7 @@
 	import '../app.css';
 	import LogRocket from 'logrocket';
 	LogRocket.init('1zkmlx/ufl-fantasy');
-	$: user = $page.data.session.user;
+	$: user = $page.data.session?.user;
 	
 	$: if(user){
 		console.log('adding to ler')
