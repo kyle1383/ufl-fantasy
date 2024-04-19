@@ -13,21 +13,7 @@ import {  updateWeeklyGameStatistics, uploadSchedule } from '$lib/stats.server';
 
 export const actions = {
     uflPlayers: async ({ fetch, locals: { supabase }, request }) => {
-        /* const options = { method: 'GET', headers: { accept: 'application/json' } };
- 
-         const response = await fetch('https://api.sportradar.com/ufl/trial/v7/en/league/hierarchy.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC', options)
-         
-         const jason = await response.json();
-         console.log(jason)*/
-
-        //store data in fil called ufl.json
-        /*const divisions = league.conferences[0].divisions
-        let teams = [...divisions[0].teams, ...divisions[1].teams];
-        teams = teams.map((t) => { return { name: t.name, city: t.venue.city, sportradar_id: t.id } });
-        console.log(teams)*/
-
-        /* const {data: teamsData, error} = await supabase.from('ufl_teams').insert(teams)
-         console.log(teamsData, error)*/
+       
 
 
         const options = { method: 'GET', headers: { accept: 'application/json' } };
@@ -183,7 +169,7 @@ export const actions = {
 
     },
     gameStats: async ({ locals: { supabase }, request }) => {
-        updateWeeklyGameStatistics(2);
+        updateWeeklyGameStatistics(3);
     }
 }
 

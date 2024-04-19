@@ -31,7 +31,7 @@
 </form>
 
 <form method="POST" action="?/uflPlayers" use:enhance>
-	<button class="btn btn-primary">ufl waivers</button>
+	<button class="btn btn-primary">ufl players update</button>
 </form>
 
 <form method="POST" action="?/updateSchedule" use:enhance>
