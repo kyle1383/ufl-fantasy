@@ -60,6 +60,7 @@
 		.on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, (payload) => {
 			{
 				if (payload.eventType === 'UPDATE') {
+					if (payload.new.draft_id !== draft.id) return;
 					availablePlayers = availablePlayers.filter((player) => player.id !== payload.new.player_id);
 					favoritePlayers = favoritePlayers.filter((player) => player.id !== payload.new.player_id);
 
@@ -78,6 +79,8 @@
 	const draft_channel = supabase
 		.channel('draft-channel')
 		.on('postgres_changes', { event: '*', schema: 'public', table: 'drafts' }, (payload) => {
+			
+			if (payload.new.id !== draft.id) return;
 			{
 				let updatedDraft = draft;
 				updatedDraft.pick = payload.new.pick;
