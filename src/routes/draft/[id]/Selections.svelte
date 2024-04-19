@@ -42,7 +42,7 @@
 
 <div
 	class="grid grid-cols-{size.toString()} gap-2 p-1 lg:p-8 pb-24 bg-black pt-24 lg:pt-48 grid-body overflow-x-scroll"
-	style="grid-template-columns: repeat({size}, minmax(100px, 1fr));"
+	style="grid-template-columns: repeat({size}, minmax(150px, 1fr));"
 >
 	{#each teams as team}
 		<div class="my-auto">

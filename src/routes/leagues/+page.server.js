@@ -161,7 +161,7 @@ async function createDraft(league, teams, order, isMock = false, errors, supabas
         .single()
 
     draftError && errors.push(draftError)
-    console.log(draftError, 'de')
+   
 
     let picks = []
 
@@ -183,7 +183,7 @@ async function createDraft(league, teams, order, isMock = false, errors, supabas
         .insert(picks)
         .select()
 
-    console.log(picksError, 'pe')
+   
 
     picksError && errors.push(picksError)
 

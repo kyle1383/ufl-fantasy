@@ -7,7 +7,7 @@
 
 <div class="w-full md:px-8 draft-header">
 	<div
-		class="text-white text-sm lg:text-xl font-bold bg-gray-700 p-4 lg:p-8 rounded-t-none rounded-b-lg border-gray-600 border-2 w-full flex space-x-8 text-center lg:text-left justify-between items-center"
+		class="text-white text-sm lg:text-xl font-bold bg-gray-700 p-4 lg:p-8 rounded-t-none rounded-b-lg lg:rounded-t-lg border-gray-600 border-2 w-full flex space-x-8 text-center lg:text-left justify-between items-center"
 	>
 		<p>Welcome to the <span class="text-primary orbitron">{draft.leagues[0].name}</span> draft</p>
 

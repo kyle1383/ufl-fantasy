@@ -223,6 +223,16 @@ export const actions = {
  */
 async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     //get new pick end 
+    //confirm that pick is empty 
+    const {data: currentPickDB, error: currentPickError} = await supabase
+        .from('picks')
+        .select('player_id')
+        .eq('id', currentPick.id)
+        .single()
+
+    if (currentPickDB.player_id || currentPick.player_id || currentPickError) {
+        return { error: "Pick is not empty" }
+    }
 
     let timestamp = Date.now();
     timestamp = timestamp + (draft.roundLength * 1000 * 10);
