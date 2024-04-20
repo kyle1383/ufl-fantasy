@@ -3,7 +3,7 @@
 	import type { PlayerLeague, Matchup } from '$lib/types';
 
 	export let matchups: Matchup[];
-    console.log(matchups[1].team_2)
+   
 	$: matchups.map((m) => {
 		m.team_1.player_leagues.forEach((player: PlayerLeague) => {
 			player.score = calculateFantasyScore(player);

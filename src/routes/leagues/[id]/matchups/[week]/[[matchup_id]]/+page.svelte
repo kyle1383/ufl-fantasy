@@ -6,6 +6,7 @@
 
 	const { matchups, league, supabase } = data;
 	let currentMatchup;
+	$: currentMatchup;
 	$: matchupID = $page.params.matchup_id;
 	$: if (matchupID) {
 		currentMatchup = matchups.find((matchup) => matchup.id === parseInt(matchupID));

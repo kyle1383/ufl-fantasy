@@ -51,8 +51,9 @@ export async function updateWeeklyGameStatistics(week: number) {
     if (!activeGames) return;
     const {data: players, error: playerError} = await supabase.from('players').select('id')
     if (playerError) return fail(401, { message: 'Failed to fetch players' })
-       
+    
     activeGames.forEach(async (game: {id: number, scheduled: any}) => {
+        console.log('updating ', game)
         const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
         const responseJSON = await response.json()
         console.log(game)
