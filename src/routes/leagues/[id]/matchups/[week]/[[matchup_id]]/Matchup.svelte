@@ -18,11 +18,16 @@
 	$: away.player_leagues.forEach((player) => {
 		player.score = calculateFantasyScore(player);
 	});
-
+	$: homeActivePlayers = home.player_leagues.filter(
+		(player) => player.team_position !== 'BENCH' && player.team_position !== null
+	);
+	$: awayActivePlayers = away.player_leagues.filter(
+		(player) => player.team_position !== 'BENCH' && player.team_position !== null
+	);
 	$: homeTotal =
-		Math.round(home.player_leagues.reduce((acc, player) => acc + player.score, 0) * 100) / 100;
+		Math.round(homeActivePlayers.reduce((acc, player) => acc + player.score, 0) * 100) / 100;
 	$: awayTotal =
-		Math.round(away.player_leagues.reduce((acc, player) => acc + player.score, 0) * 100) / 100;
+		Math.round(awayActivePlayers.reduce((acc, player) => acc + player.score, 0) * 100) / 100;
 
 	/*const picks_channel = supabase
 		.channel('picks-channel')
