@@ -1,6 +1,6 @@
 import { updateWeeklyGameStatistics } from '$lib/stats.server.js';
 import { createClient } from '@supabase/supabase-js'
-import {PUBLIC_SUPABASE_URL} from '$env/static/public'
+import { PUBLIC_SUPABASE_URL } from '$env/static/public'
 import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 export async function GET(req) {
     //this should run about 50 x per game 
@@ -8,11 +8,12 @@ export async function GET(req) {
     const supabase = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
     const activeGame = isGameActive();
-    if (activeGame) {
-        const {data: season, error: seasonError} = await supabase.from('seasons').select('*').eq('year', 2024).single()
-        const week = season.week
-        await updateWeeklyGameStatistics(week || 4 )
-    }
+    console.log('activeGame', activeGame)
+    /* if (activeGame) {*/
+    const { data: season, error: seasonError } = await supabase.from('seasons').select('*').eq('year', 2024).single()
+    const week = season.week
+    await updateWeeklyGameStatistics(week || 4)
+    /*}*/
     return new Response('Updated Statistics');
 
 }
