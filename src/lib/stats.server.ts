@@ -45,6 +45,7 @@ export async function updateWeeklyGameStatistics(week: number) {
     if (error) {
         return fail(401, { message: 'Failed to fetch games' })
     }
+    
     const activeGames = filterRecentGames(data || [])
     
     const options = { method: 'GET', headers: { accept: 'application/json' } };
