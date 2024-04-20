@@ -78,7 +78,7 @@ function filterRecentGames(games: {id: any, scheduled: any}[]) {
 
         // Convert the difference to hours
         const hoursDiff = diff / (1000 * 60 * 60);
-
+        console.log(diff, hoursDiff)
         // Include games scheduled within the last 3 hours
         return hoursDiff >= 0 && hoursDiff <= 3;
     });
