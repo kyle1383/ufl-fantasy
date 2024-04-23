@@ -1,4 +1,5 @@
 <script>
+	import StatsDisplay from "$lib/StatsDisplay.svelte";
 	export let player;
 	export let waiver;
 	export let waiver_request;
@@ -25,6 +26,9 @@
 		><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</p
 	>
 </div>
+<div class="lg:block hidden"><StatsDisplay {player}/></div>
+
+
 <div class="flex justify-end">
 	<button
 		on:click={() => {
@@ -38,3 +42,10 @@
 		>{waiver ? 'W' : '+'}{#if waiver}<small class="text-[0.5rem]">Tues</small>{/if}</button
 	>
 </div>
+<div class="stat-display lg:hidden"><StatsDisplay {player} /></div>
+
+<style>
+	.stat-display{
+		grid-column: 1/-1;
+	}
+</style>

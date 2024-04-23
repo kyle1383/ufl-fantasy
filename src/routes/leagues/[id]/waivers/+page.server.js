@@ -34,7 +34,7 @@ export const actions = {
             .single()
 
         if(!league || league.drafts?.status === 'PREDRAFT' ||  league.drafts?.status === 'ACTIVE' ||  league.drafts?.status === 'PAUSED' || !league.drafts){
-            console.log(league.draft.status)
+       
             return fail(401, {body: 'Cannot add player until draft is complete'})
         }
       

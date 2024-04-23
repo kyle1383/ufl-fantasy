@@ -19,6 +19,9 @@
 	
 	$: unRosteredPlayers = players.filter((player) => player.rostered === false);
 	
+	$: console.log(unRosteredPlayers[0])
+	$: unRosteredPlayers.sort((a, b) => b.players.fpts - a.players.fpts);
+	
 	$: rosterSize = Object.values(JSON.parse(league.roster_limits)).reduce(
 		(acc, cur) => acc + cur,
 		0

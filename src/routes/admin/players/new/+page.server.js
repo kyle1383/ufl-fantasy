@@ -169,7 +169,7 @@ export const actions = {
 
     },
     gameStats: async ({ locals: { supabase }, request }) => {
-        updateWeeklyGameStatistics(3);
+        updateWeeklyGameStatistics(4);
     }
 }
 

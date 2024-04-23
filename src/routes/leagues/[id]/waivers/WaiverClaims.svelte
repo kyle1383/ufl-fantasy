@@ -2,7 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import type { WaiverClaim } from '$lib/types';
 	export let claims: WaiverClaim[] = [];
-	console.log(claims);
+
 </script>
 
 <div class="lg:border-r-[1px] border-gray-700 h-full py-4 lg:mr-8 text-white">

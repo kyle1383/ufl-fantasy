@@ -7,10 +7,10 @@
 	export let leagues: League[] = [];
 	export let supabase: SupabaseClient;
 	$: league = $page.data.league || leagues.find((l) => l.id.toString() === $page.params.id);
-	$: console.log(league)
+
 	$: nonActiveLeagues = leagues.filter((l) => l.id.toString() !== $page.params.id);
 	$: mobileMenu = false;
-	console.log($page.data.session.user.user_metadata);
+	
 	$: isCommissioner = league?.commissioners.some((c) => c.user_id === $page.data.session?.user.id) || false;
 	
 	async function signOut() {

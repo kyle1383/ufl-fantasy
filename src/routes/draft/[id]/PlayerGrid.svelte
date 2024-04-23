@@ -5,7 +5,7 @@
 	import type { Player } from '$lib/types';
 	import favorites from './favorites';
 	import PlayerGridHeader from './PlayerGridHeader.svelte';
-	import StatsDisplay from './StatsDisplay.svelte';
+	import StatsDisplay from '$lib/StatsDisplay.svelte';
 
 	let parsedFavorites: String[] = JSON.parse($favorites);
 	export let players: Player[];
@@ -65,7 +65,7 @@
 					><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
 				>
 			</div>
-			<div class="lg:block hidden"><StatsDisplay {player} {positionFilter}/></div>
+			<div class="lg:block hidden"><StatsDisplay {player}/></div>
 			<div class="flex justify-end items-center pr-8">
 				<form
 					method="POST"
@@ -93,7 +93,7 @@
 					<button type="submit" class="btn btn-circle btn-primary" disabled={!onClock}>+</button>
 				</form>
 			</div>
-			<div class="stat-display lg:hidden"><StatsDisplay {player} {positionFilter}/></div>
+			<div class="stat-display lg:hidden"><StatsDisplay {player} /></div>
 		{/each}
 	</div>
 </div>

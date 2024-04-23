@@ -10,7 +10,7 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
     }
     const { data, error } = await supabase
         .from('leagues')
-        .select('*, teams ( * ), player_leagues ( *, players (*, ufl_teams(*)) ), drafts(status), matchups(*), seasons(week), commissioners(*)')
+        .select('*, teams ( * ), drafts(status), matchups(*), seasons(week), commissioners(*),  player_leagues ( *, players (*, ufl_teams(*), g_passing(attempts, completions, interceptions, touchdowns, yards), g_receiving(yards, touchdowns, targets, receptions), g_rushing(attempts, yards, touchdowns), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50)) )')
         //.eq('id', params.id)
         .or(`id.eq.${params.id},name.eq.${params.id}`)
         .single();

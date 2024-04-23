@@ -40,13 +40,13 @@ export async function updateWeeklyGameStatistics(week: number) {
         .from('ufl_games')
         .select('id, scheduled')
         .eq('week', week)
-
+    
    
     if (error) {
         return fail(401, { message: 'Failed to fetch games' })
     }
     
-    const activeGames = filterRecentGames(data || [])
+    const activeGames = data//filterRecentGames(data || [])
     
     const options = { method: 'GET', headers: { accept: 'application/json' } };
     if (!activeGames) return;
@@ -220,7 +220,7 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     const { error: fumbleError } = await supabase
         .from('g_fumbles')
         .upsert(filteredFumbleStats)
-
+    console.log('inserting ' + filteredPassingStats.length + ' passing stats' + filteredRushingStats.length + ' rushing stats' + filteredReceivingStats.length + ' receiving stats' + filteredKickingStats.length + ' kicking stats' + filteredFumbleStats.length + ' fumble stats')
     if (passingError || rushingError || receivingError || kickingError || fumbleError) {
         console.log('Error inserting game statistics', passingError, rushingError, receivingError, kickingError, fumbleError)
     }

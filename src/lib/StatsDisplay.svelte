@@ -1,13 +1,14 @@
 <script lang="ts">
 	export let player;
-	export let positionFilter;
+	
 
 	let passing: object = null;
 	let rushing: object = null;
 	let receiving: object = null;
 	let kicking: object = null;
+
 	// Make 'passing' reactive by depending directly on 'player'
-	$: if (player.position === 'QB' && player.g_passing.length > 0) {
+	$: if (player.g_passing && player.position === 'QB' && player.g_passing?.length > 0 ) {
 		passing = player.g_passing.reduce(
 			(acc, game) => ({
 				completions: acc.completions + game.completions,
@@ -29,7 +30,7 @@
 		passing = null;
 	}
 
-	$: if ((player.position === 'QB' || player.position === 'RB') && player.g_rushing.length > 0) {
+	$: if ((player.position === 'QB' || player.position === 'RB') && player.g_rushing?.length > 0) {
 		rushing = player.g_rushing.reduce(
 			(acc, game) => ({
 				attempts: acc.attempts + game.attempts,
@@ -49,7 +50,7 @@
 
 	$: if (
 		(player.position === 'WR' || player.position === 'TE' || player.position === 'RB') &&
-		player.g_receiving.length > 0
+		player.g_receiving?.length > 0
 	) {
 		receiving = player.g_receiving.reduce(
 			(acc, game) => ({
@@ -70,7 +71,7 @@
 		receiving = null;
 	}
 
-	$: if (player.position === 'K' && player.g_kicking.length > 0) {
+	$: if (player.position === 'K' && player.g_kicking?.length > 0) {
 		kicking = player.g_kicking.reduce(
 			(acc, game) => ({
 				attempts: acc.attempts + game.attempts,
@@ -89,7 +90,7 @@
 	}
 </script>
 
-<div class="flex ml-8 lg:ml-4">
+<div class="flex mx-2 lg:ml-4">
 	<div class="grid grid-cols-1 border-r-2 border-gray-400 text-sm pr-2 lg:pr-4">
 		<p class="w-fit">fpts</p>
 		<p>{player.fpts || 0}</p>

@@ -9,6 +9,7 @@
 	export let unRosteredPlayers: { players: Player[]; waiver: boolean; waiver_request: boolean }[];
 	export let draftStatus: string;
 	$: unRosteredPlayers;
+	$: unRosteredPlayers = unRosteredPlayers.sort((a, b) => b.fpts - a.fpts);
 	
 	$: toast = null;
 	$: addPlayer = null;
@@ -52,5 +53,8 @@
 <style>
 	.grid {
 		grid-template-columns: auto auto 1fr;
+		@media (min-width: 1024px) {
+		grid-template-columns: auto auto auto  1fr;
+		}
 	}
 </style>
