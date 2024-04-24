@@ -104,3 +104,28 @@ export function showToast(text) {
     setTimeout(() => toastContainer.remove(), 500); // Ensure fade out completes
   }, 3000);
 }
+
+export function calculateFpts(player){
+  
+		const passingPts = player.g_passing?.reduce((acc, pStats) => acc + (pStats.touchdowns * 4 + pStats.yards/25 - pStats.interceptions * 2), 0);
+		const rushingPts = player.g_rushing?.reduce((acc, rStats) => acc + (rStats.touchdowns * 6 + rStats.yards/10), 0);
+		const receivingPts = player.g_receiving?.reduce((acc, rStats) => acc + (rStats.touchdowns * 6 + rStats.yards/10 + rStats.receptions), 0);
+		const kickingPts = player.g_kicking?.reduce((acc, kStats) => acc + (kStats.made_19 * 3 + kStats.made_29 + kStats.made_39 * 3 + kStats.made_49 * 4 + kStats.made_50 * 5), 0);
+		const fpts = Math.round((passingPts + rushingPts + receivingPts + kickingPts) * 100) / 100;
+		
+	 return fpts;
+}
+
+export function calculateWeekFpts(player, week){
+  const latestPassingStats = player.g_passing?.find(p => p.ufl_games.week === week);
+  const latestRushingStats = player.g_rushing?.find(p => p.ufl_games.week === week);
+  const latestReceivingStats = player.g_receiving?.find(p => p.ufl_games.week === week);
+  const latestKickingStats = player.g_kicking?.find(p => p.ufl_games.week === week);
+
+  const passingPts = latestPassingStats ? latestPassingStats.touchdowns * 4 + latestPassingStats.yards/25 - latestPassingStats.interceptions * 2 : 0;
+  const rushingPts = latestRushingStats ? latestRushingStats.touchdowns * 6 + latestRushingStats.yards/10 : 0;
+  const receivingPts = latestReceivingStats ? latestReceivingStats.touchdowns * 6 + latestReceivingStats.yards/10 + latestReceivingStats.receptions : 0;
+  const kickingPts = latestKickingStats ? latestKickingStats.made_19 * 3 + latestKickingStats.made_29 + latestKickingStats.made_39 * 3 + latestKickingStats.made_49 * 4 + latestKickingStats.made_50 * 5 : 0;
+  const fpts = Math.round((passingPts + rushingPts + receivingPts + kickingPts) * 100) / 100;
+  return fpts;
+}

@@ -1,6 +1,8 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import StatsDisplay from '$lib/StatsDisplay.svelte';
+	import { calculateFantasyScore } from '$lib/helpers';
 
 	// @ts-nocheck
 	export let position;
@@ -10,8 +12,10 @@
 	export let swapDepth = 0;
 	export let swapPosition = 'BENCH';
 	export let swapOutPlayer = null;
+	export let modalPlayer;
 	let loading = false;
-	$:console.log(player)
+	
+	
 </script>
 
 {#if player !== 'null'}
@@ -28,7 +32,9 @@
 			{position}
 		</button>
 	</div>
-	<div class="flex">
+	<button class="flex" on:click={() => {modalPlayer=player
+		console.log(player, modalPlayer)
+	}}>
 		<div class="my-auto">
 			<div class="flex items-center justify-center">
 				<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
@@ -36,43 +42,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col justify-center">
+		<div class="flex flex-col justify-start text-left">
 			<p>{player.players.name}</p>
 			<span class="text-xs">
 				{`${player.players.position} ${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
 			>
 		</div>
-	</div>
-	<div class="flex justify-end">
-		<form
-			method="POST"
-			action="?/drop"
-			use:enhance={({ formElement, formData, action, cancel, spanmitter }) => {
-				loading = true;
-				if (!confirm(`Are you sure you want to drop this ${player.players.name}?`)) {
-					cancel();
-				}
-				return async ({ result, update }) => {
-					if (result.type === 'success') {
-						console.log(result);
-						invalidateAll();
-					} else if (result.type === 'error') {
-						alert('internal error');
-					} else {
-						alert(`Player drop failed; ${result.data.error_message}`);
-					}
-				};
-			}}
-		>
-			<input type="hidden" name="player_id" value={player.players.id} />
-			{#if loading}
-				<div
-					class="btn btn-sm my-auto btn-error btn-outline btn-circle loading loading-spinner loading-lg"
-				/>
-			{:else}
-				<button class="btn-sm btn my-auto btn-error btn-outline btn-circle">-</button>{/if}
-		</form>
-	</div>
+	</button>
+	<div>{player.players.weekPts || 0}</div>
 {:else}
 	<div>
 		<button
@@ -100,3 +77,4 @@
 	</div>
 	<div />
 {/if}
+

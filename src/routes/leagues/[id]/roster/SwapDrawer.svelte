@@ -14,8 +14,8 @@
 	export let roster;
 	export let checked;
 	let loading = '';
-	$: swapOutPlayer
-	$: console.log(swapOutPlayer)
+	$: swapOutPlayer;
+	$: console.log(swapOutPlayer);
 	//check for click event outside of modal
 	function handleClickOutside(event) {
 		checked ? (checked = false) : null;
@@ -30,11 +30,17 @@
 		use:clickOutside
 		on:click_outside={handleClickOutside}
 	>
-		<h3 class="font-bold text-lg py-4">Replacing <span class="text-{position} border-2 rounded-lg bg-gray-700 border-gray-600 py-1 text-sm px-2">{position}</span></h3>
+		<h3 class="font-bold text-lg py-4">
+			Replacing <span
+				class="text-{position} border-2 rounded-lg bg-gray-700 border-gray-600 py-1 text-sm px-2"
+				>{position}</span
+			>
+		</h3>
 		{#each swapPlayers as player}
 			<form
 				method="post"
 				action="?/updateRosterPosition"
+				class="flex"
 				use:enhance={({ form, data, action, cancel }) => {
 					data.set('player', JSON.stringify(player));
 					data.set('swapOutPlayer', JSON.stringify(swapOutPlayer));
@@ -65,11 +71,20 @@
 				}}
 			>
 				<button class="w-full">
-					<div class="flex flex-row items-center">
-						<Icon icon="ion:swap-vertical-sharp" class="mr-4" />
+					<div class="grid flex-row items-center">
+						<div
+							class={`text-${player.team_position} btn-xs border-2 rounded-lg btn btn-outline bg-gray-700  border-gray-600 min-w-16 mr-4 `}
+						>
+						
+							{player.team_position}
+					</div>
 						<div class="flex items-center justify-center">
-							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
-								<img src={player.players.img_url} alt={player.name} class="w-full h-full object-cover" />
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-4">
+								<img
+									src={player.players.img_url}
+									alt={player.name}
+									class="w-full h-full object-cover"
+								/>
 							</div>
 						</div>
 						<div class="flex flex-col items-start">
@@ -80,7 +95,14 @@
 						</div>
 					</div>
 				</button>
+				<p>{player.players.weekPts || 0}</p>
 			</form>
 		{/each}
 	</div>
 </div>
+
+<style>
+	.grid{
+		grid-template-columns: auto auto 1fr;
+	}
+</style>

@@ -11,7 +11,7 @@ export async function load({ locals: {supabase, getSession}, params, parent }) {
     //get teams from league_id and user_id
     const { data: team, error: teamError } = await supabase
         .from('teams')
-        .select('*, player_leagues ( *, players (*, ufl_teams(*))), profiles(*)')
+        .select('*, player_leagues ( *, players (*, ufl_teams(*), g_passing(attempts, completions, interceptions, touchdowns, yards, ufl_games(week)), g_receiving(yards, touchdowns, targets, receptions, ufl_games(week)), g_rushing(attempts, yards, touchdowns, ufl_games(week)), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50, ufl_games(week)))), profiles(*)')
         .eq('id', roster_id)
         .single()
 
