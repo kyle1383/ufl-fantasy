@@ -1,12 +1,17 @@
 <script>
-	import { calculateFpts, calculateWeekFpts, clickOutside } from '$lib/helpers';
+	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { calculateFpts, calculateWeekFpts, clickOutside, showToast } from '$lib/helpers';
+
 	export let player;
 	export let week;
 	$: player;
-	
+
 	function handleClickOutside() {
 		player = null;
 	}
+	console.log($page.url)
 
 	$: statsByWeek = [];
 	$: if (player) {
@@ -28,6 +33,8 @@
 	} else {
 		statsByWeek = [];
 	}
+
+	$: loading = false;
 </script>
 
 <input type="checkbox" id="player-modal" class="modal-toggle" checked={player} />
@@ -38,24 +45,52 @@
 			use:clickOutside
 			on:click_outside={handleClickOutside}
 		>
-			<div class="flex mb-8">
-				<div class="my-auto">
-					<div class="flex items-center justify-center">
-						<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
-							<img
-								src={player.img_url}
-								alt={player.name}
-								class="w-full h-full object-cover"
-							/>
+			<div class="flex mb-8 justify-between space-x-8">
+				<div class="flex">
+					<div class="my-auto">
+						<div class="flex items-center justify-center">
+							<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
+								<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
+							</div>
 						</div>
 					</div>
+					<div class="flex flex-col justify-center">
+						<p>{player.name}</p>
+						<span class="text-xs">
+							{`${player.position} ${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
+						>
+					</div>
 				</div>
-				<div class="flex flex-col justify-center">
-					<p>{player.name}</p>
-					<span class="text-xs">
-						{`${player.position} ${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
-					>
-				</div>
+				{#if $page.url.pathname.includes('roster')}
+				<form
+					method="POST"
+					action="?/drop"
+					use:enhance={({ formElement, formData, action, cancel, spanmitter }) => {
+						loading = true;
+						if (!confirm(`Are you sure you want to drop ${player.name}?`)) {
+							loading = false
+							cancel();
+						}
+						return async ({ result, update }) => {
+							if (result.type === 'success') {
+								console.log(result);
+								showToast('Player dropped successfully');
+								loading = false;
+								player = null;
+								invalidateAll();
+							} else if (result.type === 'error') {
+								alert('internal error');
+							} else {
+								alert(`Player drop failed; ${result.data.error_message}`);
+							}
+						};
+					}}
+				>
+				<input type="hidden" name="player_id" value={player.id}/>
+					<button class="btn btn-error btn-outline rounded-lg mr-2" disabled={loading}> Drop </button>
+				</form>
+				
+				{/if}
 			</div>
 			<div
 				class="grid gap-[2px] w-fit self-center"
@@ -63,9 +98,7 @@
 					? 'auto auto auto auto auto 10px'
 					: ''} {player.position === 'QB' || player.position === 'RB'
 					? 'auto auto auto 10px'
-					: ''} {player.position === 'RB' ||
-				player.position === 'WR' ||
-				player.position === 'TE'
+					: ''} {player.position === 'RB' || player.position === 'WR' || player.position === 'TE'
 					? 'auto auto auto auto 10px'
 					: ''} {player.position === 'K' ? 'auto auto auto auto auto auto auto' : ''};"
 			>
@@ -83,40 +116,40 @@
 				{#if player.position === 'K'}
 					<p class="col-span-7 text-gray-300 text-sm">Kicking</p>
 				{/if}
-				
-				<p class="col-span-2"/>
+
+				<p class="col-span-2" />
 				<p class="mt-2 text-center">fpts</p>
 				<p />
-				
+
 				{#if player.position === 'QB'}
-					<p class="px-1 ">yards</p>
-					<p class="px-1 ">tds</p>
-					<p class="px-1 ">cmp</p>
-					<p class="px-1 ">att</p>
-					<p class="px-1 ">int</p>
+					<p class="px-1">yards</p>
+					<p class="px-1">tds</p>
+					<p class="px-1">cmp</p>
+					<p class="px-1">att</p>
+					<p class="px-1">int</p>
 					<p />
 				{/if}
 				{#if player.position === 'QB' || player.position === 'RB'}
 					<p class="px-1">yds</p>
-					<p class="px-1 ">tds</p>
+					<p class="px-1">tds</p>
 					<p class="px-1">att</p>
 					<p />
 				{/if}
 				{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
 					<p class="px-1">yds</p>
-					<p class="px-1 ">tds</p>
-					<p class="px-1 ">rec</p>
-					<p class="px-1 ">tar</p>
+					<p class="px-1">tds</p>
+					<p class="px-1">rec</p>
+					<p class="px-1">tar</p>
 					<p />
 				{/if}
 				{#if player.position === 'K'}
-					<p class="px-1 ">att</p>
-					<p class="px-1 ">fgm</p>
-					<p class="px-1 ">19</p>
-					<p class="px-1 ">29</p>
-					<p class="px-1 ">39</p>
-					<p class="px-1 ">49</p>
-					<p class="px-1 ">50</p>
+					<p class="px-1">att</p>
+					<p class="px-1">fgm</p>
+					<p class="px-1">19</p>
+					<p class="px-1">29</p>
+					<p class="px-1">39</p>
+					<p class="px-1">49</p>
+					<p class="px-1">50</p>
 				{/if}
 				<p class="flex items-center">2024</p>
 				<p />
@@ -219,7 +252,7 @@
 					<p
 						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 					>
-					 	{player.g_kicking.reduce((acc, stat) => acc + stat.made_39, 0)}
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made_39, 0)}
 					</p>
 					<p
 						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
@@ -236,7 +269,7 @@
 				<p />
 				<p class="mt-4 text-center">fpts</p>
 				<p />
-				
+
 				{#if player.position === 'QB'}
 					<p class="px-1 mt-4">yards</p>
 					<p class="px-1 mt-4">tds</p>
@@ -389,7 +422,7 @@
 {/if}
 
 <style>
-	.modal-box{
+	.modal-box {
 		width: 100% !important;
 		@media (min-width: 1024px) {
 			width: fit-content !important;
