@@ -17,7 +17,7 @@ export async function load({ request, params, locals: { supabase, getSession } }
     //picks!public_picks_draft_id_fkey', 'picks!drafts_currentPick_id_fkey
     const { data: draft, error: draftError } = await supabase
         .from('drafts')
-        .select('*, picks!public_picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*))')
+        .select('*, picks!public_picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*), seasons(week))')
         .eq('id', params.id)
         .single()
     //get players from supabase
@@ -35,7 +35,7 @@ export async function load({ request, params, locals: { supabase, getSession } }
 
     const { data: players, error } = await supabase
         .from('players')
-        .select('*, ufl_teams (*), g_passing(attempts, completions, interceptions, touchdowns, yards), g_receiving(yards, touchdowns, targets, receptions), g_rushing(attempts, yards, touchdowns), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50)')
+        .select('*, ufl_teams (*), g_passing(attempts, completions, interceptions, touchdowns, yards, ufl_games(week)), g_receiving(yards, touchdowns, targets, receptions, ufl_games(week)), g_rushing(attempts, yards, touchdowns, ufl_games(week)), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50, ufl_games(week))')
 
 
     const filteredPlayers = players?.filter(player => !picks.includes(player.id))

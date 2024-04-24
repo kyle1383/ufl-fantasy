@@ -8,6 +8,7 @@
 	export let rosterSize: number;
 	export let unRosteredPlayers: { players: Player[]; waiver: boolean; waiver_request: boolean }[];
 	export let draftStatus: string;
+	export let modalPlayer: Player | null; 
 	$: unRosteredPlayers;
 	$: unRosteredPlayers = unRosteredPlayers.sort((a, b) => b.fpts - a.fpts);
 	
@@ -36,6 +37,7 @@
 			{team}
 			bind:checked
 			bind:addPlayer
+			bind:modalPlayer
 		/>
 	{/each}
 </div>

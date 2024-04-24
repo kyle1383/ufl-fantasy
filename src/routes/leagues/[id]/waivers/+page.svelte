@@ -1,7 +1,7 @@
 <script>
 	import AvailablePlayers from './AvailablePlayers.svelte';
 	import WaiverClaims from './WaiverClaims.svelte';
-
+	import PlayerModal from '../PlayerModal.svelte';
 	export let data;
 
 	const {team } = data;
@@ -36,6 +36,8 @@
 			player_drop,
 		};
 	});
+
+	$: modalPlayer = null;
 </script>
 
 <div class="flex lg:flex-row flex-col">
@@ -43,6 +45,8 @@
 		<WaiverClaims {claims}/>
 	</div>
 	<div class="basis-1 grow lg:basis-2/3">
-		<AvailablePlayers {team} {rosterSize} {unRosteredPlayers} {draftStatus}/>
+		<AvailablePlayers {team} {rosterSize} {unRosteredPlayers} {draftStatus} bind:modalPlayer/>
 	</div>
 </div>
+
+<PlayerModal player={modalPlayer} week={league.seasons.week}/>

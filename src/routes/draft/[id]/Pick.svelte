@@ -7,6 +7,7 @@
 	export let player: Player;
 	export let isCommissioner: Boolean;
 	export let draft;
+	export let modalPlayer;
 	let loading = false;
 	$: loading;
 	let pickElement;
@@ -63,8 +64,9 @@
 		</div>
 	</div>
 {:else}
-	<div
+	<button
 		class="bg-{player.position} text-white rounded p-2 m-1 bg-QB flex justify-between items-center"
+		on:click={()=>modalPlayer = player}
 	>
 		<div>
 			<p class="text-xs md:text-lg">{player.name}</p>
@@ -75,7 +77,7 @@
 				<img src={player.img_url} alt={player.name} class="w-full h-full object-cover" />
 			</div>
 		</div>
-	</div>
+	</button>
 {/if}
 
 <style>

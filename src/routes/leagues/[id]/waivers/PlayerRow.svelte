@@ -6,7 +6,7 @@
 	export let draftStatus;
 	export let rosterSize;
 	export let team;
-
+	export let modalPlayer;
 	export let checked;
 	export let addPlayer;
 </script>
@@ -20,12 +20,12 @@
 </div>
 
 
-<div class="">
+<button class="text-left" on:click={() => modalPlayer = player}>
 	<p>{player.name}</p>
 	<p class="text-xs lg:text-sm"
 		><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</p
 	>
-</div>
+</button>
 <div class="lg:block hidden"><StatsDisplay {player}/></div>
 
 

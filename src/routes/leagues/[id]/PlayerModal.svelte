@@ -1,9 +1,9 @@
 <script>
-	import { calculateWeekFpts, clickOutside } from '$lib/helpers';
+	import { calculateFpts, calculateWeekFpts, clickOutside } from '$lib/helpers';
 	export let player;
 	export let week;
 	$: player;
-	$: console.log(player)
+	
 	function handleClickOutside() {
 		player = null;
 	}
@@ -11,10 +11,10 @@
 	$: statsByWeek = [];
 	$: if (player) {
 		for (let i = 1; i < week + 1; i++) {
-			const wps = player.players.g_passing.find((stat) => stat.ufl_games.week === i);
-			const wrs = player.players.g_receiving.find((stat) => stat.ufl_games.week === i);
-			const wrus = player.players.g_rushing.find((stat) => stat.ufl_games.week === i);
-			const wks = player.players.g_kicking.find((stat) => stat.ufl_games.week === i);
+			const wps = player.g_passing.find((stat) => stat.ufl_games.week === i);
+			const wrs = player.g_receiving.find((stat) => stat.ufl_games.week === i);
+			const wrus = player.g_rushing.find((stat) => stat.ufl_games.week === i);
+			const wks = player.g_kicking.find((stat) => stat.ufl_games.week === i);
 			const ws = {
 				week: i,
 				passing: wps,
@@ -43,90 +43,240 @@
 					<div class="flex items-center justify-center">
 						<div class="w-10 h-10 rounded-full overflow-hidden bg-cover mr-2">
 							<img
-								src={player.players.img_url}
-								alt={player.players.name}
+								src={player.img_url}
+								alt={player.name}
 								class="w-full h-full object-cover"
 							/>
 						</div>
 					</div>
 				</div>
 				<div class="flex flex-col justify-center">
-					<p>{player.players.name}</p>
+					<p>{player.name}</p>
 					<span class="text-xs">
-						{`${player.players.position} ${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
+						{`${player.position} ${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
 					>
 				</div>
 			</div>
 			<div
-				class="grid gap-[2px] w-fit"
-				style="grid-template-columns: auto 5px auto 10px  {player.players.position === 'QB'
+				class="grid gap-[2px] w-fit self-center"
+				style="grid-template-columns: auto 5px auto 10px  {player.position === 'QB'
 					? 'auto auto auto auto auto 10px'
-					: ''} {player.players.position === 'QB' || player.players.position === 'RB'
+					: ''} {player.position === 'QB' || player.position === 'RB'
 					? 'auto auto auto 10px'
-					: ''} {player.players.position === 'RB' ||
-				player.players.position === 'WR' ||
-				player.players.position === 'TE'
+					: ''} {player.position === 'RB' ||
+				player.position === 'WR' ||
+				player.position === 'TE'
 					? 'auto auto auto auto 10px'
-					: ''} {player.players.position === 'K' ? 'auto auto auto auto auto auto auto' : ''};"
+					: ''} {player.position === 'K' ? 'auto auto auto auto auto auto auto' : ''};"
 			>
 				<p class="col-span-4" />
-				{#if player.players.position === 'QB'}
-					<p class="col-span-6">Passing</p>
+				{#if player.position === 'QB'}
+					<p class="col-span-6 text-gray-300 text-sm p-0">Passing</p>
 				{/if}
 
-				{#if player.players.position === 'QB' || player.players.position === 'RB'}
-					<p class="col-span-4">Rushing</p>
+				{#if player.position === 'QB' || player.position === 'RB'}
+					<p class="col-span-4 text-gray-300 text-sm">Rushing</p>
 				{/if}
-				{#if player.players.position === 'RB' || player.players.position === 'WR' || player.players.position === 'TE'}
-					<p class="col-span-5">Receiving</p>
+				{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
+					<p class="col-span-5 text-gray-300 text-sm">Receiving</p>
 				{/if}
-				{#if player.players.position === 'K'}
-					<p class="col-span-7">Kicking</p>
+				{#if player.position === 'K'}
+					<p class="col-span-7 text-gray-300 text-sm">Kicking</p>
 				{/if}
-				<p>wk</p>
+				
+				<p class="col-span-2"/>
+				<p class="mt-2 text-center">fpts</p>
 				<p />
-				<p>fpts</p>
+				
+				{#if player.position === 'QB'}
+					<p class="px-1 ">yards</p>
+					<p class="px-1 ">tds</p>
+					<p class="px-1 ">cmp</p>
+					<p class="px-1 ">att</p>
+					<p class="px-1 ">int</p>
+					<p />
+				{/if}
+				{#if player.position === 'QB' || player.position === 'RB'}
+					<p class="px-1">yds</p>
+					<p class="px-1 ">tds</p>
+					<p class="px-1">att</p>
+					<p />
+				{/if}
+				{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
+					<p class="px-1">yds</p>
+					<p class="px-1 ">tds</p>
+					<p class="px-1 ">rec</p>
+					<p class="px-1 ">tar</p>
+					<p />
+				{/if}
+				{#if player.position === 'K'}
+					<p class="px-1 ">att</p>
+					<p class="px-1 ">fgm</p>
+					<p class="px-1 ">19</p>
+					<p class="px-1 ">29</p>
+					<p class="px-1 ">39</p>
+					<p class="px-1 ">49</p>
+					<p class="px-1 ">50</p>
+				{/if}
+				<p class="flex items-center">2024</p>
 				<p />
-				{#if player.players.position === 'QB'}
-					<p>yards</p>
-					<p>tds</p>
-					<p>cmp</p>
-					<p>att</p>
-					<p>int</p>
+				<div
+					class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+				>
+					{calculateFpts(player) || 0}
+				</div>
+				<p />
+				{#if player.position === 'QB'}
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_passing.reduce((acc, stat) => acc + stat.yards, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_passing.reduce((acc, stat) => acc + stat.touchdowns, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_passing.reduce((acc, stat) => acc + stat.completions, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_passing.reduce((acc, stat) => acc + stat.attempts, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_passing.reduce((acc, stat) => acc + stat.interceptions, 0)}
+					</p>
 					<p />
 				{/if}
-				{#if player.players.position === 'QB' || player.players.position === 'RB'}
-					<p>yards</p>
-					<p>tds</p>
-					<p>att</p>
+				{#if player.position === 'QB' || player.position === 'RB'}
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_rushing.reduce((acc, stat) => acc + stat.yards, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_rushing.reduce((acc, stat) => acc + stat.touchdowns, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_rushing.reduce((acc, stat) => acc + stat.attempts, 0)}
+					</p>
 					<p />
 				{/if}
-				{#if player.players.position === 'RB' || player.players.position === 'WR' || player.players.position === 'TE'}
-					<p>yards</p>
-					<p>tds</p>
-					<p>rec</p>
-					<p>tar</p>
+				{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_receiving.reduce((acc, stat) => acc + stat.yards, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_receiving.reduce((acc, stat) => acc + stat.touchdowns, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_receiving.reduce((acc, stat) => acc + stat.receptions, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_receiving.reduce((acc, stat) => acc + stat.targets, 0)}
+					</p>
 					<p />
 				{/if}
-				{#if player.players.position === 'K'}
-					<p>att</p>
-					<p>fgm</p>
-					<p>19</p>
-					<p>29</p>
-					<p>39</p>
-					<p>49</p>
-					<p>50</p>
+				{#if player.position === 'K'}
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.attempts, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made_19, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made_29, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+					 	{player.g_kicking.reduce((acc, stat) => acc + stat.made_39, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made_40, 0)}
+					</p>
+					<p
+						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
+					>
+						{player.g_kicking.reduce((acc, stat) => acc + stat.made_50, 0)}
+					</p>
+				{/if}
+				<p class="mt-4">wk</p>
+				<p />
+				<p class="mt-4 text-center">fpts</p>
+				<p />
+				
+				{#if player.position === 'QB'}
+					<p class="px-1 mt-4">yards</p>
+					<p class="px-1 mt-4">tds</p>
+					<p class="px-1 mt-4">cmp</p>
+					<p class="px-1 mt-4">att</p>
+					<p class="px-1 mt-4">int</p>
+					<p />
+				{/if}
+				{#if player.position === 'QB' || player.position === 'RB'}
+					<p class="px-1 mt-4">yds</p>
+					<p class="px-1 mt-4">tds</p>
+					<p class="px-1 mt-4">att</p>
+					<p />
+				{/if}
+				{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
+					<p class="px-1 mt-4">yds</p>
+					<p class="px-1 mt-4">tds</p>
+					<p class="px-1 mt-4">rec</p>
+					<p class="px-1 mt-4">tar</p>
+					<p />
+				{/if}
+				{#if player.position === 'K'}
+					<p class="px-1 mt-4">att</p>
+					<p class="px-1 mt-4">fgm</p>
+					<p class="px-1 mt-4">19</p>
+					<p class="px-1 mt-4">29</p>
+					<p class="px-1 mt-4">39</p>
+					<p class="px-1 mt-4">49</p>
+					<p class="px-1 mt-4">50</p>
 				{/if}
 				{#each statsByWeek as weeklyStats}
-					<p>{weeklyStats.week}</p>
+					<p class="flex items-center">{weeklyStats.week}</p>
 					<p />
 					<div
 						class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 					>
-						{calculateWeekFpts(player.players, weeklyStats.week) || 0}
+						{calculateWeekFpts(player, weeklyStats.week) || 0}
 					</div>
 					<p />
-					{#if player.players.position === 'QB'}
+					{#if player.position === 'QB'}
 						<p
 							class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 						>
@@ -154,7 +304,7 @@
 						</p>
 						<p />
 					{/if}
-					{#if player.players.position === 'QB' || player.players.position === 'RB'}
+					{#if player.position === 'QB' || player.position === 'RB'}
 						<p
 							class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 						>
@@ -172,7 +322,7 @@
 						</p>
 						<p />
 					{/if}
-					{#if player.players.position === 'RB' || player.players.position === 'WR' || player.players.position === 'TE'}
+					{#if player.position === 'RB' || player.position === 'WR' || player.position === 'TE'}
 						<p
 							class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 						>
@@ -195,7 +345,7 @@
 						</p>
 						<p />
 					{/if}
-					{#if player.players.position === 'K'}
+					{#if player.position === 'K'}
 						<p
 							class="text-white bg-gray-700 p-1 w-full text-center rounded-lg border-gray-600 border-2"
 						>
@@ -239,4 +389,10 @@
 {/if}
 
 <style>
+	.modal-box{
+		width: 100% !important;
+		@media (min-width: 1024px) {
+			width: fit-content !important;
+		}
+	}
 </style>

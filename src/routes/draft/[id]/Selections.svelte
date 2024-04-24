@@ -7,7 +7,7 @@
 	export let players: object[];
 	export let isCommissioner: boolean;
 	export let draft;
-	
+	export let modalPlayer;
 
 	$: picks;
 
@@ -55,6 +55,7 @@
 			player={players.find((player) => player.id == pick.player_id) || null}
 			{isCommissioner}
 			{draft}
+			bind:modalPlayer
 		/>
 	{/each}
 </div>

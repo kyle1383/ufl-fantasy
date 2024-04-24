@@ -11,6 +11,7 @@
 	import Favorites from './Favorites.svelte';
 	import favorites from './favorites';
 	import { page } from '$app/stores';
+	import PlayerModal from '../../leagues/[id]/PlayerModal.svelte';
 	//Define Reactive/load Variables
 
 	export let data;
@@ -122,11 +123,13 @@
 	});
  	
 	$: favoritePlayers = data.availablePlayers.filter((player) => JSON.parse($favorites).includes(player.id));
+
+	$: modalPlayer = null;
 </script>
 
 <div class="w-full">
 	<DraftHeader {draft} currentTeamName={currentPick?.teams.name} timeRemaining={null} />
-	<Selections size={draft.leagues[0].size} {picks} players={allPlayers} {isCommissioner} {draft} />
+	<Selections size={draft.leagues[0].size} {picks} players={allPlayers} {isCommissioner} {draft} bind:modalPlayer/>
 
 	<div class="player-section w-full">
 		<div class="flex w-full">
@@ -137,6 +140,8 @@
 		</div>
 	</div>
 </div>
+
+<PlayerModal player={modalPlayer} week={draft.leagues[0].seasons.week} />
 
 <style>
 	.player-section {

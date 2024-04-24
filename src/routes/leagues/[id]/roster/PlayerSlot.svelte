@@ -32,8 +32,8 @@
 			{position}
 		</button>
 	</div>
-	<button class="flex" on:click={() => {modalPlayer=player
-		console.log(player, modalPlayer)
+	<button class="flex" on:click={() => {modalPlayer=player.players
+		
 	}}>
 		<div class="my-auto">
 			<div class="flex items-center justify-center">
