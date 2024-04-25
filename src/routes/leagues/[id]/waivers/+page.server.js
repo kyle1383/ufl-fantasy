@@ -40,7 +40,7 @@ export const actions = {
       
         const { data: team, error: teamError } = await supabase
             .from('teams')
-            .select('id, player_leagues(player_id, id), leagues(roster_limits)')
+            .select('id, player_leagues!public_player_leagues_team_fkey(player_id, id), leagues(roster_limits)')
             .eq('manager', user.id)
             .eq('league_id', params.id)
             .single()
@@ -110,7 +110,7 @@ export const actions = {
             //add new player 
             const { data: addPlayerToTeam, error: newPlayerError } = await supabase
                 .from('player_leagues')
-                .update([{ team: team.id, rostered: true, waiver: true }])
+                .update([{ team: team.id, rostered: true, waiver: true, team_position: null }])
                 .eq('player_id', add_player_id)
                 .eq('league_id', params.id)
 

@@ -15,7 +15,7 @@ export async function load({ params, locals: { supabase, getSession } }) {
     console.log(week)
     const { data: leagueMatchups, error: matchupsError } = await supabase
         .from('matchups')
-        .select('*, team_id_1(*,  profiles(username, full_name),  player_leagues( depth, team_position, players(id, name, position, img_url, ufl_teams(*)))), team_id_2(*,  profiles(username, full_name), player_leagues(depth, team_position, players(id, name, position, img_url, ufl_teams(*))))')
+        .select('*, team_id_1(*,  profiles(username, full_name),  player_leagues!public_player_leagues_team_fkey( depth, team_position, players(id, name, position, img_url, ufl_teams(*)))), team_id_2(*,  profiles(username, full_name), player_leagues!public_player_leagues_team_fkey(depth, team_position, players(id, name, position, img_url, ufl_teams(*))))')
         .eq('league_id', params.id)
         .eq('week', week)
 

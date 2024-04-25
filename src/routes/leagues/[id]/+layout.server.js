@@ -43,7 +43,7 @@ export async function load({ fetch, params, setHeaders, locals: { supabase, getS
         //get teams from league_id and user_id
         const { data: team, error: teamError } = await supabase
             .from('teams')
-            .select('*, player_leagues ( *, players (*, ufl_teams(*))), profiles(*)')
+            .select('*, player_leagues!public_player_leagues_team_fkey ( *, players (*, ufl_teams(*))), profiles(*)')
             .eq('id', roster_id)
             .single()
 

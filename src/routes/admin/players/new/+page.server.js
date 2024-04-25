@@ -188,7 +188,7 @@ async function processWaiversForLeague(league, supabase) {
     //confirm team has room to add player 
     const { data: teamSizeData, error: teamSizeError } = await supabase
         .from('teams')
-        .select('player_leagues(id)')
+        .select('player_leagues!public_player_leagues_team_fkey(id)')
         .eq('id', nextWaiver.team_id)
         .single()
 
