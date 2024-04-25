@@ -11,7 +11,7 @@
 <PlayerMatchupView player={players.home} />
 <div class="my-auto">
 	<div
-		class={`text-${position} btn-xs border-2 rounded-lg btn w-full btn-outline bg-gray-700  border-gray-600 `}
+		class={`text-${position} btn-xs border-2 rounded-lg btn w-full btn-outline bg-gray-700  border-gray-600 hover:bg-gray-700 hover:border-gray-600 hover:text-${position}`}
 	>
 		{position}
 	</div>

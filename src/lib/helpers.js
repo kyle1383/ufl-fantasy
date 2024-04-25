@@ -129,3 +129,93 @@ export function calculateWeekFpts(player, week){
   const fpts = Math.round((passingPts + rushingPts + receivingPts + kickingPts) * 100) / 100;
   return fpts;
 }
+
+
+export async function getStatsForMatchup(matchup, week, supabase) {
+  const playerIds = [...matchup.team_1.player_leagues.map(player => player.players.id), ...matchup.team_2.player_leagues.map(player => player.players.id)]
+
+  const { data: stats, error: statsError } = await supabase
+      .from('ufl_games')
+      .select('week, g_passing(player_id, yards, touchdowns, interceptions), g_rushing(player_id, yards, touchdowns), g_receiving(player_id, yards, touchdowns), g_kicking(player_id, missed, made_19, made_29, made_39, made_49, made_50), g_fumbles(player_id, fumbles)')
+      .eq('week', week)
+      .in('g_passing.player_id', playerIds)
+      .in('g_rushing.player_id', playerIds)
+      .in('g_receiving.player_id', playerIds)
+      .in('g_kicking.player_id', playerIds)
+      .in('g_fumbles.player_id', playerIds)
+
+
+  const aggregateStats = stats.reduce((acc, game) => {
+      // Process passing stats
+      game.g_passing.forEach(passing => {
+          const player = acc.find(p => p.player_id === passing.player_id) || { player_id: passing.player_id, passing: {}, rushing: {} };
+          player.passing = { ...passing };
+          if (!acc.find(p => p.player_id === passing.player_id)) {
+              acc.push(player);
+          }
+      });
+
+      // Process rushing stats
+      game.g_rushing.forEach(rushing => {
+          const player = acc.find(p => p.player_id === rushing.player_id) || { player_id: rushing.player_id, passing: {}, rushing: {} };
+          player.rushing = { ...rushing };
+          if (!acc.find(p => p.player_id === rushing.player_id)) {
+              acc.push(player);
+          }
+      });
+
+      // Process receiving stats
+      game.g_receiving.forEach(receiving => {
+          const player = acc.find(p => p.player_id === receiving.player_id) || { player_id: receiving.player_id, passing: {}, rushing: {} };
+          player.receiving = { ...receiving };
+          if (!acc.find(p => p.player_id === receiving.player_id)) {
+              acc.push(player);
+          }
+      });
+
+      // Process kicking stats
+      game.g_kicking.forEach(kicking => {
+          const player = acc.find(p => p.player_id === kicking.player_id) || { player_id: kicking.player_id, passing: {}, rushing: {} };
+          player.kicking = { ...kicking };
+          if (!acc.find(p => p.player_id === kicking.player_id)) {
+              acc.push(player);
+          }
+      });
+
+      // Process fumbles stats
+      game.g_fumbles.forEach(fumbles => {
+          const player = acc.find(p => p.player_id === fumbles.player_id) || { player_id: fumbles.player_id, passing: {}, rushing: {} };
+          player.fumbles = { ...fumbles };
+          if (!acc.find(p => p.player_id === fumbles.player_id)) {
+              acc.push(player);
+          }
+      });
+
+      return acc;
+  }, []);
+
+
+  const team1Stats = matchup.team_1.player_leagues.map(player => {
+
+      const playerStats = aggregateStats.find(stat => stat.player_id === player.players.id)
+      return {
+          ...player,
+          stats: playerStats
+      }
+  })
+
+
+
+  const team2Stats = matchup.team_2.player_leagues.map(player => {
+      const playerStats = aggregateStats.find(stat => stat.player_id === player.players.id)
+      return {
+          ...player,
+          stats: playerStats
+      }
+  })
+
+
+  matchup.team_1.player_leagues = team1Stats
+  matchup.team_2.player_leagues = team2Stats
+  return matchup;
+}

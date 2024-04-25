@@ -14,7 +14,9 @@
 		player.waiver_request = waiver_request_exists ? true : false;
 		return player;
 	});
-;
+
+	
+
 	let draftStatus = league?.drafts?.status;
 	
 	$: unRosteredPlayers = players.filter((player) => player.rostered === false);

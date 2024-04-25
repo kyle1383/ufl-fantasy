@@ -11,7 +11,7 @@
 	function handleClickOutside() {
 		player = null;
 	}
-	console.log($page.url)
+
 
 	$: statsByWeek = [];
 	$: if (player) {
@@ -73,7 +73,7 @@
 						}
 						return async ({ result, update }) => {
 							if (result.type === 'success') {
-								console.log(result);
+								
 								showToast('Player dropped successfully');
 								loading = false;
 								player = null;
@@ -81,7 +81,7 @@
 							} else if (result.type === 'error') {
 								alert('internal error');
 							} else {
-								alert(`Player drop failed; ${result.data.error_message}`);
+								alert(`${result.data.error_message}`);
 							}
 						};
 					}}

@@ -8,7 +8,7 @@
 	//const { league } = data;
 	$: team = data.team;
 	$: league = data.league;
-	
+	$: console.log(team)
 	$: team.player_leagues.map(pl => {
 		pl.players.fpts = calculateFpts(pl.players);
 		pl.players.weekPts = calculateWeekFpts(pl.players, league.seasons.week);

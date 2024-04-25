@@ -15,7 +15,9 @@
 	export let checked;
 	let loading = '';
 	$: swapOutPlayer;
-	$: console.log(swapOutPlayer);
+	$: swapPlayers
+	$: swapPlayers = swapPlayers?.filter((p) => p.id !== swapOutPlayer?.id);
+
 	//check for click event outside of modal
 	function handleClickOutside(event) {
 		checked ? (checked = false) : null;
@@ -65,7 +67,7 @@
 							newPlayers = modifiedPlayers;
 							roster = roster;
 						} else {
-							console.log(result);
+							alert(result.data.error_message);
 						}
 					};
 				}}

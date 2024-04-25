@@ -7,15 +7,17 @@ export async function load({ locals: {supabase, getSession}, params, parent }) {
     const user = session.user;
     
     const roster_id = params.roster_id ? params.roster_id : league.teams.filter(team => team.manager == user.id)[0].id;
-
+    
     //get teams from league_id and user_id
     const { data: team, error: teamError } = await supabase
         .from('teams')
-        .select('*, player_leagues!public_player_leagues_team_fkey ( *, players (*, ufl_teams(*), g_passing(attempts, completions, interceptions, touchdowns, yards, ufl_games(week)), g_receiving(yards, touchdowns, targets, receptions, ufl_games(week)), g_rushing(attempts, yards, touchdowns, ufl_games(week)), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50, ufl_games(week)))), profiles(*)')
+        .select('*, roster_lock(*), player_leagues!public_player_leagues_team_fkey ( *, players (*, ufl_teams(*), g_passing(attempts, completions, interceptions, touchdowns, yards, ufl_games(week)), g_receiving(yards, touchdowns, targets, receptions, ufl_games(week)), g_rushing(attempts, yards, touchdowns, ufl_games(week)), g_kicking(attempts, made, made_19, made_29, made_39, made_49, made_50, ufl_games(week)))), profiles(*)')
         .eq('id', roster_id)
+        .eq('roster_lock.week', league.seasons.week)
         .single()
 
-        console.log(teamError)
+  
+    
     //make sure every player has a position
     let mustUpdate = false;
     let players = team.player_leagues.map(player => {

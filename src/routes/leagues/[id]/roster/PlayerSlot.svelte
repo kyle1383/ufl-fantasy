@@ -13,7 +13,9 @@
 	export let swapPosition = 'BENCH';
 	export let swapOutPlayer = null;
 	export let modalPlayer;
+	export let roster_lock;
 	let loading = false;
+	
 	
 	
 </script>
@@ -27,7 +29,8 @@
 				swapOutPlayer = player;
 				checked = true;
 			}}
-			class={`text-${position} btn-xs border-2 rounded-lg btn w-full btn-outline bg-gray-700  border-gray-600 `}
+			disabled={roster_lock}
+			class={`text-${position} btn-xs border-2 rounded-lg btn w-full btn-outline bg-gray-700  border-gray-600 disabled:bg-gray-700`}
 		>
 			{position}
 		</button>

@@ -14,15 +14,20 @@ export async function GET(req) {
 
     const { data: uflGames, error: gamesError } = await supabase.from('ufl_games').select('id, scheduled, home(players(id, player_leagues(id, team_position,team))), away(players(id, player_leagues(id, team_position,team)))')
         .eq('week', week)
-        //.filter('rosters_locked', 'neq', 'TRUE')
+        .filter('rosters_locked', 'neq', 'TRUE')
         .not('home.players.player_leagues.team', 'is', 'null')
         .not('away.players.player_leagues.team', 'is', 'null')
     if (gamesError) {
         console.log(gamesError)
         return new Response('Error getting games data');
     }
-    const activeOrCompleteGames = uflGames?.filter(game => gameHasStarted(game.scheduled));
    
+    if(uflGames.length === 0){
+        return new Response('No games found');
+    }
+    const activeOrCompleteGames = uflGames?.filter(game => gameHasStarted(game.scheduled));
+    
+
     const playersToUpdate = activeOrCompleteGames.flatMap(game => [
         ...((game.home.players || []).flatMap(player => player.player_leagues)),
         ...((game.away.players || []).flatMap(player => player.player_leagues))
@@ -40,7 +45,7 @@ export async function GET(req) {
    
    
     //update players
-    /*const { data: lockedPlayers, error: lockedPlayersError } = await supabase.from('roster_lock').upsert(formattedPlayers)
+    const { data: lockedPlayers, error: lockedPlayersError } = await supabase.from('roster_lock').upsert(formattedPlayers)
     //update game statuses
     if (lockedPlayersError) {
         console.log(lockedPlayersError)
@@ -57,10 +62,12 @@ export async function GET(req) {
     if(updateGamesError){
         console.log(updateGamesError)
         return new Response('Error updating games');
-    }*/
+    }
     return new Response('Updated Statistics');
 
 }
+
+
 
 function gameHasStarted(timeString) {
     // Create a Date object from the time string
