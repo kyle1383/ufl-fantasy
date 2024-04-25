@@ -3,6 +3,7 @@
 	import DropModal from './DropModal.svelte';
 	import PlayerRow from './PlayerRow.svelte';
 	import { fade } from 'svelte/transition';
+	import PositionFilter from './PositionFilter.svelte';
 	
 	export let team: Team;
 	export let rosterSize: number;
@@ -15,8 +16,11 @@
 	$: toast = null;
 	$: addPlayer = null;
 	$: checked = false;
-	
-	
+	$: positionFilter = 'ALL';
+	$: console.log(positionFilter)
+	$: console.log(unRosteredPlayers[0])
+	$: filteredPlayers = positionFilter === 'ALL' ? unRosteredPlayers : unRosteredPlayers.filter((player) => player.players.position === positionFilter);
+
 	function showToast(value) {
 		toast = value;
 		setTimeout(() => {
@@ -25,9 +29,10 @@
 	}
 </script>
 
+<PositionFilter bind:positionFilter/>
 <p class="text-xl font-bold pt-4 text-white">Available Players</p>
 <div class="grid gap-y-4 w-full py-4 pb-24">
-	{#each unRosteredPlayers as player}
+	{#each filteredPlayers as player}
 		<PlayerRow
 			player={player.players}
 			waiver={player.waiver}

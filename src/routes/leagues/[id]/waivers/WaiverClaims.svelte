@@ -58,6 +58,8 @@
 				{/if}
 			{/each}
 		</div>
+		{:else}
+		<p class="text-gray-300">No Current Waiver Claims</p>
 	{/if}
 </div>
 
