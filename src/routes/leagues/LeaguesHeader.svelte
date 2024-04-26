@@ -90,7 +90,7 @@
 				>
 			</li>
 			{#if league.seasons.week && league.matchups.length !== 0 && league.matchups}<li>
-					<a href="/leagues/{$page.params.id}/matchups/{league.seasons.week}">Matchups</a>
+					<a on:click={() => (mobileMenu = false)} href="/leagues/{$page.params.id}/matchups/{league.seasons.week}">Matchups</a>
 				</li>{/if}
 			<li>
 				<a on:click={() => (mobileMenu = false)} class="" href="/leagues/{$page.params.id}/draft"

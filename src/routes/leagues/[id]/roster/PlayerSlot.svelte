@@ -47,8 +47,12 @@
 		</div>
 		<div class="flex flex-col justify-start text-left">
 			<p>{player.players.name}</p>
+			
 			<span class="text-xs">
-				{`${player.players.position} ${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
+				<span class="text-xs text-{player.players.position}">
+					{`${player.players.position}` }
+					</span>
+				{`${player.players.ufl_teams.city} ${player.players.ufl_teams.name}`}</span
 			>
 		</div>
 	</button>
