@@ -11,6 +11,10 @@
     {
       "path": "/api/cron/roster_lock",
       "schedule": "*/30 * * * 6"
+    }, 
+    {
+      "path": "/api/cron/roster_lock",
+      "schedule": "*/30 * * * 7"
     }
   
   ]
