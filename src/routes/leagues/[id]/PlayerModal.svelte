@@ -16,10 +16,10 @@
 	$: statsByWeek = [];
 	$: if (player) {
 		for (let i = 1; i < week + 1; i++) {
-			const wps = player.g_passing.find((stat) => stat.ufl_games.week === i);
-			const wrs = player.g_receiving.find((stat) => stat.ufl_games.week === i);
-			const wrus = player.g_rushing.find((stat) => stat.ufl_games.week === i);
-			const wks = player.g_kicking.find((stat) => stat.ufl_games.week === i);
+			const wps = player.g_passing?.find((stat) => stat.ufl_games.week === i);
+			const wrs = player.g_receiving?.find((stat) => stat.ufl_games.week === i);
+			const wrus = player.g_rushing?.find((stat) => stat.ufl_games.week === i);
+			const wks = player.g_kicking?.find((stat) => stat.ufl_games.week === i);
 			const ws = {
 				week: i,
 				passing: wps,

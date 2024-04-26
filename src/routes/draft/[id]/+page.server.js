@@ -62,13 +62,13 @@ export const actions = {
         const formData = await request.formData();
         const player_id = formData.get('player_id');
         //const draft = JSON.parse(formData.get('draft'));
-        const {data: draft, error: draftError} = await supabase
+        const { data: draft, error: draftError } = await supabase
             .from('drafts')
             .select('*, picks!public_picks_draft_id_fkey(*,teams (id, manager)), leagues(id, commissioners(user_id), teams ( id ))')
             .eq('id', params.id)
             .single()
 
-        
+
         //confirm draft status is active 
         if (draft.status !== "ACTIVE") {
             return fail(401, { error_message: "Draft is not active" })
@@ -115,7 +115,7 @@ export const actions = {
 
         const formData = await request.formData();
         //TODO UPDate this as well
-        const {data: draft, error: draftError} = await supabase
+        const { data: draft, error: draftError } = await supabase
             .from('drafts')
             .select('*, picks!public_picks_draft_id_fkey(*,teams (id)), leagues(id, commissioners(user_id), teams ( id ))')
             .eq('id', params.id)
@@ -129,10 +129,10 @@ export const actions = {
             return fail(401, "Must be commisionner ")
         }
 
-       
+
 
         const { error } = await autodraft(draft, params, supabase)
-        if (error){
+        if (error) {
             console.log(error)
             return fail(401, { message: error?.message || "Something went wrong" })
         }
@@ -216,8 +216,8 @@ export const actions = {
             .select('*, leagues(id, teams ( id ))')
             .eq('id', params.id)
             .single()
-       
-       await endDraft(draft, supabase)
+
+        await endDraft(draft, supabase)
     }
 }
 
@@ -232,7 +232,7 @@ export const actions = {
 async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     //get new pick end 
     //confirm that pick is empty 
-    const {data: currentPickDB, error: currentPickError} = await supabase
+    const { data: currentPickDB, error: currentPickError } = await supabase
         .from('picks')
         .select('player_id')
         .eq('id', currentPick.id)
@@ -267,7 +267,11 @@ async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     //autodraft if next pick is set to autodraft or has no team 
     let autodraftError = null;
     if (nextPick.round > rounds) {
-        endDraft(draft, supabase)
+        console.log(nextPick)
+        console.log()
+        console.log('would end')
+        console.log(draft)
+        endDraft(draft.id, supabase)
     } else {
         // autodraftError =await autodraft(updatedDraft, supabase)
     }
@@ -278,7 +282,17 @@ async function draft_player(currentPick, player_id, nextPick, draft, supabase) {
     }
 }
 
-async function endDraft(draft, supabase) {
+async function endDraft(draft_id, supabase) {
+    const { data: draft, error: draftError } = await supabase
+        .from('drafts')
+        .select('*, picks!public_picks_draft_id_fkey (*, teams (*)), leagues(*, commissioners(*), seasons(week))')
+        .eq('id', draft_id)
+        .single()
+    //get players from supabase
+    if (draftError) {
+        console.log(draftError)
+        return fail(401, { error_message: "Error loading draft" })
+    }
     //TODO handle errors here 
     console.log("draft has ended")
     //update the status
@@ -335,14 +349,14 @@ async function endDraft(draft, supabase) {
         .select('week')
         .eq('year', 2024)
         .single()
-    const {week} = weekData
+    const { week } = weekData
 
     const matchups = await generate_matchups(league, week || 3, supabase)
 
     const { data: matchupsData, error: matchupsError } = await supabase
         .from('matchups')
         .insert(matchups)
-    
+
     if (matchupsError) {
         console.log(matchupsError)
         return fail(401, { error_message: matchupsError?.message || "Something went wrong" })
@@ -363,7 +377,7 @@ async function autodraft(draft, params, supabase) {
         .neq('player_id', null)
 
     if (pickedPlayersError) {
-       
+
         return { error: pickedPlayersError }
     }
 
@@ -376,7 +390,7 @@ async function autodraft(draft, params, supabase) {
 
     console.log(players)
     if (playersError) {
-       
+
         return { error: playersError }
     }
     const pickedPlayersArray = pickedPlayers.map(player => player.player_id)
