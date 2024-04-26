@@ -90,7 +90,7 @@
 	}
 </script>
 
-<div class="flex mx-2 lg:ml-4">
+<div class="flex mx-2 lg:ml-4 ml-8">
 	<div class="grid grid-cols-1 border-r-2 border-gray-400 text-sm pr-2 lg:pr-4">
 		<p class="w-fit">fpts</p>
 		<p>{player.fpts || 0}</p>

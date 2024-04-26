@@ -13,6 +13,7 @@
 	export let draft;
 	export let currentPick;
 	export let positionFilter: 'ALL' | 'QB' | 'RB' | 'WR' | 'TE' | 'K';
+	export let modalPlayer: Player;
 	let submitted = false;
 	$: onClock =
 		$page.data.session.user.id === currentPick?.teams.manager &&
@@ -59,12 +60,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-col justify-center">
+			<button on:click={()=>modalPlayer=player} class="flex flex-col justify-center">
 				<p>{player.name}</p>
 				<span class="font text-gray-100 text-xs"
 					><span class={`text-${player.position}`}>{player.position}</span> - {`${player.ufl_teams.city} ${player.ufl_teams.name}`}</span
 				>
-			</div>
+			</button>
 			<div class="lg:block hidden"><StatsDisplay {player}/></div>
 			<div class="flex justify-end items-center pr-8">
 				<form

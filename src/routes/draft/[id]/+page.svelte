@@ -134,7 +134,7 @@
 	<div class="player-section w-full">
 		<div class="flex w-full">
 			<div class="lg:basis-2/3 w-full lg:w-auto relative">
-				<PlayerGrid {players} {draft} {currentPick} bind:positionFilter />
+				<PlayerGrid {players} {draft} {currentPick} bind:positionFilter bind:modalPlayer/>
 			</div>
 			<div class="lg:basis-1/3 hidden lg:block"><Favorites players={favoritePlayers} /></div>
 		</div>
