@@ -11,8 +11,6 @@
     {
       "path": "/api/cron/roster_lock",
       "schedule": "*/30 * * * 6/7"
-    }, 
-   
-  
+    }
   ]
 }
