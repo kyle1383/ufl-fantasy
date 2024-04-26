@@ -10,30 +10,30 @@
 	if (!data.league) {
 		goto('/leagues');
 	}
-
+	$: console.log(league.matchups)
 	$: league = data.league;
 	$: teams = league.teams;
-	$: teamStats = league.matchups.reduce((acc, matchup) => {
+	$: teamStats = (league.matchups && league.matchups.length > 0 ) ? league.matchups.reduce((acc, matchup) => {
 		// Initialize or update team 1
 		if (!acc[matchup.team_id_1]) {
 			acc[matchup.team_id_1] = { ptsFor: 0, ptsAgainst: 0 };
 		}
-		acc[matchup.team_id_1].ptsFor += matchup.team_1_final_score;
-		acc[matchup.team_id_1].ptsAgainst += matchup.team_2_final_score;
+		acc[matchup.team_id_1].ptsFor += matchup.team_1_final_score || 0;
+		acc[matchup.team_id_1].ptsAgainst += matchup.team_2_final_score || 0;
 
 		// Initialize or update team 2
 		if (!acc[matchup.team_id_2]) {
 			acc[matchup.team_id_2] = { ptsFor: 0, ptsAgainst: 0 };
 		}
-		acc[matchup.team_id_2].ptsFor += matchup.team_2_final_score;
-		acc[matchup.team_id_2].ptsAgainst += matchup.team_1_final_score;
+		acc[matchup.team_id_2].ptsFor += matchup.team_2_final_score || 0;
+		acc[matchup.team_id_2].ptsAgainst += matchup.team_1_final_score || 0;
 
 		return acc;
-	}, {});
+	}, {}) : '';
 
 	$: teams.map((team) => {
-		team.ptsFor = teamStats[team.id].ptsFor;
-		team.ptsAgainst = teamStats[team.id].ptsAgainst;
+		team.ptsFor = teamStats[team.id]?.ptsFor ? teamStats[team.id].ptsFor : 0;
+		team.ptsAgainst = teamStats[team.id]?.ptsAgainst || 0;
 	});
 
 	$: managedTeams = teams.filter((t: Team) => t.manager !== null);

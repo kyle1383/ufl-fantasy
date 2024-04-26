@@ -25,8 +25,8 @@
 			<td class="bg-white break-words">{team.manager_name}</td>
 
 			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.wins}-{team.losses}</td>
-			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsFor}</td>
-			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsAgainst}</td>
+			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsFor || 0}</td>
+			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsAgainst || 0}</td>
 		{/each}
 	</table>
 </div>
