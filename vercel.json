@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/matchups",
-      "schedule": "*/4 12-22 * * 6"
+      "schedule": "*/4 12-22 * * 6/7"
     },
     {
       "path": "/api/cron/advanceWeek",
@@ -10,12 +10,9 @@
     },
     {
       "path": "/api/cron/roster_lock",
-      "schedule": "*/30 * * * 6"
+      "schedule": "*/30 * * * 6/7"
     }, 
-    {
-      "path": "/api/cron/roster_lock",
-      "schedule": "*/30 * * * 7"
-    }
+   
   
   ]
 }
