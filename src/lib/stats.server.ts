@@ -57,7 +57,6 @@ export async function updateWeeklyGameStatistics(week: number) {
         console.log('updating ', game)
         const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
         const responseJSON = await response.json()
-        console.log(game)
         addGameStatisticsSupabase(responseJSON, players, supabase)
     })
 
@@ -79,14 +78,13 @@ function filterRecentGames(games: { id: any, scheduled: any }[]) {
 
         // Convert the difference to hours
         const hoursDiff = diff / (1000 * 60 * 60);
-        console.log(diff, hoursDiff)
         // Include games scheduled within the last 3 hours
         return hoursDiff >= 0 && hoursDiff <= 3;
     });
 }
 
 async function addGameStatisticsSupabase(gameStatistics: any, players, supabase: SupabaseClient) {
-
+    console.log('adding stats' + gameStatistics, players.length)
     const offPosition = ['QB', 'RB', 'WR', 'TE', 'K']
     const playerRushingStats = [...gameStatistics.statistics.away.rushing.players, ...gameStatistics.statistics.home.rushing.players].filter(s => offPosition.includes(s.position))
     const playerPassingStats = [...gameStatistics.statistics.away.passing.players, ...gameStatistics.statistics.home.passing.players].filter(s => offPosition.includes(s.position))
@@ -195,6 +193,7 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
 
         }
     })
+    console.log('formatted stat sizes' + formattedPassingStats.length + ' ' + formattedRushingStats.length + ' ' + formattedReceivingStats.length + ' ' + formattedKickingStats.length + ' ' + formattedFumbleStats.length)
     const filteredPassingStats = formattedPassingStats.filter(stat => players.some(p => p.id === stat.player_id));
     const filteredRushingStats = formattedRushingStats.filter(stat => players.some(p => p.id === stat.player_id));
     const filteredReceivingStats = formattedReceivingStats.filter(stat => players.some(p => p.id === stat.player_id));
