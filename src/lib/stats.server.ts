@@ -40,20 +40,20 @@ export async function updateWeeklyGameStatistics(week: number) {
         .from('ufl_games')
         .select('id, scheduled')
         .eq('week', week)
-    
-   
+
+
     if (error) {
         return fail(401, { message: 'Failed to fetch games' })
     }
-    
-    const activeGames = data//filterRecentGames(data || [])
-    
+
+    const activeGames = filterRecentGames(data || [])
+
     const options = { method: 'GET', headers: { accept: 'application/json' } };
     if (!activeGames) return;
-    const {data: players, error: playerError} = await supabase.from('players').select('id')
+    const { data: players, error: playerError } = await supabase.from('players').select('id')
     if (playerError) return fail(401, { message: 'Failed to fetch players' })
-    
-    activeGames.forEach(async (game: {id: number, scheduled: any}) => {
+
+    activeGames.forEach(async (game: { id: number, scheduled: any }) => {
         console.log('updating ', game)
         const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
         const responseJSON = await response.json()
@@ -62,7 +62,7 @@ export async function updateWeeklyGameStatistics(week: number) {
     })
 
 }
-function filterRecentGames(games: {id: any, scheduled: any}[]) {
+function filterRecentGames(games: { id: any, scheduled: any }[]) {
     // Get the current time in UTC
     const now = new Date();
 
@@ -86,7 +86,7 @@ function filterRecentGames(games: {id: any, scheduled: any}[]) {
 }
 
 async function addGameStatisticsSupabase(gameStatistics: any, players, supabase: SupabaseClient) {
-    
+
     const offPosition = ['QB', 'RB', 'WR', 'TE', 'K']
     const playerRushingStats = [...gameStatistics.statistics.away.rushing.players, ...gameStatistics.statistics.home.rushing.players].filter(s => offPosition.includes(s.position))
     const playerPassingStats = [...gameStatistics.statistics.away.passing.players, ...gameStatistics.statistics.home.passing.players].filter(s => offPosition.includes(s.position))
@@ -94,9 +94,9 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     const playerKickingStats = [...gameStatistics.statistics.away.field_goals.players, ...gameStatistics.statistics.home.field_goals.players].filter(s => offPosition.includes(s.position))
     const playerFumbleStats = [...gameStatistics.statistics.away.fumbles.players, ...gameStatistics.statistics.home.fumbles.players].filter(s => offPosition.includes(s.position))
     //rename id to player_id 
-    
+
     const formattedPassingStats = playerPassingStats.map(player => {
-        
+
         return {
             player_id: player.id,
             game_id: gameStatistics.id,
@@ -123,7 +123,7 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     })
 
     const formattedRushingStats = playerRushingStats.map(player => {
-       
+
         return {
             game_id: gameStatistics.id,
             player_id: player.id,
@@ -140,7 +140,7 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     })
 
     const formattedReceivingStats = playerReceivingStats.map(player => {
-      
+
         return {
             game_id: gameStatistics.id,
             player_id: player.id,
@@ -159,7 +159,7 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     })
 
     const formattedKickingStats = playerKickingStats.map(player => {
-        
+
         return {
             game_id: gameStatistics.id,
             player_id: player.id,
@@ -183,10 +183,10 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
             made_50: player.made_50,
         }
     })
-    
+
 
     const formattedFumbleStats = playerFumbleStats.map(player => {
-       
+
         return {
             game_id: gameStatistics.id,
             player_id: player.id,
@@ -225,5 +225,5 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
         console.log('Error inserting game statistics', passingError, rushingError, receivingError, kickingError, fumbleError)
     }
 
-    
+
 }

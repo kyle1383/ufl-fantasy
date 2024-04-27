@@ -7,31 +7,31 @@ export async function GET(req) {
     //check if the time is between 1230 and 3 or 7 and 10 ET
     const supabase = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
-   
-    
+
+
     /* if (activeGame) {*/
     const { data: season, error: seasonError } = await supabase.from('seasons').select('*').eq('year', 2024).single()
     const week = season.week
 
     const { data: uflGames, error: gamesError } = await supabase.from('ufl_games').select('id, scheduled, home(players(id, player_leagues(id, team_position,team))), away(players(id, player_leagues(id, team_position,team)))')
         .eq('week', week)
-     
-   
+
+
     if (gamesError) {
         console.log(gamesError)
         return new Response('Error getting games data');
     }
 
     const activeGame = isGameActive(uflGames);
-    console.log('activeGame', activeGame)
-    //await updateWeeklyGameStatistics(week || 4)
-    /*}*/
+    if (activeGame) {
+        await updateWeeklyGameStatistics(week || 5)
+    }
     return new Response('Updated Statistics');
 
 }
 
 const isGameActive = (games) => {
-    const activeGame = games.find(game => {
+    const activeGame = games.some(game => {
         const inputTime = new Date(game.scheduled);
         const currentTime = new Date();
 
