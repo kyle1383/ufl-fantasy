@@ -12,7 +12,7 @@ export async function GET(req) {
     /* if (activeGame) {*/
     const { data: season, error: seasonError } = await supabase.from('seasons').select('*').eq('year', 2024).single()
     const week = season.week
-    await updateWeeklyGameStatistics(week || 4)
+    //await updateWeeklyGameStatistics(week || 4)
     /*}*/
     return new Response('Updated Statistics');
 
