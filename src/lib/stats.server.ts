@@ -200,10 +200,11 @@ async function addGameStatisticsSupabase(gameStatistics: any, players, supabase:
     const filteredReceivingStats = formattedReceivingStats.filter(stat => players.some(p => p.id === stat.player_id));
     const filteredKickingStats = formattedKickingStats.filter(stat => players.some(p => p.id === stat.player_id));
     const filteredFumbleStats = formattedFumbleStats.filter(stat => players.some(p => p.id === stat.player_id));
-
+    console.log('inserting ' + filteredPassingStats.length + ' passing stats' + filteredRushingStats.length + ' rushing stats' + filteredReceivingStats.length + ' receiving stats' + filteredKickingStats.length + ' kicking stats' + filteredFumbleStats.length + ' fumble stats')
     const { error: passingError } = await supabase
         .from('g_passing')
         .upsert(filteredPassingStats)
+
 
     const { error: rushingError } = await supabase
         .from('g_rushing')
