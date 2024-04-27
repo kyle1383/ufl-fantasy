@@ -6,7 +6,7 @@ export async function load({ locals: {supabase, getSession}, params, parent }) {
     const session = await getSession();
     const user = session.user;
     
-    const roster_id = params.roster_id ? params.roster_id : league.teams.filter(team => team.manager == user.id)[0].id;
+    const roster_id = params.team_id ? params.team_id : league.teams.filter(team => team.manager == user.id)[0].id;
     
     //get teams from league_id and user_id
     const { data: team, error: teamError } = await supabase

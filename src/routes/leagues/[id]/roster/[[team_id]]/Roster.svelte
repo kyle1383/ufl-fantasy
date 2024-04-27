@@ -30,7 +30,7 @@
 	$: team;
 	$: openBenchSpots =
 		roster.BENCH - players.filter((player) => player.team_position === 'BENCH').length;
-
+	$: console.log(team.roster_lock)
 	
 </script>
 
@@ -48,15 +48,17 @@
 					bind:swapDepth
 					bind:swapOutPlayer
 					bind:modalPlayer
-					roster_lock={team.roster_lock.some(r=>r=findPlayer(position, depth, players)?.id) || false}
+					roster_lock={team.roster_lock.some(r=>r.player_id===findPlayer(position, depth, players)?.id) || false}
+					
 				/>
+				
 			{/each}
 		{/if}
 	{/each}
 
 	{#each newPlayers as player}
 		{#if player.team_position === 'BENCH'}
-			<PlayerSlot position={player.team_position} depth={0} {player} bind:modalPlayer roster_lock={team.roster_lock.some(r=>r=player.id)}/>
+			<PlayerSlot position={player.team_position} depth={0} {player} bind:modalPlayer roster_lock={team.roster_lock.some(r=>r.player_id===player.id)}/>
 		{/if}
 	{/each}
 	{#if openBenchSpots > 0}
@@ -79,8 +81,6 @@
 <style>
 	.grid {
 		grid-template-columns: auto auto 1fr;
-		
-		
 		grid-auto-rows: minmax(40px, auto);
 	}
 </style>

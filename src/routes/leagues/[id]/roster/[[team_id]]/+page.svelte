@@ -1,6 +1,6 @@
 <script>
 	import { calculateFpts, calculateWeekFpts } from '$lib/helpers';
-	import PlayerModal from '../PlayerModal.svelte';
+	import PlayerModal from '../../PlayerModal.svelte';
 	import PlayerUpdates from './PlayerUpdates.svelte';
 	import Roster from './Roster.svelte';
 	export let data;
@@ -8,7 +8,7 @@
 	//const { league } = data;
 	$: team = data.team;
 	$: league = data.league;
-	$: console.log(team)
+
 	$: team.player_leagues.map(pl => {
 		pl.players.fpts = calculateFpts(pl.players);
 		pl.players.weekPts = calculateWeekFpts(pl.players, league.seasons.week);

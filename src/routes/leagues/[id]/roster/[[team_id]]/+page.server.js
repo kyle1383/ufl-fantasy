@@ -11,10 +11,11 @@ export const actions = {
         const depth = formData.get('depth');
         const player = JSON.parse(playerJSON);
         const swapOutPlayer = JSON.parse(swapOutPlayerJSON);
+        console.log(player, swapOutPlayer, position, depth)
+        
         let players = []
         let errors = []
-
-
+       
         if (!player || !position || !depth) {
             return fail(401, { error_message: 'Missing player, position, or depth' })
         }
@@ -24,6 +25,7 @@ export const actions = {
             .select('week')
             .eq('year', 2024)
             .single()
+
         const week = weekData?.week
         let rosterLock = null;
         if (params.roster_id) {
@@ -32,7 +34,7 @@ export const actions = {
                 .select('*')
                 .eq('player_id', playerLeaguesData.id)
                 .eq('week', week)
-                .eq('team_id', params.roster_id)
+                .eq('team_id', params.team_id)
 
 
             if (rosterLockError) {
@@ -60,7 +62,7 @@ export const actions = {
             const { data: rosterLockData, error: rosterLockError } = await supabase
                 .from('roster_lock')
                 .select('*')
-                .or(`player_id.eq.${player.id}`, `player_id.eq.${swapOutPlayer.id}`)
+                .or(`player_id.eq.${player.id}`, `player_id.eq.${swapOutPlayer?.id}`)
                 .eq('week', week)
                 .eq('team_id', team_id)
 
@@ -79,7 +81,6 @@ export const actions = {
         }
         
         if (typeof swapOutPlayer === 'object') {
-
             const { data: updatedSwapOutPlayer, error: updatedSwapOutPlayerError } = await supabase
                 .from('player_leagues')
                 .update({ team_position: player.team_position, depth: player.depth })
@@ -91,7 +92,8 @@ export const actions = {
             updatedSwapOutPlayerError !== null && errors.push(updatedSwapOutPlayerError)
         }
 
-
+        console.log(player)
+        
         const { data: updatedPlayer, error: updatedPlayerError } = await supabase
             .from('player_leagues')
             .update({ team_position: position, depth: depth })
@@ -138,7 +140,7 @@ export const actions = {
             console.log(playerLeaguesError)
             return fail(401, { error_message: 'error getting player leagues', errors: playerLeaguesError })
         }
-        if (params.roster_id) {
+        if (params.team_id) {
             const { data: rosterLockData, error: rosterLockError } = await supabase
                 .from('roster_lock')
                 .select('*')

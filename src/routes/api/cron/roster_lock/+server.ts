@@ -28,11 +28,12 @@ export async function GET(req) {
     const activeOrCompleteGames = uflGames?.filter(game => gameHasStarted(game.scheduled));
     
 
+
     const playersToUpdate = activeOrCompleteGames.flatMap(game => [
         ...((game.home.players || []).flatMap(player => player.player_leagues)),
         ...((game.away.players || []).flatMap(player => player.player_leagues))
     ]);
-    console.log(playersToUpdate.length)
+
     const formattedPlayers = playersToUpdate.map(player => {
         return {
             player_id: player.id,
@@ -75,7 +76,7 @@ function gameHasStarted(timeString) {
 
     // Get the current time
     const currentTime = new Date();
-
+    console.log(inputTime, currentTime)
     // Compare the input time with the current time
     return inputTime < currentTime;
 }
