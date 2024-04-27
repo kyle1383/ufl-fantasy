@@ -53,13 +53,21 @@ export async function updateWeeklyGameStatistics(week: number) {
     const { data: players, error: playerError } = await supabase.from('players').select('id')
     if (playerError) return fail(401, { message: 'Failed to fetch players' })
 
-    activeGames.forEach(async (game: { id: number, scheduled: any }) => {
-        console.log('updating ', game.id)
-        const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
-        const responseJSON = await response.json()
-        addGameStatisticsSupabase(responseJSON, players, supabase)
-    })
+    await updateActiveGames(activeGames)
 
+}
+
+async function updateActiveGames(activeGames) {
+    const promises = activeGames.map(game => {
+        return (async () => {
+            console.log('updating ', game.id);
+            const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=your_api_key`, options);
+            const responseJSON = await response.json();
+            return addGameStatisticsSupabase(responseJSON, players, supabase);
+        })();
+    });
+
+    await Promise.all(promises);
 }
 function filterRecentGames(games: { id: any, scheduled: any }[]) {
     // Get the current time in UTC
