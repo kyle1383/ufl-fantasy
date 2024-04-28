@@ -4,6 +4,7 @@ import schedule from '$lib/schedule.json'
 
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { fail } from '@sveltejs/kit';
+import type { Player } from './types';
 
 export async function uploadSchedule() {
     const weeks = schedule.weeks;
@@ -48,20 +49,21 @@ export async function updateWeeklyGameStatistics(week: number) {
 
     const activeGames = filterRecentGames(data || [])
 
-    const options = { method: 'GET', headers: { accept: 'application/json' } };
+    
     if (!activeGames) return;
     const { data: players, error: playerError } = await supabase.from('players').select('id')
     if (playerError) return fail(401, { message: 'Failed to fetch players' })
 
-    await updateActiveGames(activeGames, options)
+    await updateActiveGames(activeGames, players, supabase)
 
 }
 
-async function updateActiveGames(activeGames, options) {
+async function updateActiveGames(activeGames: {id: string, scheduled: string}[], players: {id: string}[], supabase: SupabaseClient) {
+    const options = { method: 'GET', headers: { accept: 'application/json' } };
     const promises = activeGames.map(game => {
         return (async () => {
             console.log('updating ', game.id);
-            const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=your_api_key`, options);
+            const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options);
             const responseJSON = await response.json();
             return addGameStatisticsSupabase(responseJSON, players, supabase);
         })();
