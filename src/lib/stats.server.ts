@@ -1,4 +1,4 @@
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
+import { SUPABASE_SERVICE_ROLE_KEY, SPORTRADAR_API_KEY } from '$env/static/private';
 import { PUBLIC_SUPABASE_URL } from '$env/static/public';
 import schedule from '$lib/schedule.json'
 
@@ -63,7 +63,7 @@ async function updateActiveGames(activeGames: {id: string, scheduled: string}[],
     const promises = activeGames.map(game => {
         return (async () => {
             console.log('updating ', game.id);
-            const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options);
+            const response = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/games/${game.id}/statistics.json?api_key=${SPORTRADAR_API_KEY}`, options);
             const responseJSON = await response.json();
             return addGameStatisticsSupabase(responseJSON, players, supabase);
         })();

@@ -2,7 +2,7 @@
 import { fail } from '@sveltejs/kit'
 import { createClient } from '@supabase/supabase-js'
 import { PUBLIC_SUPABASE_URL } from '$env/static/public'
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private'
+import { SUPABASE_SERVICE_ROLE_KEY, SPORTRADAR_API_KEY } from '$env/static/private'
 import { redirect } from '@sveltejs/kit';
 import { load } from 'cheerio';
 
@@ -21,7 +21,7 @@ export const actions = {
         const { data: teams, error } = await supabase.from('ufl_teams').select('*')
         //const shortTeams = [teams[0]]
         teams.forEach(async (team) => {
-            const teamPlayersJson = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/teams/${team.sportradar_id}/full_roster.json?api_key=gS6VBTtL7i4Nhu3Djxf5V6wKWkjB8MfY7fGL33VC`, options)
+            const teamPlayersJson = await fetch(`https://api.sportradar.com/ufl/trial/v7/en/teams/${team.sportradar_id}/full_roster.json?api_key=${SPORTRADAR_API_KEY}`, options)
             
             const teamPlayers = await teamPlayersJson.json()
             const players = teamPlayers.players;
