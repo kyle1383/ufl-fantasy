@@ -53,11 +53,11 @@ export async function updateWeeklyGameStatistics(week: number) {
     const { data: players, error: playerError } = await supabase.from('players').select('id')
     if (playerError) return fail(401, { message: 'Failed to fetch players' })
 
-    await updateActiveGames(activeGames)
+    await updateActiveGames(activeGames, options)
 
 }
 
-async function updateActiveGames(activeGames) {
+async function updateActiveGames(activeGames, options) {
     const promises = activeGames.map(game => {
         return (async () => {
             console.log('updating ', game.id);
