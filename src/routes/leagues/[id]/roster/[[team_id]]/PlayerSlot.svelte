@@ -15,7 +15,6 @@
 	export let modalPlayer;
 	export let roster_lock;
 	let loading = false;
-	console.log(player.players.name, roster_lock)
 	
 	
 </script>
