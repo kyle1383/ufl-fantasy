@@ -2,8 +2,14 @@
 	import type { Team } from '$lib/types';
 	import { page } from '$app/stores';
 	export let teams: Team[];
-	teams.sort((a, b) => b.wins - a.wins);
-	console.log(teams[0]);
+	
+
+	teams.sort((a, b) => {
+		if (a.wins !== b.wins) {
+			return b.wins - a.wins; // Sorting by priority first
+		}
+		return b.ptsFor - a.ptsFor
+	});
 </script>
 
 <div class="text-white bg-gray-700 p-8 lg:w-fit rounded-lg border-gray-600 border-2">
