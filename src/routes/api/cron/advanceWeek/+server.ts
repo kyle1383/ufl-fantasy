@@ -24,6 +24,8 @@ export async function GET(req) {
         return new Response('Games are not closed');
     }
 
+    return new Response("pROOOOBELEM")
+
     const { data: leagueMatchups, error: matchupsError } = await supabase
         .from('matchups')
         .select('*, team_id_1(*,  leagues(id),  player_leagues!public_player_leagues_team_fkey( depth, team_position, players(id, name, position, img_url, ufl_teams(*)))), team_id_2(*,  leagues(id), player_leagues!public_player_leagues_team_fkey(depth, team_position, players(id, name, position, img_url, ufl_teams(*))))')
