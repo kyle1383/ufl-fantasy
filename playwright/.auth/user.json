@@ -1,0 +1,67 @@
+{
+  "cookies": [
+    {
+      "name": "_lr_tabs_-1zkmlx%2Fufl-fantasy",
+      "value": "{%22sessionID%22:0%2C%22recordingID%22:%225-76ce1344-2aaf-4fd9-aee7-6e6db04936c5%22%2C%22webViewID%22:null%2C%22lastActivity%22:1714502960858}",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1714589360,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_lr_hb_-1zkmlx%2Fufl-fantasy",
+      "value": "{%22heartbeat%22:1714502960859}",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1714589360,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_lr_uf_-1zkmlx",
+      "value": "aebba121-fa74-45e2-b24a-ad3d815612cb",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "sb-aozztncddxtlnozepmog-auth-token",
+      "value": "%7B%22access_token%22%3A%22eyJhbGciOiJIUzI1NiIsImtpZCI6Ik9na0RPakp4ZXgxS040d3MiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzE0NTA2NTYxLCJpYXQiOjE3MTQ1MDI5NjEsImlzcyI6Imh0dHBzOi8vYW96enRuY2RkeHRsbm96ZXBtb2cuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA1M2NkOWJiLTI4NWEtNGVjNy1hZTc2LTU5M2ZhY2NjMzMyOCIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwaG9uZV92ZXJpZmllZCI6ZmFsc2UsInN1YiI6IjA1M2NkOWJiLTI4NWEtNGVjNy1hZTc2LTU5M2ZhY2NjMzMyOCIsInVzZXJuYW1lIjoidGVzdF91c2VyIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MTQ1MDI5NjF9XSwic2Vzc2lvbl9pZCI6IjNmNGYwNDBhLTBjNGMtNDBjNC1hNjM2LTMwMWU0NjJmNTU2OCIsImlzX2Fub255bW91cyI6ZmFsc2V9.GqA2xtFZvQaDj2aXsk9ME1OXuPG3aTNP_yGgVzYbc1Y%22%2C%22token_type%22%3A%22bearer%22%2C%22expires_in%22%3A3600%2C%22expires_at%22%3A1714506561%2C%22refresh_token%22%3A%227E-qUAg5W6mLi5TOR4iOHw%22%2C%22user%22%3A%7B%22id%22%3A%22053cd9bb-285a-4ec7-ae76-593faccc3328%22%2C%22aud%22%3A%22authenticated%22%2C%22role%22%3A%22authenticated%22%2C%22email%22%3A%22test%40test.com%22%2C%22email_confirmed_at%22%3A%222024-04-30T18%3A38%3A35.327172Z%22%2C%22phone%22%3A%22%22%2C%22confirmed_at%22%3A%222024-04-30T18%3A38%3A35.327172Z%22%2C%22last_sign_in_at%22%3A%222024-04-30T18%3A49%3A21.47409096Z%22%2C%22app_metadata%22%3A%7B%22provider%22%3A%22email%22%2C%22providers%22%3A%5B%22email%22%5D%7D%2C%22user_metadata%22%3A%7B%22email%22%3A%22test%40test.com%22%2C%22email_verified%22%3Afalse%2C%22phone_verified%22%3Afalse%2C%22sub%22%3A%22053cd9bb-285a-4ec7-ae76-593faccc3328%22%2C%22username%22%3A%22test_user%22%7D%2C%22identities%22%3A%5B%7B%22identity_id%22%3A%2243aa2784-f9c8-4c6d-bb39-db4b06e31f57%22%2C%22id%22%3A%22053cd9bb-285a-4ec7-ae76-593faccc3328%22%2C%22user_id%22%3A%22053cd9bb-285a-4ec7-ae76-593faccc3328%22%2C%22identity_data%22%3A%7B%22email%22%3A%22test%40test.com%22%2C%22email_verified%22%3Afalse%2C%22phone_verified%22%3Afalse%2C%22sub%22%3A%22053cd9bb-285a-4ec7-ae76-593faccc3328%22%2C%22username%22%3A%22test_user%22%7D%2C%22provider%22%3A%22email%22%2C%22last_sign_in_at%22%3A%222024-04-30T18%3A38%3A35.320682Z%22%2C%22created_at%22%3A%222024-04-30T18%3A38%3A35.320736Z%22%2C%22updated_at%22%3A%222024-04-30T18%3A38%3A35.320736Z%22%2C%22email%22%3A%22test%40test.com%22%7D%5D%2C%22created_at%22%3A%222024-04-30T18%3A38%3A35.311944Z%22%2C%22updated_at%22%3A%222024-04-30T18%3A49%3A21.476853Z%22%2C%22is_anonymous%22%3Afalse%7D%7D",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1749062961.496558,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:5173",
+      "localStorage": [
+        {
+          "name": "iconify-count",
+          "value": "0"
+        },
+        {
+          "name": "_lr_id_",
+          "value": "{\"userID\":\"67239d18-2c6f-409a-b995-0dd6f1f81023\"}"
+        },
+        {
+          "name": "iconify-version",
+          "value": "iconify2"
+        },
+        {
+          "name": "invites",
+          "value": "[]"
+        }
+      ]
+    }
+  ]
+}

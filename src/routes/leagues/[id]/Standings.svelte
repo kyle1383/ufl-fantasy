@@ -12,7 +12,7 @@
 	});
 </script>
 
-<div class="text-white bg-gray-700 p-8 lg:w-fit rounded-lg border-gray-600 border-2">
+<div id="standings" class="text-white bg-gray-700 p-8 lg:w-fit rounded-lg border-gray-600 border-2">
 	<p class="text-xl pb-4">Standings</p>
 
 	<table class="grid w-full max-w-full md:gap-x-4 gap-y-0">
@@ -31,8 +31,8 @@
 			<td class="bg-white break-words">{team.manager_name}</td>
 
 			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.wins}-{team.losses}</td>
-			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsFor || 0}</td>
-			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{team.ptsAgainst || 0}</td>
+			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{Math.round((team.ptsFor || 0)* 100) /100 }</td>
+			<td class="bg-white w-max" style="border-radius: 0 0 0.25rem 0">{Math.round((team.ptsAgainst || 0)*100)/100}</td>
 		{/each}
 	</table>
 </div>

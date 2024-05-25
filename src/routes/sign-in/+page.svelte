@@ -85,6 +85,7 @@
 				/>
 				<input type="hidden" name="redirect" value={$page.url.searchParams.get('url')} />
 				<button
+					data-testid="submit"
 					type="submit"
 					class="mx-auto btn btn-primary w-full max-w-xs rounded-xl mt-4"
 					disabled={loading}>Sign {signUpMode ? 'up' : 'in'}</button

@@ -84,7 +84,7 @@ export const actions = {
             //add new player 
             const { data: addPlayerToTeam, error: newPlayerError } = await supabase
                 .from('player_leagues')
-                .update([{ team: team.id, rostered: true, waiver: true }])
+                .update([{ team: team.id, rostered: true, waiver: true, depth: null }])
                 .eq('player_id', add_player_id)
                 .eq('league_id', params.id)
 
@@ -95,7 +95,7 @@ export const actions = {
             //remove old player 
             const { data: removePlayerFromTeam, error: removePlayerError } = await supabase
                 .from('player_leagues')
-                .update([{ team: null, rostered: false, waiver: true }])
+                .update([{ team: null, rostered: false, waiver: true,team_position: null, depth: null }])
                 .eq('player_id', drop_player)
                 .eq('league_id', params.id)
 
@@ -110,7 +110,7 @@ export const actions = {
             //add new player 
             const { data: addPlayerToTeam, error: newPlayerError } = await supabase
                 .from('player_leagues')
-                .update([{ team: team.id, rostered: true, waiver: true, team_position: null }])
+                .update([{ team: team.id, rostered: true, waiver: true, team_position: null, depth: null }])
                 .eq('player_id', add_player_id)
                 .eq('league_id', params.id)
 
