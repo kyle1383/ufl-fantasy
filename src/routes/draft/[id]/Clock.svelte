@@ -91,7 +91,7 @@
 	<div class="flex flex-col justify-center items-start">
 		<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
 		<p><strong>On Clock: </strong>{currentTeamName}</p>
-		<p><strong>Time Remaining: </strong>{timeRemaining}</p>
+	
 	
 	</div>
 {:else if draft.status === 'COMPLETE'}
