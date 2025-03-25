@@ -8,17 +8,29 @@
 
 	export let user_leagues = [];
 	async function getLeagues() {
+		const { data: leagues, error: leaguesError } = await supabase
+			.from('members')
+			.select('league_id')
+			.eq('user_id', $page.data.session.user.id);
+
+		if (leaguesError) {
+			console.log(leaguesError);
+			user_leagues = [];
+			return;
+		}
+
+		const leagueIds = leagues.map((member) => member.league_id);
 		const { data, error } = await supabase
 			.from('leagues')
-			.select('*, members ( user_id )')
-			.eq('members.user_id', $page.data.session.user.id);
+			.select('*')
+			.in('id', leagueIds);
 
 		if (error) {
 			console.log(error);
+			user_leagues = [];
 		} else {
 			user_leagues = data;
 		}
-
 	}
 	let size = 8;
 	//to programatically close modal on submission

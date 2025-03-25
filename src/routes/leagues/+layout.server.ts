@@ -33,7 +33,7 @@ export async function load({cookies, params, url, locals: { supabase, getSession
         .from('leagues')
         .select('*')
         .in('id', leagueIds)
-
+    console.log(data.length, error, 'this is here', leagues.length)
 
     if (error) {
         console.log('error')

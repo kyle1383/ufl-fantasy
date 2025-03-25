@@ -12,11 +12,14 @@
 	$: mobileMenu = false;
 	
 	$: isCommissioner = league?.commissioners.some((c) => c.user_id === $page.data.session?.user.id) || false;
-	
+	console.log($page.data.session?.user.id)
 	async function signOut() {
-		await supabase.auth.signOut();
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			console.error('Error signing out:', error);
+		}
 		mobileMenu = false;
-		await invalidateAll();
+		await goto('/sign-in', { replaceState: true });
 	}
 </script>
 
