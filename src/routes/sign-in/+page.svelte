@@ -90,7 +90,7 @@
 					class="mx-auto btn btn-primary w-full max-w-xs rounded-xl mt-4"
 					disabled={loading}>Sign {signUpMode ? 'up' : 'in'}</button
 				>
-				<div class="divider">OR</div>
+				
 			</form>
 
 		
