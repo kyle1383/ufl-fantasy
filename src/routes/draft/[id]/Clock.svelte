@@ -88,12 +88,16 @@
 		</form>
 	{/if}
 {:else if draft.status === 'ACTIVE'}
-	<div class="flex flex-col justify-center items-start">
-		<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
-		<p><strong>On Clock: </strong>{currentTeamName}</p>
-	
-	
-	</div>
+	{#if draft.pick && currentTeamName}
+		<div class="flex flex-col justify-center items-start">
+			<p><strong>Pick: </strong>{draft.round}.<span>{draft.pick}</span></p>
+			<p><strong>On Clock: </strong>{currentTeamName}</p>
+		</div>
+	{:else}
+		<div class="flex items-center">
+			<a class="btn btn-outline ml-4 btn-primary" href="/leagues/{draft.leagues[0].id}">Return to League</a>
+		</div>
+	{/if}
 {:else if draft.status === 'COMPLETE'}
 <div class="flex items-center">
 	<p>
