@@ -57,17 +57,23 @@ export const actions = {
      */
     draft: async ({ request, params, locals: { getSession, supabase } }) => {
         const session = await getSession();
-        //we need player_id, user_id, round, pick, possibly team id if we allow multiple teams per user
-        //get player id
         const formData = await request.formData();
         const player_id = formData.get('player_id');
-        //const draft = JSON.parse(formData.get('draft'));
+        
         const { data: draft, error: draftError } = await supabase
             .from('drafts')
             .select('*, picks!public_picks_draft_id_fkey(*,teams (id, manager)), leagues(id, commissioners(user_id), teams ( id ))')
             .eq('id', params.id)
             .single()
 
+        // Check if we're past the pick deadline (with 2-second grace period)
+        const pickEndTime = new Date(draft.pickEnd).getTime();
+        const currentTime = Date.now();
+        if (currentTime > pickEndTime + 5000) {
+            return fail(400, { 
+                error_message: "Pick time has expired. Please wait for the system to process." 
+            });
+        }
 
         //confirm draft status is active 
         if (draft.status !== "ACTIVE") {

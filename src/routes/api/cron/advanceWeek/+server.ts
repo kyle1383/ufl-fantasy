@@ -24,7 +24,7 @@ export async function GET(req) {
         return new Response('Games are not closed');
     }
 
-    return new Response("pROOOOBELEM")
+    
 
     const { data: leagueMatchups, error: matchupsError } = await supabase
         .from('matchups')
