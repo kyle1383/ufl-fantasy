@@ -24,7 +24,8 @@ export const actions = {
         const pw = formData.get('password');
         const redirect = formData.get('redirect')
        
-        if (!email || !pw) return { status: 400, body: 'email and password are required' }
+        if (!email || !pw) return fail(400, { message: 'Email and password are required' });
+
         const { data, error } = await supabase.auth.signUp(
             {
                 email: email.toString(),
@@ -37,8 +38,13 @@ export const actions = {
                 }
             }
         )
-        console.log(data, error, 'this is here')
-        if (error) return { status: 500, body: error.message }
+
+        if (error) {
+            if (error.message.includes('username_length')) {
+                return fail(400, { message: 'Username must be at least 3 characters long' });
+            }
+            return fail(400, { message: error.message });
+        }
         return { status: 200, body: data };
     },
     signIn: async ({ request, params, locals: { supabase }, cookies }) => {

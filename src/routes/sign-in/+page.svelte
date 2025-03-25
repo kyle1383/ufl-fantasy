@@ -45,11 +45,12 @@
 					loading = true;
 					return async ({ result, update }) => {
 						if (result.type === 'failure') {
+							console.log(result.data, 'this is here')
 							loading = false;
-							if (result.data && result.data.toString() === 'Invalid login credentials') {
+							if (result.data?.toString() === 'Invalid login credentials') {
 								error = 'Invalid username or password';
 							} else {
-								error = result.data;
+								error = result.data?.message?.toString() || 'An error occurred';
 							}
 							return;
 						}
