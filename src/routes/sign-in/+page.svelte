@@ -93,13 +93,7 @@
 				<div class="divider">OR</div>
 			</form>
 
-			<button
-				on:click={() => google()}
-				disabled={loading}
-				class="mx-auto btn bg-white text-black w-full max-w-xs rounded-xl px-1 flex"
-				><img src="/google-logo.png" class="w-8 ml-2" alt="google logo" />
-				<p class="grow">Sign {signUpMode ? 'up' : 'in'} with Google</p></button
-			>
+		
 
 			{#if !signUpMode}
 				<p class="mt-4 text-center lg:text-left">
